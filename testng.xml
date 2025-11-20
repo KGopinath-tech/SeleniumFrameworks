@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="com.cinque.listerns.TestListner"/>
+    </listeners>
+    <test parallel="methods" thread-count="2" name="SymexFrameworks">
+        <classes>
+            <class name="com.cinque.tests.HomePageTest"/>
+               <class name="com.cinque.tests.DummyTest"/>
+        </classes>
+    </test>
+</suite>
