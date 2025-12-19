@@ -19,12 +19,12 @@ public class LoginPage {
     private static final By DRP_BRANCH = By.xpath("//div[contains(@class, 'select')]/select");
     private static final By BTN_CONTINUE = By.xpath("//button[@type='button']");
 
-    private LoginPage setUsername(String username){
-        sendKeys(TXT_BOX_USERNAME, username,"Username");
+    private LoginPage setUsername( String username ){
+        sendKeys(TXT_BOX_USERNAME, username,PRESENT, "Username");
         return this;
     }
-    private LoginPage setPassword(String password){
-        sendKeys(TXT_BOX_PASSWORD, password, "Password");
+    private LoginPage setPassword(String password ){
+        sendKeys(TXT_BOX_PASSWORD, password, PRESENT,  "Password");
         return this;
     }
     private HomePage setLogin(){
@@ -34,6 +34,7 @@ public class LoginPage {
     public void selectBranch(String value){
         DropDownUtils.select(DRP_BRANCH,value, SelectionType.VISIBLE_TEXT);
     }
+
     public void clickContinue(){
         DriverManager.getDriver().findElement(BTN_CONTINUE).click();
     }
