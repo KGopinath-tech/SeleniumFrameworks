@@ -18,7 +18,11 @@ public class SeleniumUtils {
     public static void click(By by, WaitType waitType, String elementName) {
         WebElement element = waitFor(by, waitType);
         element.click();
-        // ExtentLogger.info(elementName + " clicked successfully");
+        ExtentLogger.info(elementName + " clicked successfully");
+    }
+    public static void click(By by, WaitType waitType) {
+        WebElement element = waitFor(by, waitType);
+        element.click();
     }
 
     public static void sendKeys(By by, String value, WaitType waitType, String elementname){
