@@ -6,8 +6,9 @@
     </listeners>
     <test parallel="methods" thread-count="2" name="SymexFrameworks">
         <classes>
-            <class name="com.cinque.tests.HomePageTest"/>
-               <class name="com.cinque.tests.DummyTest"/>
+<!--            <class name="com.cinque.tests.HomePageTest"/>-->
+<!--               <class name="com.cinque.tests.DummyTest"/>-->
+            <class name="com.cinque.tests.CustomerRegisterTest"/>
         </classes>
     </test>
 </suite>

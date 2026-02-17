@@ -6,9 +6,6 @@ import com.cinque.pages.HomePage;
 import com.cinque.pages.LoginPage;
 import com.cinque.testdata.TestData;
 import com.cinque.utils.DataProviderUtils;
-import com.cinque.utils.SeleniumUtils;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.*;
 

@@ -44,7 +44,10 @@ public class SeleniumUtils {
         }
         ExtentLogger.info(elementName+ " is selected successfully");
     }
+    public boolean isDisplayed(By by) {
+       return DriverManager.getDriver().findElement(by).isDisplayed();
 
+    }
     private static WebElement waitFor(By by, WaitType waitType) {
 
         WebDriverWait wait = new WebDriverWait(

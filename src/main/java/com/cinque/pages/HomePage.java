@@ -20,4 +20,8 @@ public class HomePage {
     public String  getMasterLabelText(){
         return sidebarMenuComponent.getLabelText();
     }
+    public void getGeneralMenu(){ sidebarMenuComponent.getGeneralMenu();}
+    public void getCustomerRegistration(){
+        sidebarMenuComponent.getCustomerRegistration();
+    }
 }

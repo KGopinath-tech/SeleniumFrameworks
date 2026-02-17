@@ -3,6 +3,7 @@ package com.cinque.tests;
 import com.cinque.annotations.FrameworkAnnotation;
 import com.cinque.pages.HomePage;
 import com.cinque.pages.LoginPage;
+import com.cinque.testdata.model.AddressData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
