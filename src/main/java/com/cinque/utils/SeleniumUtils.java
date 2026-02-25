@@ -44,7 +44,7 @@ public class SeleniumUtils {
         }
         ExtentLogger.info(elementName+ " is selected successfully");
     }
-    public boolean isDisplayed(By by) {
+    public static boolean isDisplayed(By by) {
        return DriverManager.getDriver().findElement(by).isDisplayed();
 
     }
@@ -65,6 +65,20 @@ public class SeleniumUtils {
             case PRESENT:
             default:
                 return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        }
+    }
+    public static void setToggle(By by, boolean shouldBeOn) {
+
+        WebDriverWait wait = new WebDriverWait(
+                DriverManager.getDriver(),
+                Duration.ofSeconds(Configfactory.getConfig().timeout())
+        );
+        WebElement toggle = wait.until(ExpectedConditions.elementToBeClickable(by));
+
+        boolean isCurrentlyOn = Boolean.parseBoolean(toggle.getAttribute("aria-checked"));
+
+        if (isCurrentlyOn != shouldBeOn) {
+            toggle.click();
         }
     }
 //    private static WebElement waitUntilElementClickable(By by) {
