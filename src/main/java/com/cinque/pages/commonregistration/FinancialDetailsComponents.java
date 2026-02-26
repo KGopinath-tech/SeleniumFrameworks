@@ -1,5 +1,7 @@
-package com.cinque.components.commonregistration;
+package com.cinque.pages.commonregistration;
 
+import com.cinque.pages.CustomerRegistrationPage;
+import com.cinque.testdata.model.IdentityDetailsData;
 import org.openqa.selenium.By;
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
@@ -75,12 +77,12 @@ public class FinancialDetailsComponents {
         return this;
     }
 
-    public FinancialDetailsComponents enbaleStatus() {
+    public FinancialDetailsComponents enableStatus() {
         setToggle(DGE_STATUS, true);
         return this;
     }
 
-    public FinancialDetailsComponents enbaleDefault() {
+    public FinancialDetailsComponents enableDefault() {
         setToggle(DGE_DEFAULT, true);
         return this;
     }
@@ -95,11 +97,18 @@ public class FinancialDetailsComponents {
         return this;
     }
 
-    public FinancialDetailsComponents clickSaveButton() {
+    public CustomerRegistrationPage clickSaveButton() {
         click(BTN_SAVE, CLICKABLE, "Save Button");
-        return this;
+        return new CustomerRegistrationPage();
     }
 
+    public CustomerRegistrationPage fillIdentityDetials(IdentityDetailsData data){
+        return selectIdType(data.getIdType()).enterIdNumber(data.getIdNumber()).selectIdIssueCountry(data.getIssueCountry()).
+                enterIdIssuePlace(data.getIssuePlace()).selectIdIssueDate(data.getIssueDate()).selectIdExpiryDate(data.getIdExpiryDate()).
+                enterVisaNumber(data.getVisaNumber()).selectVisaExpDate(data.getVisaExpiryDate()).enableStatus().
+                uploadIdImages(data.getImagePath()).clickSaveButton();
+
+    }
 }
 
 

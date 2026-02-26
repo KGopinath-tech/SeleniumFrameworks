@@ -1,4 +1,4 @@
-package com.cinque.components.commonregistration;
+package com.cinque.pages.commonregistration;
 
 import com.cinque.testdata.model.AddressData;
 import org.openqa.selenium.By;

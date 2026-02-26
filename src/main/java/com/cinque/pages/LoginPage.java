@@ -8,7 +8,6 @@ import com.cinque.driver.DriverManager;
 import com.cinque.enums.SelectionType;
 import com.cinque.utils.DropDownUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 
 public class LoginPage {
