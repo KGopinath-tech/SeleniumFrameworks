@@ -1,10 +1,14 @@
-package com.cinque.testdata.model;
+package com.cinque.testdata.DTO;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
-import lombok.Data;
+@Getter
+@ToString
+@Builder
+public class AddressDetailsData {
 
-@Data
-public class AddressData {
     private String AddressInUAE;
     private String POBox;
     private String City;
@@ -14,5 +18,4 @@ public class AddressData {
     private String Country;
     private String HomeAddressInCountry;
     private String TemporaryAddress;
-
 }

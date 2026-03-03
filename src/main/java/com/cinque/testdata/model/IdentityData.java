@@ -1,11 +1,10 @@
 package com.cinque.testdata.model;
 
-import lombok.Builder;
+
 import lombok.Data;
 
 @Data
-@Builder
-    public class IdentityDetailsData {
+    public class IdentityData {
 
         private String idType;
         private String idNumber;

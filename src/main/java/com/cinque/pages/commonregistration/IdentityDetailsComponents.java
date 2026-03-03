@@ -1,12 +1,12 @@
 package com.cinque.pages.commonregistration;
 
 import com.cinque.pages.CustomerRegistrationPage;
-import com.cinque.testdata.model.IdentityDetailsData;
+import com.cinque.testdata.DTO.IdentityDetailsData;
 import org.openqa.selenium.By;
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
 
-public class FinancialDetailsComponents {
+public class IdentityDetailsComponents {
 
     private By dropDownOptions(String value) {
         return By.xpath("///li[normalize-space()='" + value + "']");
@@ -33,66 +33,67 @@ public class FinancialDetailsComponents {
     private static final By BTN_SAVE = By.xpath("//button[normalize-space()='Save']");
 
 
-    public void clickAddButton() {
+    public IdentityDetailsComponents clickAddButton() {
         click(BTN_ADD, CLICKABLE, "Add Button");
+        return this;
     }
 
-    public FinancialDetailsComponents selectIdType(String IdType) {
+    public IdentityDetailsComponents selectIdType(String IdType) {
         selectDropdown(DRP_ID_TYPE, IdType);
         return this;
     }
 
-    public FinancialDetailsComponents enterIdNumber(String IdNumber) {
+    public IdentityDetailsComponents enterIdNumber(String IdNumber) {
         sendKeys(TXT_ID_NUMBER, IdNumber, PRESENT, "ID Number");
         return this;
     }
 
-    public FinancialDetailsComponents selectIdIssueCountry(String issueCountry) {
+    public IdentityDetailsComponents selectIdIssueCountry(String issueCountry) {
         selectDropdown(DRP_ID_ISSUECOUNTRY, issueCountry);
         return this;
     }
 
-    public FinancialDetailsComponents enterIdIssuePlace(String issuePlace) {
+    public IdentityDetailsComponents enterIdIssuePlace(String issuePlace) {
         sendKeys(TXT_ID_ISSUEPLACE, issuePlace, PRESENT, "ID Issue Place");
         return this;
     }
 
-    public FinancialDetailsComponents selectIdIssueDate(String issueDate) {
+    public IdentityDetailsComponents selectIdIssueDate(String issueDate) {
         sendKeys(CLD_ID_ISSUEDATE, issueDate, PRESENT, "ID Issue Date");
         return this;
     }
 
-    public FinancialDetailsComponents selectIdExpiryDate(String expiryDate) {
+    public IdentityDetailsComponents selectIdExpiryDate(String expiryDate) {
         sendKeys(CLD_ID_EXPIRYDATE, expiryDate, PRESENT, "Id Expiry Date");
         return this;
     }
 
-    public FinancialDetailsComponents enterVisaNumber(String visaNumber) {
+    public IdentityDetailsComponents enterVisaNumber(String visaNumber) {
         sendKeys(TXT_VISANUMBER, visaNumber, CLICKABLE, "Visa Number");
         return this;
     }
 
-    public FinancialDetailsComponents selectVisaExpDate(String visaExpDate) {
+    public IdentityDetailsComponents selectVisaExpDate(String visaExpDate) {
         sendKeys(CLD_VISAEXPIRYDATE, visaExpDate, PRESENT, "Visa Expiry Date");
         return this;
     }
 
-    public FinancialDetailsComponents enableStatus() {
+    public IdentityDetailsComponents enableStatus() {
         setToggle(DGE_STATUS, true);
         return this;
     }
 
-    public FinancialDetailsComponents enableDefault() {
+    public IdentityDetailsComponents enableDefault() {
         setToggle(DGE_DEFAULT, true);
         return this;
     }
 
-    public FinancialDetailsComponents uploadIdImages(String IdImagePath) {
+    public IdentityDetailsComponents uploadIdImages(String IdImagePath) {
         sendKeys(BTN_UPLOAD, IdImagePath, CLICKABLE, "Id Image Upload");
         return this;
     }
 
-    public FinancialDetailsComponents clickCancelButton() {
+    public IdentityDetailsComponents clickCancelButton() {
         click(BTN_CANCEL, CLICKABLE, "Cancel Button");
         return this;
     }
@@ -103,7 +104,7 @@ public class FinancialDetailsComponents {
     }
 
     public CustomerRegistrationPage fillIdentityDetials(IdentityDetailsData data){
-        return selectIdType(data.getIdType()).enterIdNumber(data.getIdNumber()).selectIdIssueCountry(data.getIssueCountry()).
+        return clickAddButton().selectIdType(data.getIdType()).enterIdNumber(data.getIdNumber()).selectIdIssueCountry(data.getIssueCountry()).
                 enterIdIssuePlace(data.getIssuePlace()).selectIdIssueDate(data.getIssueDate()).selectIdExpiryDate(data.getIdExpiryDate()).
                 enterVisaNumber(data.getVisaNumber()).selectVisaExpDate(data.getVisaExpiryDate()).enableStatus().
                 uploadIdImages(data.getImagePath()).clickSaveButton();

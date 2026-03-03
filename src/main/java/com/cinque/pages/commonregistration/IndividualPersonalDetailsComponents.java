@@ -1,22 +1,16 @@
 package com.cinque.pages.commonregistration;
 
+import com.cinque.pages.CustomerRegistrationPage;
+import com.cinque.testdata.DTO.PersonalDetailsData;
 import org.openqa.selenium.By;
 
 import static com.cinque.enums.WaitType.CLICKABLE;
-import static com.cinque.enums.WaitType.VISIBLE;
 import static com.cinque.utils.SeleniumUtils.click;
 import static com.cinque.utils.SeleniumUtils.sendKeys;
 
 public class IndividualPersonalDetailsComponents {
 
-    private static final By MENU_CUSTOMER_REGISTRATION = By.xpath("//span[text()='Customer Registration']");
-    private static final By BTN_NEW = By.xpath("//button[text()=' New ']");
-    private static final By BTN_SAVE = By.xpath("//button[normalize-space()='Save']");
-    private static final By BTN_APPROVE = By.xpath("//button[normalize-space()='Approve']");
-    private static final By BTN_PRINT = By.xpath("//button[normalize-space()='Print']");
-    private static final By BTN_DEACTIVATE = By.xpath("//button[normalize-space()='Deactivate']");
-    private static final By KEBAB_MENU = By.id("moreOptionsDropdown");
-    private static final By BTN_EXPAND = By.xpath("//i[@class='fa-solid fa-angles-up']");
+
     private static final By DRP_CUSTOMER_CATEGORY = By.xpath("//div[@id='Category']");
     private static final By DRP_RISK_CATEGORY = By.xpath("//div[@id='RiskCategory']");
     private static final By DRP_RESIDENT_TYPE = By.xpath("//div[@id='ResidentType']");
@@ -25,7 +19,7 @@ public class IndividualPersonalDetailsComponents {
     private static final By CHK_EID_READER = By.xpath("//div[@id='flexCheckDefault']");
     private static final By TXT_FIRSTNAME = By.xpath("//input[@id='FirstName']");
     private static final By TXT_MIDDLENAME = By.xpath("//input[@id='MiddleName']");
-    private static final By TXTBOX_LASTNAME = By.xpath("//input[@id='LastName']");
+    private static final By TXT_LASTNAME = By.xpath("//input[@id='LastName']");
     private static final By TXT_FIRSTUNICODENAME = By.xpath("//input[@id='FirstUnicodeName']");
     private static final By TXT_MIDDLEUNICODENAME = By.xpath("//input[@id='MiddleUnicodeName']");
     private static final By TXT_LASTUNICODENAME = By.xpath("//input[@id='LastUnicodeName']");
@@ -49,33 +43,93 @@ public class IndividualPersonalDetailsComponents {
         click(dropDownOptions(value), CLICKABLE);
     }
 
-    public void getCustomerRegistrationMenu(){click(MENU_CUSTOMER_REGISTRATION, CLICKABLE, "Register Button");}
-    public void clickNewButton(){click(BTN_NEW, CLICKABLE, "New Button");}
-    public void clickSaveButton(){click(BTN_SAVE, CLICKABLE, "Save Button");}
-    public void clickApproveButton(){click(BTN_APPROVE, CLICKABLE, "Approve Button");}
-    public void clickPrintButton(){click(BTN_PRINT, CLICKABLE, "Print Button");}
-    public void clickDeactivateButton(){click(BTN_DEACTIVATE, CLICKABLE, "Deactivate Button");}
-    public void clickKebabMenu(){click(KEBAB_MENU,VISIBLE, "Kebab Menu");}
-    public void clickExpandButton(){click(BTN_EXPAND, CLICKABLE, "Expand");}
-    public void clickCuatomerCategory(String customerCategory){selectDropdown(DRP_CUSTOMER_CATEGORY, customerCategory);}
-    public void clickRiskCategory(String riskCategory){selectDropdown(DRP_RISK_CATEGORY, riskCategory);}
-    public void clickResidentType(String idType){selectDropdown(DRP_RESIDENT_TYPE, idType);}
-    public void clickGender(String gender){selectDropdown(DRP_GENDER, gender);}
-    public void clickMaritalStatus(String materialStatus){selectDropdown(DRP_MARITAL_STATUS, materialStatus);}
-    public void clickEIDReader(){click(CHK_EID_READER, CLICKABLE, "EID Reader");}
-    public void enterFirstName(String firstName){sendKeys(TXT_FIRSTNAME, firstName, CLICKABLE,"First Name");}
-    public void enterMiddleName(String middleName){sendKeys(TXT_MIDDLENAME, middleName, CLICKABLE,"Middle Name");}
-    public void enterLastName(String lastName){sendKeys(TXTBOX_LASTNAME, lastName, CLICKABLE,"Last Name");}
-    public void enterFirstUnicodeName(String firstUnicodeName){sendKeys(TXT_FIRSTUNICODENAME, firstUnicodeName, CLICKABLE,"First Unicode Name");}
-    public void enterMiddleUnicodeName(String middleUnicodeName){sendKeys(TXT_MIDDLEUNICODENAME, middleUnicodeName, CLICKABLE,"Middle Unicode Name");}
-    public void enterLastUnicodeName(String lastUnicodeName){sendKeys(TXT_LASTUNICODENAME, lastUnicodeName, CLICKABLE,"Last Unicode Name");}
-    public void enterDOB(String DOB) {sendKeys(TXT_DOB, DOB, CLICKABLE,"DOB");}
-    public void selectNationality(String nationality){selectDropdown(DRP_NATIONALITY, nationality);}
-    public void selectDualNationality(String dualNationality){selectDropdown(DRP_DUALNATIONALITY, dualNationality);}
-    public void selectCountryOfBirth(String countryOfBirth) {selectDropdown(DRP_COUNTRYOFBIRTH, countryOfBirth);}
-    public void enterPlaceOfBirth(String placeOfBirth){sendKeys(TXT_PLACEOFBIRTH,placeOfBirth, CLICKABLE,"PlaceOfBirth");}
-    public void selectPhoneCode (String value){selectDropdown(DRP_PHONECODE, value);}
-    public void enterMobileNumber(String mobileNumber){sendKeys(TXT_MOBILE, mobileNumber, CLICKABLE,"Mobile Number");}
-    public void enterPhoneNumber(String phoneNumber){sendKeys(TXT_PHONE, phoneNumber, CLICKABLE,"Phone Number");}
-    public void enterEmailID(String email) {sendKeys(TXT_EMAIL, email, CLICKABLE,"Email ID");}
+    private void clickCuatomerCategory(String customerCategory){
+        selectDropdown(DRP_CUSTOMER_CATEGORY, customerCategory);
+    }
+    private void clickRiskCategory(String riskCategory){
+        selectDropdown(DRP_RISK_CATEGORY, riskCategory);
+    }
+    private IndividualPersonalDetailsComponents clickResidentType(String residentType){
+        selectDropdown(DRP_RESIDENT_TYPE, residentType);
+        return this;
+    }
+    private void clickGender(String gender){
+        selectDropdown(DRP_GENDER, gender);
+    }
+    private void clickMaritalStatus(String materialStatus){
+        selectDropdown(DRP_MARITAL_STATUS, materialStatus);
+    }
+    private IndividualPersonalDetailsComponents clickEIDReader(){
+        click(CHK_EID_READER, CLICKABLE, "EID Reader");
+        return this;
+    }
+    private void enterFirstName(String firstName){
+        sendKeys(TXT_FIRSTNAME, firstName, CLICKABLE,"First Name");
+    }
+    private void enterMiddleName(String middleName){
+        sendKeys(TXT_MIDDLENAME, middleName, CLICKABLE,"Middle Name");
+    }
+    private void enterLastName(String lastName){
+        sendKeys(TXT_LASTNAME, lastName, CLICKABLE,"Last Name");
+    }
+    private void enterFirstUnicodeName(String firstUnicodeName){
+        sendKeys(TXT_FIRSTUNICODENAME, firstUnicodeName, CLICKABLE,"First Unicode Name");
+    }
+    private void enterMiddleUnicodeName(String middleUnicodeName){
+        sendKeys(TXT_MIDDLEUNICODENAME, middleUnicodeName, CLICKABLE,"Middle Unicode Name");
+    }
+    private void enterLastUnicodeName(String lastUnicodeName){
+        sendKeys(TXT_LASTUNICODENAME, lastUnicodeName, CLICKABLE,"Last Unicode Name");
+    }
+    private void enterDOB(String DOB) {
+        sendKeys(TXT_DOB, DOB, CLICKABLE,"DOB");
+    }
+    private void selectNationality(String nationality){
+        selectDropdown(DRP_NATIONALITY, nationality);
+    }
+    private void selectDualNationality(String dualNationality){
+        selectDropdown(DRP_DUALNATIONALITY, dualNationality);
+    }
+    private void selectCountryOfBirth(String countryOfBirth) {
+        selectDropdown(DRP_COUNTRYOFBIRTH, countryOfBirth);
+    }
+    private void enterPlaceOfBirth(String placeOfBirth){
+        sendKeys(TXT_PLACEOFBIRTH,placeOfBirth, CLICKABLE,"PlaceOfBirth");
+    }
+    private void selectPhoneCode (String phoneCode){
+        selectDropdown(DRP_PHONECODE, phoneCode);
+    }
+    private void enterMobileNumber(String mobileNumber){
+        sendKeys(TXT_MOBILE, mobileNumber, CLICKABLE,"Mobile Number");
+    }
+    private void enterPhoneNumber(String phoneNumber){
+        sendKeys(TXT_PHONE, phoneNumber, CLICKABLE,"Phone Number");
+    }
+    private void enterEmailID(String email) {
+        sendKeys(TXT_EMAIL, email, CLICKABLE,"Email ID");
+    }
+
+    public IndividualPersonalDetailsComponents fillPersonalDetails(PersonalDetailsData data){
+         clickCuatomerCategory(data.getCustomercategory());
+         clickRiskCategory(data.getRiskcategory());
+         clickResidentType(data.getResidenttype());
+         clickGender(data.getGender());
+         clickMaritalStatus(data.getMaterialstatus());
+         enterFirstName(data.getFirstname());
+         enterMiddleName(data.getMiddlename());
+         enterLastName(data.getLastname());
+         enterFirstUnicodeName(data.getFirstunicodename());
+         enterMiddleUnicodeName(data.getMiddleunicodename());
+         enterLastUnicodeName(data.getLastunicodename());
+         enterDOB(data.getDob());
+         selectNationality(data.getNationality());
+         selectDualNationality(data.getDualnationality());
+         selectCountryOfBirth(data.getCountryofbirth());
+         enterPlaceOfBirth(data.getPlaceofbirth());
+         selectPhoneCode(data.getPhonecode());
+         enterMobileNumber(data.getMobilenumber());
+         enterPhoneNumber(data.getPhonenumber());
+         enterEmailID(data.getEmail());
+         return this;
+    }
 }

@@ -1,6 +1,6 @@
 package com.cinque.pages.commonregistration;
 
-import com.cinque.testdata.model.AddressData;
+import com.cinque.testdata.DTO.AddressDetailsData;
 import org.openqa.selenium.By;
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
@@ -31,7 +31,7 @@ public class AddressComponents {
         return isDisplayed(TXT_TEMP_ADDRESS);
     }
 
-    public void enterAddress(AddressData data){
+    public void enterAddress(AddressDetailsData data){
         sendKeys(TXT_ADDRESS_IN_UAE, data.getAddressInUAE(), CLICKABLE, "Address in UAE" );
         if(data.getPOBox() != null){
             sendKeys(TXT_POBOX, data.getPOBox(), CLICKABLE, "POBox");
