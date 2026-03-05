@@ -8,15 +8,6 @@ import static com.cinque.utils.SeleniumUtils.*;
 
 public class IdentityDetailsComponents {
 
-    private By dropDownOptions(String value) {
-        return By.xpath("///li[normalize-space()='" + value + "']");
-    }
-
-    private void selectDropdown(By dropdown, String value) {
-        click(dropdown, CLICKABLE);
-        click(dropDownOptions(value), CLICKABLE);
-    }
-
     private static final By BTN_ADD = By.xpath("//div[@class='add-button']/button");
     private static final By DRP_ID_TYPE = By.xpath("//div[@id='IDType']");
     private static final By TXT_ID_NUMBER = By.xpath("//input[@id='IDNo']");

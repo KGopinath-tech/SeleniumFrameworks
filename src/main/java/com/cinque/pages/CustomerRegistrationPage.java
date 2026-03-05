@@ -18,46 +18,30 @@ public class CustomerRegistrationPage {
     private static final By KEBAB_MENU = By.id("moreOptionsDropdown");
     private static final By BTN_EXPAND = By.xpath("//i[@class='fa-solid fa-angles-up']");
 
-    private By dropDownOptions(String value){
-        return By.xpath("///li[normalize-space()='" + value + "']");
-    }
 
-    private void selectDropdown(By dropdown, String value){
-        click(dropdown, CLICKABLE);
-        click(dropDownOptions(value), CLICKABLE);
-    }
-
-    private IndividualPersonalDetailsComponents getCustomerRegistrationMenu(){
+    private void getCustomerRegistrationMenu(){
         click(MENU_CUSTOMER_REGISTRATION, CLICKABLE, "Register Button");
-        return this;
     }
-    private IndividualPersonalDetailsComponents clickNewButton(){
+    private void clickNewButton(){
         click(BTN_NEW, CLICKABLE, "New Button");
-        return this;
     }
-    private IndividualPersonalDetailsComponents clickSaveButton(){
+    private void clickSaveButton(){
         click(BTN_SAVE, CLICKABLE, "Save Button");
-        return this;
     }
-    private IndividualPersonalDetailsComponents clickApproveButton(){
+    private void clickApproveButton(){
         click(BTN_APPROVE, CLICKABLE, "Approve Button");
-        return this;
     }
-    private IndividualPersonalDetailsComponents clickPrintButton(){
+    private void clickPrintButton(){
         click(BTN_PRINT, CLICKABLE, "Print Button");
-        return this;
     }
-    private IndividualPersonalDetailsComponents clickDeactivateButton(){
+    private void clickDeactivateButton(){
         click(BTN_DEACTIVATE, CLICKABLE, "Deactivate Button");
-        return this;
     }
-    private IndividualPersonalDetailsComponents clickKebabMenu(){
+    private void clickKebabMenu(){
         click(KEBAB_MENU,VISIBLE, "Kebab Menu");
-        return this;
     }
-    private IndividualPersonalDetailsComponents clickExpandButton(){
+    private void clickExpandButton(){
         click(BTN_EXPAND, CLICKABLE, "Expand");
-        return this;
     }
 }
 

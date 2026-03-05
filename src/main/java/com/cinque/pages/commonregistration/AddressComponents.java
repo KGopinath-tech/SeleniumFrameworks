@@ -19,19 +19,11 @@ public class AddressComponents {
     private static final By TXT_TEMP_ADDRESS = By.xpath("//input[@id='TemporaryAddress']");
 
 
-    private By dropDownOptions(String value){
-        return By.xpath("///li[normalize-space()='" + value + "']");
-    }
-
-    private void selectDropdown(By dropdown, String value){
-        click(dropdown, CLICKABLE);
-        click(dropDownOptions(value), CLICKABLE);
-    }
     public boolean isDisplayed(By by) {
         return isDisplayed(TXT_TEMP_ADDRESS);
     }
 
-    public void enterAddress(AddressDetailsData data){
+    public void fillAddress(AddressDetailsData data){
         sendKeys(TXT_ADDRESS_IN_UAE, data.getAddressInUAE(), CLICKABLE, "Address in UAE" );
         if(data.getPOBox() != null){
             sendKeys(TXT_POBOX, data.getPOBox(), CLICKABLE, "POBox");

@@ -5,6 +5,7 @@ import com.cinque.config.Configfactory;
 import com.cinque.driver.DriverManager;
 import com.cinque.enums.SelectionType;
 import com.cinque.enums.WaitType;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,8 +14,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static com.cinque.enums.WaitType.CLICKABLE;
+import static com.cinque.enums.WaitType.PRESENT;
+
 public class SeleniumUtils {
 
+
+    private static By dropDownOptions(String value){
+        return By.xpath("//li[normalize-space()='" + value + "']");
+    }
+
+    public static void selectDropdown(By dropdown, String value){
+        click(dropdown, CLICKABLE);
+        click(dropDownOptions(value), CLICKABLE);
+    }
+
+    public static boolean isNotBlank(String value){
+        return StringUtils.isNotBlank(value);
+    }
     public static void click(By by, WaitType waitType, String elementName) {
         WebElement element = waitFor(by, waitType);
         element.click();

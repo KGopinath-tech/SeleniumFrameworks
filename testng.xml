@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="com.cinque.listerns.TestListner"/>
     </listeners>
-    <test parallel="methods" thread-count="2" name="SymexFrameworks">
+    <test  parallel="methods" thread-count="2" name="SymexFrameworks">
         <classes>
 <!--            <class name="com.cinque.tests.HomePageTest"/>-->
 <!--               <class name="com.cinque.tests.DummyTest"/>-->
@@ -12,3 +12,6 @@
         </classes>
     </test>
 </suite>
+
+
+
