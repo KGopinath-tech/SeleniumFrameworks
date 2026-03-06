@@ -14,7 +14,7 @@ public class IndividualPersonalDetailsComponents {
     private static final By DRP_RESIDENT_TYPE = By.id("ResidentType");
     private static final By DRP_GENDER = By.id("Gender");
     private static final By DRP_MARITAL_STATUS = By.id("MaritalStatus");
-    private static final By CHK_EID_READER = By.xpath("//div[@id='flexCheckDefault']");
+    private static final By CHK_EID_READER = By.xpath("//label[normalize-space()='EID Read Status']/preceding-sibling::*[@id='flexCheckDefault']");
     private static final By TXT_FIRSTNAME = By.id("FirstName");
     private static final By TXT_MIDDLENAME = By.id("MiddleName");
     private static final By TXT_LASTNAME = By.id("LastName");
@@ -72,13 +72,13 @@ public class IndividualPersonalDetailsComponents {
         sendKeys(TXT_DOB, DOB, CLICKABLE,"DOB");
     }
     private void selectNationality(String nationality){
-        selectDropdown(DRP_NATIONALITY, nationality);
+        selectDropDown(DRP_NATIONALITY, nationality);
     }
     private void selectDualNationality(String dualNationality){
-            selectDropdown(DRP_DUALNATIONALITY, dualNationality);
+        selectDropDown(DRP_DUALNATIONALITY, dualNationality);
     }
     private void selectCountryOfBirth(String countryOfBirth) {
-        selectDropdown(DRP_COUNTRYOFBIRTH, countryOfBirth);
+        selectDropDown(DRP_COUNTRYOFBIRTH, countryOfBirth);
     }
     private void enterPlaceOfBirth(String placeOfBirth){
         sendKeys(TXT_PLACEOFBIRTH,placeOfBirth, CLICKABLE,"PlaceOfBirth");

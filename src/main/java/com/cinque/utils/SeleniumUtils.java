@@ -7,6 +7,7 @@ import com.cinque.enums.SelectionType;
 import com.cinque.enums.WaitType;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -14,19 +15,40 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static com.cinque.enums.WaitType.CLICKABLE;
-import static com.cinque.enums.WaitType.PRESENT;
+import static com.cinque.enums.WaitType.*;
 
 public class SeleniumUtils {
 
 
+    private static By dropDownsearch = By.xpath("//input[contains(@class,'p-dropdown-filter')]");
     private static By dropDownOptions(String value){
-        return By.xpath("//li[normalize-space()='" + value + "']");
+        return By.xpath("//li[@role='option'][.//span[contains(text(),'" + value + "')]]");
+    }
+
+    public static void selectDropDown(By by, String value){
+        click(by, CLICKABLE);
+        WebDriverWait wait = new WebDriverWait(
+                DriverManager.getDriver(),
+                Duration.ofSeconds(Configfactory.getConfig().timeout())
+        );
+        WebElement search = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(dropDownsearch)
+        );
+        search.clear();
+        search.sendKeys(value);
+        //By option = dropDownOptions(value);
+        By option = By.xpath("//li[@role='option' and contains(@aria-label,'" + value.toUpperCase() + "')]");
+
+       wait.until(ExpectedConditions.presenceOfElementLocated(option));
+        WebElement element = DriverManager.getDriver().findElement(option);
+        ((JavascriptExecutor)DriverManager.getDriver()).executeScript("arguments[0].click();", element);
+        //element.click();
+
     }
 
     public static void selectDropdown(By dropdown, String value){
         click(dropdown, CLICKABLE);
-        click(dropDownOptions(value), CLICKABLE);
+        click(dropDownOptions(value.trim()), CLICKABLE);
     }
 
     public static boolean isNotBlank(String value){
