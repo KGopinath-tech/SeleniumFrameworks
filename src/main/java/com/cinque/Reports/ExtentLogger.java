@@ -9,7 +9,7 @@ public final class ExtentLogger {
     private ExtentLogger(){}
 
     public static void pass(String message){
-        if(Configfactory.getConfig().screenshotForPassedSteps().equalsIgnoreCase("yes")) {
+        if(Configfactory.getConfig().screenshotForPassedSteps().equalsIgnoreCase("Yes")) {
             Extentmanager.getExtentTest().pass(message,
                     MediaEntityBuilder.createScreenCaptureFromBase64String(ScreenshotUtils.getScreenshot()).build());
         }else{
