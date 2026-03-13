@@ -10,5 +10,6 @@ public interface FrameworkConfig extends Config {
     String url();
     String browser();
     String screenshotForPassedSteps();
+    String screenshotForInfoSteps();
 }
 

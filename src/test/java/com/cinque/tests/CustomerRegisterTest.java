@@ -1,6 +1,7 @@
 package com.cinque.tests;
 
 import com.cinque.annotations.FrameworkAnnotation;
+import com.cinque.pages.CustomerRegistrationPage;
 import com.cinque.pages.HomePage;
 import com.cinque.pages.LoginPage;
 import com.cinque.pages.commonregistration.IndividualPersonalDetailsComponents;
@@ -38,8 +39,8 @@ public class CustomerRegisterTest extends BaseTest{
 
         PersonalDetailsData personalData = PersonalDetailsMapper.map(testdata);
 
-        IndividualPersonalDetailsComponents ind = new IndividualPersonalDetailsComponents();
-        ind.fillPersonalDetails(personalData);
+        CustomerRegistrationPage page = new CustomerRegistrationPage();
+        page.fillIdentityDetails(personalData);
 
         Thread.sleep(5000);
     }

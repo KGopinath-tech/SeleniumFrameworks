@@ -1,12 +1,21 @@
 package com.cinque.pages;
 
 import com.cinque.pages.commonregistration.IndividualPersonalDetailsComponents;
+import com.cinque.testdata.DTO.PersonalDetailsData;
 import org.openqa.selenium.By;
 
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
 
 public class CustomerRegistrationPage {
+
+
+    private IndividualPersonalDetailsComponents personalDetails = new IndividualPersonalDetailsComponents();
+
+
+    public void fillIdentityDetails(PersonalDetailsData data){
+        personalDetails.fillPersonalDetails(data);
+    }
 
 
     private static final By MENU_CUSTOMER_REGISTRATION = By.xpath("//span[text()='Customer Registration']");

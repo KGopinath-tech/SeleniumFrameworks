@@ -21,7 +21,9 @@ public final class ExtentLogger {
                 MediaEntityBuilder.createScreenCaptureFromBase64String(ScreenshotUtils.getScreenshot()).build());
     }
     public static void info(String message){
-        Extentmanager.getExtentTest().info(message,
-                MediaEntityBuilder.createScreenCaptureFromBase64String(ScreenshotUtils.getScreenshot()).build());
+        if(Configfactory.getConfig().screenshotForInfoSteps().equalsIgnoreCase("Yes")) {
+            Extentmanager.getExtentTest().info(message,
+                    MediaEntityBuilder.createScreenCaptureFromBase64String(ScreenshotUtils.getScreenshot()).build());
+        }
     }
 }
