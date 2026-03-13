@@ -4,10 +4,10 @@ import com.cinque.annotations.FrameworkAnnotation;
 import com.cinque.pages.CustomerRegistrationPage;
 import com.cinque.pages.HomePage;
 import com.cinque.pages.LoginPage;
-import com.cinque.pages.commonregistration.IndividualPersonalDetailsComponents;
-import com.cinque.testdata.DTO.IdentityDetailsData;
+import com.cinque.testdata.DTO.AddressDetailsData;
 import com.cinque.testdata.DTO.PersonalDetailsData;
 import com.cinque.testdata.TestData;
+import com.cinque.testdata.mapper.AddressDetailsMapper;
 import com.cinque.testdata.mapper.PersonalDetailsMapper;
 import com.cinque.utils.DataProviderUtils;
 import org.testng.Assert;
@@ -38,9 +38,14 @@ public class CustomerRegisterTest extends BaseTest{
         Thread.sleep(5000);
 
         PersonalDetailsData personalData = PersonalDetailsMapper.map(testdata);
+        AddressDetailsData  addressData = AddressDetailsMapper.map(testdata);
 
         CustomerRegistrationPage page = new CustomerRegistrationPage();
-        page.fillIdentityDetails(personalData);
+        page.fillIndividualIdentityDetails(personalData);
+        page.clickExpandButton();
+        Thread.sleep(2000);
+        page.fillAddressDetails(addressData);
+        page.fillEmploymentDetails(testdata.getEmployer(), testdata.getOccupation());
 
         Thread.sleep(5000);
     }

@@ -18,6 +18,7 @@ public class FinancialDetailsComponents {
     private static final By TXT_No_TXNS_FC = By.id("NoOfTransactionsFC");
     private static final By DRP_BLOCKED_COUNTRIES = By.id("BlockedCountries");
     private static final By TXT_CORE_ACTIVITIES = By.id("CoreActivities");
+    private static final By TXT_ANNUAL_TURNOVER = By.id("AnnualTurnOver");
 
     private void selectServiceType(String serviceType) {
         selectDropdown(DRP_SERVICE_TYPE, serviceType);
@@ -58,11 +59,25 @@ public class FinancialDetailsComponents {
             sendKeys(TXT_CORE_ACTIVITIES,  coreActivities, CLICKABLE, "Core Activities");
         }
     }
+    private void enterAnnualTurnover(String annualTurnover) {
+        sendKeys(TXT_ANNUAL_TURNOVER, annualTurnover, CLICKABLE, "Annual Turnover");
+    }
 
     public void fillFinancialDetails(FinancialDetailsData data){
         selectServiceType(data.getServiceType());
         selectEconomicActivity(data.getEconomicActivity());
         enterAnnualIncome(data.getAnnualIncome());
+        enterExpectedAnnualActivityRemittance(data.getExpectedAnnualActivityRemittance());
+        enterNoOfTransactionsRemittance(data.getNumberOfTransactionsRemittance());
+        enterExpectedAnnualActivityFC(data.getExpectedAnnualActivityFC());
+        enterNoOfTransactionsFC(data.getNumberOfTransactionsFC());
+        selectBlockedCountries(data.getBlockedCountries());
+        enterCoreActivities(data.getCoreActivities());
+    }
+    public void fillCorporateFinancialDetails(FinancialDetailsData data){
+        selectServiceType(data.getServiceType());
+        selectEconomicActivity(data.getEconomicActivity());
+        enterAnnualTurnover(data.getAnnualTurnover());
         enterExpectedAnnualActivityRemittance(data.getExpectedAnnualActivityRemittance());
         enterNoOfTransactionsRemittance(data.getNumberOfTransactionsRemittance());
         enterExpectedAnnualActivityFC(data.getExpectedAnnualActivityFC());

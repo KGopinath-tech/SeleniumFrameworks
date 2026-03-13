@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
 
-public class IndividualPersonalDetailsComponents {
+public class PersonalDetailsComponents {
 
 
     private static final By DRP_CUSTOMER_CATEGORY = By.id("Category");
@@ -30,6 +30,10 @@ public class IndividualPersonalDetailsComponents {
     private static final By TXT_MOBILE = By.id("Mobilenumber");
     private static final By TXT_PHONE = By.id("Phonenumber");
     private static final By TXT_EMAIL = By.id("Email");
+    private static final By DRP_COMPNAY_TYPE = By.id("CompanyType");
+    private static final By TXT_DATE_OF_ESTABLISHMENT = By.xpath("//label[text()='Date Of Establishment']/preceding-sibling::*//input");
+    private static final By DRP_COUNTRY_OF_INCORPORATION = By.id("CountryOfIncorporate");
+    private static final By TXT_PLACE_OF_INCORPORATION = By.id("PlaceOfIncorporate");
 
 
     private void clickCustomerCategory(String customerCategory){
@@ -95,8 +99,13 @@ public class IndividualPersonalDetailsComponents {
     private void enterEmailID(String email) {
         sendKeys(TXT_EMAIL, email, CLICKABLE,"Email ID");
     }
+    private void selectCompanyType(String companyType){selectDropDown(DRP_COMPNAY_TYPE, companyType);}
+    private void enterDateOfEstablishment(String dateOfEstablishment){sendKeys(TXT_DATE_OF_ESTABLISHMENT,dateOfEstablishment, CLICKABLE,"DateOfEstablishment");}
+    private void selectCountryOfIncorporation(String countryOfEstablishment){selectDropDown(DRP_COUNTRY_OF_INCORPORATION, countryOfEstablishment);}
+    private void enterPlaceOfIncorporation(String placeOfEstablishment){sendKeys(TXT_PLACE_OF_INCORPORATION,placeOfEstablishment, CLICKABLE,"PlaceOfEstablishment");}
 
-    public void fillPersonalDetails(PersonalDetailsData data){
+
+    public void fillIndividualPersonalDetails(PersonalDetailsData data){
 
          clickCustomerCategory(data.getCustomercategory());
          clickRiskCategory(data.getRiskcategory());
@@ -128,6 +137,31 @@ public class IndividualPersonalDetailsComponents {
          if(isNotBlank(data.getPhonenumber())){
              enterPhoneNumber(data.getPhonenumber());}
          enterEmailID(data.getEmail());
-
     }
+    public void fillCorporatePersonalDetails(PersonalDetailsData data){
+        selectCompanyType(data.getCompanytype());
+        clickRiskCategory(data.getRiskcategory());
+        clickResidentType(data.getResidenttype());
+        enterFirstName(data.getFirstname());
+        if(isNotBlank(data.getMiddlename())) { enterMiddleName(data.getMiddlename());}
+        if(isNotBlank(data.getLastname())) { enterLastName(data.getLastname());}
+        if(isNotBlank(data.getFirstunicodename())) {
+            enterFirstUnicodeName(data.getFirstunicodename());
+        }
+        if(isNotBlank(data.getMiddleunicodename())){
+            enterMiddleUnicodeName(data.getMiddleunicodename());
+        }
+        if(isNotBlank(data.getLastunicodename())) {
+            enterLastUnicodeName(data.getLastunicodename());
+        }
+        enterDateOfEstablishment(data.getDateofestablishment());
+        selectCountryOfIncorporation(data.getCountryofincorporation());
+        selectNationality(data.getNationality());
+        enterPlaceOfIncorporation(data.getPlaceofincorporation());
+        selectPhoneCode(data.getPhonecode());
+        enterMobileNumber(data.getMobilenumber());
+        if(isNotBlank(data.getPhonenumber())){ enterPhoneNumber(data.getPhonenumber());}
+        enterEmailID(data.getEmail());
+    }
+
 }

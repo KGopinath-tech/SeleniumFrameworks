@@ -17,4 +17,5 @@ public class FinancialDetailsData {
     private String numberOfTransactionsFC;
     private String blockedCountries;
     private String coreActivities;
+    private String annualTurnover;
 }

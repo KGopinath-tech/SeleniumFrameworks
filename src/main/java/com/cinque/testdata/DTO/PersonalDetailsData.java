@@ -28,4 +28,8 @@ public class PersonalDetailsData {
     private String mobilenumber;
     private String phonenumber;
     private String email;
+    private String companytype;
+    private String dateofestablishment;
+    private String countryofincorporation;
+    private String placeofincorporation;
 }

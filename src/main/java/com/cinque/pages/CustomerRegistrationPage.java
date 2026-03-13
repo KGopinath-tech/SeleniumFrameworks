@@ -1,6 +1,9 @@
 package com.cinque.pages;
 
-import com.cinque.pages.commonregistration.IndividualPersonalDetailsComponents;
+import com.cinque.pages.commonregistration.AddressComponents;
+import com.cinque.pages.commonregistration.EmploymentComponents;
+import com.cinque.pages.commonregistration.PersonalDetailsComponents;
+import com.cinque.testdata.DTO.AddressDetailsData;
 import com.cinque.testdata.DTO.PersonalDetailsData;
 import org.openqa.selenium.By;
 
@@ -10,12 +13,16 @@ import static com.cinque.utils.SeleniumUtils.*;
 public class CustomerRegistrationPage {
 
 
-    private IndividualPersonalDetailsComponents personalDetails = new IndividualPersonalDetailsComponents();
+    private PersonalDetailsComponents personalDetails = new PersonalDetailsComponents();
+    private AddressComponents address = new AddressComponents();
+    private EmploymentComponents employmentDetails = new EmploymentComponents();
 
 
-    public void fillIdentityDetails(PersonalDetailsData data){
-        personalDetails.fillPersonalDetails(data);
+    public void fillIndividualIdentityDetails(PersonalDetailsData data){
+        personalDetails.fillIndividualPersonalDetails(data);
     }
+    public void fillAddressDetails(AddressDetailsData data){address.fillAddress(data);}
+    public void fillEmploymentDetails(String employerName, String occupation){employmentDetails.fillEmploymentDetails(employerName,occupation);}
 
 
     private static final By MENU_CUSTOMER_REGISTRATION = By.xpath("//span[text()='Customer Registration']");
@@ -28,28 +35,28 @@ public class CustomerRegistrationPage {
     private static final By BTN_EXPAND = By.xpath("//i[@class='fa-solid fa-angles-up']");
 
 
-    private void getCustomerRegistrationMenu(){
+    public void getCustomerRegistrationMenu(){
         click(MENU_CUSTOMER_REGISTRATION, CLICKABLE, "Register Button");
     }
-    private void clickNewButton(){
+    public void clickNewButton(){
         click(BTN_NEW, CLICKABLE, "New Button");
     }
-    private void clickSaveButton(){
+    public void clickSaveButton(){
         click(BTN_SAVE, CLICKABLE, "Save Button");
     }
-    private void clickApproveButton(){
+    public void clickApproveButton(){
         click(BTN_APPROVE, CLICKABLE, "Approve Button");
     }
-    private void clickPrintButton(){
+    public void clickPrintButton(){
         click(BTN_PRINT, CLICKABLE, "Print Button");
     }
-    private void clickDeactivateButton(){
+    public void clickDeactivateButton(){
         click(BTN_DEACTIVATE, CLICKABLE, "Deactivate Button");
     }
-    private void clickKebabMenu(){
+    public void clickKebabMenu(){
         click(KEBAB_MENU,VISIBLE, "Kebab Menu");
     }
-    private void clickExpandButton(){
+    public void clickExpandButton(){
         click(BTN_EXPAND, CLICKABLE, "Expand");
     }
 }

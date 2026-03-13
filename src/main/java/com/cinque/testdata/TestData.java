@@ -62,5 +62,39 @@ public class TestData {
     private String phonenumber;
     @Column(name ="email")
     private String email;
+    @Column(name="companyType")
+    private String companytype;
+    @Column(name="dateOfEstablishment")
+    private String dateofestablishment;
+    @Column(name="countryOfIncorporation")
+    private String countryofincorporation;
+    @Column(name="placeOfIncorporation")
+    private String placeofincorporation;
+
+    //Address Details
+    @Column(name = "addressInUAE")
+    private String AddressInUAE;
+    @Column(name= "poBox")
+    private String POBox;
+    @Column(name ="city")
+    private String City;
+    @Column(name = "nearestAirport")
+    private String NearestAirport;
+    @Column(name ="emirate")
+    private String Emirate;
+    @Column(name="district")
+    private String District;
+    @Column(name="country")
+    private String Country;
+    @Column(name="homeAddressInCountry")
+    private String HomeAddressInCountry;
+    @Column(name="temporaryAddress")
+    private String TemporaryAddress;
+
+    //Employment Details
+    @Column(name="employer")
+    private String Employer;
+    @Column(name="occupation")
+    private String Occupation;
 
 }
