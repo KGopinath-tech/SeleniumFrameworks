@@ -16,4 +16,15 @@ public class OtherDetailsData {
     private String CBLicence;
     private String CADIban;
     private String referredBy;
+    private String employee;
+    private String CBBusinessActivity;
+    private String companyLegalStatus;
+    private String VATRegistrationNumber;
+    private String CBExpiryDate;
+    private String natureOfBusiness;
+    private String natureOfBusinessSubtype;
+    private String companySubtype;
+    private String UID;
+    private String others;
+
 }

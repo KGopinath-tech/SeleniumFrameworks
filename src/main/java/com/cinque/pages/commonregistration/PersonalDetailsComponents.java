@@ -35,7 +35,6 @@ public class PersonalDetailsComponents {
     private static final By DRP_COUNTRY_OF_INCORPORATION = By.id("CountryOfIncorporate");
     private static final By TXT_PLACE_OF_INCORPORATION = By.id("PlaceOfIncorporate");
 
-
     private void clickCustomerCategory(String customerCategory){
         selectDropdown(DRP_CUSTOMER_CATEGORY, customerCategory);
     }

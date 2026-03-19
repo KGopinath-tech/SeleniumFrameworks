@@ -18,6 +18,7 @@ public class CustomerRegistrationPage {
     private EmploymentComponents employmentDetails = new EmploymentComponents();
     private FinancialDetailsComponents financialDetails = new FinancialDetailsComponents();
     private OtherDetailsComponents otherDetails = new OtherDetailsComponents();
+    private PromotionComponents promotionDetails = new PromotionComponents();
 
 
     public void fillIndividualIdentityDetails(PersonalDetailsData data){
@@ -27,7 +28,9 @@ public class CustomerRegistrationPage {
     public void fillEmploymentDetails(String employerName, String occupation){
         employmentDetails.fillEmploymentDetails(employerName,occupation);}
     public void fillFinancialDetails(FinancialDetailsData data){financialDetails.fillFinancialDetails(data);}
-    public void fillOtherDetails (OtherDetailsData data){otherDetails.fillOtherDetails(data);}
+    public void fillIndividualOtherDetails(OtherDetailsData data){otherDetails.fillIndividualOtherDetails(data);}
+    public void fillPromoDetails(String promoCode, String promoExpireDate){promotionDetails.fillPromoDetails(promoCode,promoExpireDate);}
+
 
 
     private static final By MENU_CUSTOMER_REGISTRATION = By.xpath("//span[text()='Customer Registration']");

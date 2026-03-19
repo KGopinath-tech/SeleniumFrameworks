@@ -58,12 +58,12 @@ public class FinancialDetailsComponents {
         }
     }
     private void selectBlockedCountries(String blockedCountries) {
-        if(isNotBlank(blockedCountries)){
+        if(isDisplayed(DRP_BLOCKED_COUNTRIES)){
             selectDropDown(DRP_BLOCKED_COUNTRIES, blockedCountries);
         }
     }
     private void enterCoreActivities(String coreActivities) {
-        if(isNotBlank(coreActivities)){
+        if(isDisplayed(TXT_CORE_ACTIVITIES)){
             sendKeys(TXT_CORE_ACTIVITIES,  coreActivities, CLICKABLE, "Core Activities");
         }
     }

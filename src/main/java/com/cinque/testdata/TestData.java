@@ -134,5 +134,31 @@ public class TestData {
     private String CADIban;
     @Column(name="referredBy")
     private String referredBy;
+    @Column(name="employee")
+    private String employee;
+    @Column(name="CBBusinessActivity")
+    private String CBBusinessActivity;
+    @Column(name="companyLegalStatus")
+    private String companyLegalStatus;
+    @Column(name="VATRegistrationNumber")
+    private String VATRegistrationNumber;
+    @Column(name="CBExpiryDate")
+    private String CBExpiryDate;
+    @Column(name="natureOfBusiness")
+    private String natureOfBusiness;
+    @Column(name="natureOfBusinessSubtype")
+    private String natureOfBusinessSubtype;
+    @Column(name="companySubtype")
+    private String companySubtype;
+    @Column(name="UID")
+    private String UID;
+    @Column(name="others")
+    private String others;
+
+    //Promo Details
+    @Column(name="promoExpiryDate")
+    private String promoExpiryDate;
+    @Column(name="promoCode")
+    private String promoCode;
 
 }

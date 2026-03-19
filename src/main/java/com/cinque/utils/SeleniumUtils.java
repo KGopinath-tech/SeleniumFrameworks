@@ -90,8 +90,11 @@ public class SeleniumUtils {
                 ExpectedConditions.visibilityOfElementLocated(dropDownsearch)
         );
         search.clear();
+//        try{
+//            Thread.sleep(150);
+//        }catch (InterruptedException e){}
         search.sendKeys(value);
-        By option = By.xpath("//li[@role='option' and contains(@aria-label,'" + value.toUpperCase() + "')]");
+        By option = By.xpath("//li[@role='option']//span[contains(normalize-space(),'" + value.toUpperCase() + "')]");
 
         wait.until(ExpectedConditions.presenceOfElementLocated(option));
         WebElement element = DriverManager.getDriver().findElement(option);
@@ -160,7 +163,7 @@ public class SeleniumUtils {
 
         boolean isCurrentlyOn = Boolean.parseBoolean(toggle.getAttribute("aria-checked"));
 
-        if (isCurrentlyOn = shouldBeOn) {
+        if (isCurrentlyOn != shouldBeOn) {
             toggle.click();
         }
     }

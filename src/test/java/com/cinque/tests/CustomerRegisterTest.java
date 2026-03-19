@@ -54,8 +54,9 @@ public class CustomerRegisterTest extends BaseTest{
         page.fillEmploymentDetails(testdata.getEmployer(), testdata.getOccupation());
         Thread.sleep(2000);
         page.fillFinancialDetails(financialData);
-        page.fillOtherDetails(otherData);
+        page.fillIndividualOtherDetails(otherData);
+        page.fillPromoDetails(testdata.getPromoCode(),testdata.getPromoExpiryDate());
 
-        Thread.sleep(5000);
+        Thread.sleep(10000);
     }
 }
