@@ -1,9 +1,9 @@
 package com.cinque.pages;
 
-import com.cinque.pages.commonregistration.AddressComponents;
-import com.cinque.pages.commonregistration.EmploymentComponents;
-import com.cinque.pages.commonregistration.PersonalDetailsComponents;
+import com.cinque.pages.commonregistration.*;
 import com.cinque.testdata.DTO.AddressDetailsData;
+import com.cinque.testdata.DTO.FinancialDetailsData;
+import com.cinque.testdata.DTO.OtherDetailsData;
 import com.cinque.testdata.DTO.PersonalDetailsData;
 import org.openqa.selenium.By;
 
@@ -16,13 +16,18 @@ public class CustomerRegistrationPage {
     private PersonalDetailsComponents personalDetails = new PersonalDetailsComponents();
     private AddressComponents address = new AddressComponents();
     private EmploymentComponents employmentDetails = new EmploymentComponents();
+    private FinancialDetailsComponents financialDetails = new FinancialDetailsComponents();
+    private OtherDetailsComponents otherDetails = new OtherDetailsComponents();
 
 
     public void fillIndividualIdentityDetails(PersonalDetailsData data){
         personalDetails.fillIndividualPersonalDetails(data);
     }
     public void fillAddressDetails(AddressDetailsData data){address.fillAddress(data);}
-    public void fillEmploymentDetails(String employerName, String occupation){employmentDetails.fillEmploymentDetails(employerName,occupation);}
+    public void fillEmploymentDetails(String employerName, String occupation){
+        employmentDetails.fillEmploymentDetails(employerName,occupation);}
+    public void fillFinancialDetails(FinancialDetailsData data){financialDetails.fillFinancialDetails(data);}
+    public void fillOtherDetails (OtherDetailsData data){otherDetails.fillOtherDetails(data);}
 
 
     private static final By MENU_CUSTOMER_REGISTRATION = By.xpath("//span[text()='Customer Registration']");

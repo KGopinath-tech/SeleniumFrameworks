@@ -88,7 +88,7 @@ public class PersonalDetailsComponents {
         sendKeys(TXT_PLACEOFBIRTH,placeOfBirth, CLICKABLE,"PlaceOfBirth");
     }
     private void selectPhoneCode (String phoneCode){
-        selectDropdown(DRP_PHONECODE, phoneCode);
+        selectDropDown(DRP_PHONECODE, phoneCode);
     }
     private void enterMobileNumber(String mobileNumber){
         sendKeys(TXT_MOBILE, mobileNumber, CLICKABLE,"Mobile Number");

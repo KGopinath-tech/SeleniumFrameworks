@@ -23,8 +23,16 @@ public class FinancialDetailsComponents {
     private void selectServiceType(String serviceType) {
         selectDropdown(DRP_SERVICE_TYPE, serviceType);
     }
+
+//    private void selectServiceType(String data) {
+//        String[] values = toArray(data);
+//
+//        for (String value : values) {
+//            selectMultiDropdown(DRP_SERVICE_TYPE, value.trim());
+//        }
+//    }
     private void selectEconomicActivity(String economicActivity) {
-        selectDropdown(DRP_ECONOMIC_ACTIVITY, economicActivity);
+        selectDropDown(DRP_ECONOMIC_ACTIVITY, economicActivity);
     }
     private void enterAnnualIncome(String annualIncome) {
         sendKeys(TXT_ANNUAL_INCOME, annualIncome, CLICKABLE, "Annual Income" );
@@ -51,7 +59,7 @@ public class FinancialDetailsComponents {
     }
     private void selectBlockedCountries(String blockedCountries) {
         if(isNotBlank(blockedCountries)){
-            selectDropdown(DRP_BLOCKED_COUNTRIES, blockedCountries);
+            selectDropDown(DRP_BLOCKED_COUNTRIES, blockedCountries);
         }
     }
     private void enterCoreActivities(String coreActivities) {
@@ -63,7 +71,7 @@ public class FinancialDetailsComponents {
         sendKeys(TXT_ANNUAL_TURNOVER, annualTurnover, CLICKABLE, "Annual Turnover");
     }
 
-    public void fillFinancialDetails(FinancialDetailsData data){
+    public void fillFinancialDetails(FinancialDetailsData data) {
         selectServiceType(data.getServiceType());
         selectEconomicActivity(data.getEconomicActivity());
         enterAnnualIncome(data.getAnnualIncome());

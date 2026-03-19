@@ -97,4 +97,42 @@ public class TestData {
     @Column(name="occupation")
     private String Occupation;
 
+    //Financial Details
+    @Column(name="serviceType")
+    private String serviceType;
+    @Column(name="economicActivity")
+    private String economicActivity;
+    @Column(name="annualIncome")
+    private String annualIncome;
+    @Column(name="expectedAnnualActivityRemittance")
+    private String expectedAnnualActivityRemittance;
+    @Column(name="numberOfTransactionsRemittance")
+    private String numberOfTransactionsRemittance;
+    @Column(name="expectedAnnualActivityFC")
+    private String expectedAnnualActivityFC;
+    @Column(name="numberOfTransactionsFC")
+    private String numberOfTransactionsFC;
+    @Column(name="blockedCountries")
+    private String blockedCountries;
+    @Column(name="coreActivities")
+    private String coreActivities;
+    @Column(name="annualTurnover")
+    private String annualTurnover;
+
+    //Other Details
+    @Column(name="remarks")
+    private String remarks;
+    @Column(name="location")
+    private String location;
+    @Column(name="watchlistRemarks")
+    private String watchlistRemarks;
+    @Column(name="highRiskRemarks")
+    private String highRiskRemarks;
+    @Column(name="CBLicence")
+    private String CBLicence;
+    @Column(name="CADIban")
+    private String CADIban;
+    @Column(name="referredBy")
+    private String referredBy;
+
 }

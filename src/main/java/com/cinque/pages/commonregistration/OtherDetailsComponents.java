@@ -61,7 +61,7 @@ public class OtherDetailsComponents {
         enterHighRiskRemarks(data.getHighRiskRemarks());
         enterCBLicenseNo(data.getCADIban());
         clickPep();
-        enterCadIban(data.getCADIban());
+        //enterCadIban(data.getCADIban());
         selectReferredBy(data.getReferredBy());
     }
 

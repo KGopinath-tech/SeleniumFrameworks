@@ -20,29 +20,82 @@ import static com.cinque.enums.WaitType.*;
 public class SeleniumUtils {
 
 
-    private static By dropDownsearch = By.xpath("//input[contains(@class,'p-dropdown-filter')]");
+    static WebDriverWait wait = new WebDriverWait(
+            DriverManager.getDriver(),
+            Duration.ofSeconds(Configfactory.getConfig().timeout()));
+
+    private static By dropDownsearch = By.xpath("//input[@type='text' or @role='searchbox']");
     private static By dropDownOptions(String value){
         return By.xpath("//li[@role='option'][.//span[contains(text(),'" + value + "')]]");
     }
 
+    public static void selectMultiDropdown(By dropdown, String... values) {
+
+        // 1. Open dropdown ONLY ONCE
+        WebElement dd = wait.until(ExpectedConditions.elementToBeClickable(dropdown));
+        dd.click();
+
+        // 2. Wait for panel
+        By panel = By.xpath("//div[@id='ServiceType_list']");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(panel));
+
+        for (String value : values) {
+
+            // 3. Search (if available)
+            try {
+                WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[contains(@class,'p-multiselect-panel')]//input")
+                ));
+                search.clear();
+                search.sendKeys(value);
+            } catch (Exception ignored) {}
+
+            // 4. Select checkbox option (IMPORTANT: not span click sometimes)
+            By option = By.xpath(
+                    "//li[@role='option'][.//span[normalize-space()='" + value + "']]//div[contains(@class,'p-checkbox')]");
+
+            WebElement element = wait.until(ExpectedConditions.elementToBeClickable(option));
+
+            try {
+                element.click();
+            } catch (Exception e) {
+                ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].click();", element);
+            }
+        }
+
+        // 5. Close dropdown (VERY IMPORTANT)
+        DriverManager.getDriver().findElement(By.xpath("//body")).click();
+    }
+    public static void selectDropdown(By dropdown, String... values) {
+
+        if (DriverManager.getDriver().findElements(By.xpath("//p-multiselect")).size() > 0) {
+            selectMultiDropdown(dropdown, values);
+        } else {
+            for (String value : values) {
+                selectDropDown(dropdown, value);
+            }
+        }
+    }
+
+    public static String[] toArray(String data) {
+            if (data == null || data.trim().isEmpty()) {
+                return new String[0];
+            }
+            return data.split(",");
+        }
+
     public static void selectDropDown(By by, String value){
         click(by, CLICKABLE);
-        WebDriverWait wait = new WebDriverWait(
-                DriverManager.getDriver(),
-                Duration.ofSeconds(Configfactory.getConfig().timeout())
-        );
         WebElement search = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(dropDownsearch)
         );
         search.clear();
         search.sendKeys(value);
-        //By option = dropDownOptions(value);
         By option = By.xpath("//li[@role='option' and contains(@aria-label,'" + value.toUpperCase() + "')]");
 
-       wait.until(ExpectedConditions.presenceOfElementLocated(option));
+        wait.until(ExpectedConditions.presenceOfElementLocated(option));
         WebElement element = DriverManager.getDriver().findElement(option);
         ((JavascriptExecutor)DriverManager.getDriver()).executeScript("arguments[0].click();", element);
-        //element.click();
 
     }
 
@@ -68,7 +121,7 @@ public class SeleniumUtils {
 
         WebElement element = waitFor(by, waitType);
         element.sendKeys(value);
-       ExtentLogger.info(value+ " is entered successfully in " +elementname);
+        ExtentLogger.info(value+ " is entered successfully in " +elementname);
     }
     public static void select(WebElement element, String elementName, String userInput, SelectionType selectType){
         Select select = new Select(element);
@@ -89,11 +142,6 @@ public class SeleniumUtils {
     }
     private static WebElement waitFor(By by, WaitType waitType) {
 
-        WebDriverWait wait = new WebDriverWait(
-                DriverManager.getDriver(),
-                Duration.ofSeconds(Configfactory.getConfig().timeout())
-        );
-
         switch (waitType) {
             case CLICKABLE:
                 return wait.until(ExpectedConditions.elementToBeClickable(by));
@@ -108,26 +156,12 @@ public class SeleniumUtils {
     }
     public static void setToggle(By by, boolean shouldBeOn) {
 
-        WebDriverWait wait = new WebDriverWait(
-                DriverManager.getDriver(),
-                Duration.ofSeconds(Configfactory.getConfig().timeout())
-        );
         WebElement toggle = wait.until(ExpectedConditions.elementToBeClickable(by));
 
         boolean isCurrentlyOn = Boolean.parseBoolean(toggle.getAttribute("aria-checked"));
 
-        if (isCurrentlyOn != shouldBeOn) {
+        if (isCurrentlyOn = shouldBeOn) {
             toggle.click();
         }
     }
-//    private static WebElement waitUntilElementClickable(By by) {
-//        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(Configfactory.getConfig().timeout()));
-//        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by));
-//        return element;
-//    }
-//    private static WebElement waitUntilElementVisible(By by) {
-//        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(Configfactory.getConfig().timeout()));
-//        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-//        return element;
-//    }
 }
