@@ -11,8 +11,8 @@ import com.cinque.testdata.DTO.PersonalDetailsData;
 import com.cinque.testdata.TestData;
 import com.cinque.testdata.mapper.AddressDetailsMapper;
 import com.cinque.testdata.mapper.FinancialDetailsMapper;
-import com.cinque.testdata.mapper.OtherDetailsMapper;
-import com.cinque.testdata.mapper.PersonalDetailsMapper;
+import com.cinque.testdata.mapper.IndividualOtherDetailsMapper;
+import com.cinque.testdata.mapper.IndividualPersonalDetailsMapper;
 import com.cinque.utils.DataProviderUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -41,10 +41,10 @@ public class CustomerRegisterTest extends BaseTest{
         homePage.getCustomerRegistration();
         Thread.sleep(5000);
 
-        PersonalDetailsData personalData = PersonalDetailsMapper.map(testdata);
+        PersonalDetailsData personalData = IndividualPersonalDetailsMapper.map(testdata);
         AddressDetailsData  addressData = AddressDetailsMapper.map(testdata);
         FinancialDetailsData financialData = FinancialDetailsMapper.map(testdata);
-        OtherDetailsData otherData = OtherDetailsMapper.map(testdata);
+        OtherDetailsData otherData = IndividualOtherDetailsMapper.map(testdata);
 
         CustomerRegistrationPage page = new CustomerRegistrationPage();
         page.fillIndividualIdentityDetails(personalData);

@@ -27,7 +27,7 @@ public class CustomerRegistrationPage {
     public void fillAddressDetails(AddressDetailsData data){address.fillAddress(data);}
     public void fillEmploymentDetails(String employerName, String occupation){
         employmentDetails.fillEmploymentDetails(employerName,occupation);}
-    public void fillFinancialDetails(FinancialDetailsData data){financialDetails.fillFinancialDetails(data);}
+    public void fillFinancialDetails(FinancialDetailsData data){financialDetails.fillIndividualFinancialDetails(data);}
     public void fillIndividualOtherDetails(OtherDetailsData data){otherDetails.fillIndividualOtherDetails(data);}
     public void fillPromoDetails(String promoCode, String promoExpireDate){promotionDetails.fillPromoDetails(promoCode,promoExpireDate);}
 

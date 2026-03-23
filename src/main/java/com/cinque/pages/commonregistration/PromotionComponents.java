@@ -19,7 +19,7 @@ public class PromotionComponents {
         return this;
     }
     private PromotionComponents enterPromoCode(String promoCode) {
-        sendKeys(GDE_APPLY_PROMO, promoCode, CLICKABLE, "Promo Code");
+        sendKeys(TXT_PROMO_CODE, promoCode, CLICKABLE, "Promo Code");
         return this;
     }
 

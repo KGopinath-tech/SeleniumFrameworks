@@ -161,4 +161,24 @@ public class TestData {
     @Column(name="promoCode")
     private String promoCode;
 
+    //Identification Details
+    @Column(name="idType")
+    private String idType;
+    @Column(name="idNumber")
+    private String idNumber;
+    @Column(name="issueCountry")
+    private String issueCountry;
+    @Column(name="issuePlace")
+    private String issuePlace;
+    @Column(name="issueDate")
+    private String issueDate;
+    @Column(name="idExpiryDate")
+    private String idExpiryDate;
+    @Column(name="visaNumber")
+    private String visaNumber;
+    @Column(name="visaExpiryDate")
+    private String visaExpiryDate;
+    @Column(name="imagePath")
+    private String imagePath;
+
 }

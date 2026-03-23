@@ -71,7 +71,7 @@ public class FinancialDetailsComponents {
         sendKeys(TXT_ANNUAL_TURNOVER, annualTurnover, CLICKABLE, "Annual Turnover");
     }
 
-    public void fillFinancialDetails(FinancialDetailsData data) {
+    public void fillIndividualFinancialDetails(FinancialDetailsData data) {
         selectServiceType(data.getServiceType());
         selectEconomicActivity(data.getEconomicActivity());
         enterAnnualIncome(data.getAnnualIncome());

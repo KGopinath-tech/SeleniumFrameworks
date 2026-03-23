@@ -21,7 +21,7 @@ public class DropDownUtils {
         return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIME));
     }
 
-    public static void select(By locator, String value, SelectionType type) {
+    public static void select(By locator, String userInput, SelectionType type) {
 
         getWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
         getWait().until(ExpectedConditions.elementToBeClickable(locator));
@@ -30,15 +30,15 @@ public class DropDownUtils {
 
         switch (type) {
             case VISIBLE_TEXT:
-                dropdown.selectByVisibleText(value);
+                dropdown.selectByVisibleText(userInput);
                 break;
 
             case VALUE:
-                dropdown.selectByValue(value);
+                dropdown.selectByValue(userInput);
                 break;
 
             case INDEX:
-                dropdown.selectByIndex(Integer.parseInt(value));
+                dropdown.selectByIndex(Integer.parseInt(userInput));
                 break;
 
             default:

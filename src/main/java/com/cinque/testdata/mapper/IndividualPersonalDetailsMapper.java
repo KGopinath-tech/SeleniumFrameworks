@@ -3,7 +3,7 @@ package com.cinque.testdata.mapper;
 import com.cinque.testdata.DTO.PersonalDetailsData;
 import com.cinque.testdata.TestData;
 
-public class PersonalDetailsMapper {
+public class IndividualPersonalDetailsMapper {
 
     public static PersonalDetailsData map(TestData data){
 
