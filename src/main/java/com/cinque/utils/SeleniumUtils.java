@@ -8,12 +8,14 @@ import com.cinque.enums.WaitType;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 import static com.cinque.enums.WaitType.*;
 
@@ -90,16 +92,30 @@ public class SeleniumUtils {
                 ExpectedConditions.visibilityOfElementLocated(dropDownsearch)
         );
         search.clear();
-//        try{
-//            Thread.sleep(150);
-//        }catch (InterruptedException e){}
         search.sendKeys(value);
         By option = By.xpath("//li[@role='option']//span[contains(normalize-space(),'" + value.toUpperCase() + "')]");
 
         wait.until(ExpectedConditions.presenceOfElementLocated(option));
         WebElement element = DriverManager.getDriver().findElement(option);
+        ((JavascriptExecutor)DriverManager.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
         ((JavascriptExecutor)DriverManager.getDriver()).executeScript("arguments[0].click();", element);
 
+    }
+    public static void selectDropdownWithRetry(By by, String value) {
+
+        int attempts = 0;
+
+        while (attempts < 3) {
+            try {
+                selectDropDown(by, value);
+                return;
+            } catch (Exception e) {
+                attempts++;
+                System.out.println("Retrying dropdown: " + value);
+            }
+        }
+
+        throw new RuntimeException("Dropdown selection failed for: " + value);
     }
 
     public static void selectDropdown(By dropdown, String value){
@@ -123,8 +139,35 @@ public class SeleniumUtils {
     public static void sendKeys(By by, String value, WaitType waitType, String elementname){
 
         WebElement element = waitFor(by, waitType);
+        if (value == null) {
+            throw new IllegalArgumentException(elementname + " value is null");
+        }
         element.sendKeys(value);
         ExtentLogger.info(value+ " is entered successfully in " +elementname);
+    }
+    private static void handleCalendarIfPresent() {
+        try {
+            List<WebElement> calendars = DriverManager.getDriver()
+                    .findElements(By.cssSelector(".p-datepicker"));
+
+            if (!calendars.isEmpty() && calendars.get(0).isDisplayed()) {
+
+                // Option 1: Press TAB (most stable)
+               // DriverManager.getDriver().switchTo().activeElement().sendKeys(Keys.TAB);
+
+                // Option 2 (backup): click outside if still visible
+                DriverManager.getDriver().findElement(By.tagName("body")).click();
+            }
+
+        } catch (Exception e) {
+            // Fail-safe: ignore
+        }
+    }
+    public static void enterDate(By by, String value, WaitType waitType) {
+        WebElement element = waitFor(by, waitType);
+        element.clear();
+        element.sendKeys(value);
+        element.sendKeys(Keys.TAB);
     }
     public static void select(WebElement element, String elementName, String userInput, SelectionType selectType){
         Select select = new Select(element);
@@ -148,13 +191,12 @@ public class SeleniumUtils {
         switch (waitType) {
             case CLICKABLE:
                 return wait.until(ExpectedConditions.elementToBeClickable(by));
-
             case VISIBLE:
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-
             case PRESENT:
-            default:
                 return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            default:
+                throw new RuntimeException("Unsupported waiting type");
         }
     }
     public static void setToggle(By by, boolean shouldBeOn) {

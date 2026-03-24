@@ -32,7 +32,10 @@ public class AddressComponents {
         }
         selectDropDown(DRP_EMIRATE, data.getEmirate());
         selectDropDown(DRP_NEAR_AIRPORT, data.getNearestAirport());
-        selectDropDown(DRP_COUNTRY, data.getCountry());
+        try{
+            Thread.sleep(500);
+        }catch(InterruptedException e){}
+        selectDropdownWithRetry(DRP_COUNTRY, data.getCountry());
         if(isNotBlank(data.getHomeAddressInCountry()) && isDisplayed(TXT_HOME_ADDRESS)) {
             sendKeys(TXT_HOME_ADDRESS, data.getHomeAddressInCountry(), CLICKABLE, "HomeAddress");
         }

@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Builder
 @ToString
@@ -17,5 +19,5 @@ public class IdentityDetailsData {
     private String idExpiryDate;
     private String visaNumber;
     private String visaExpiryDate;
-    private String imagePath;
+    private List<String> imagePaths;
 }

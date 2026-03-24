@@ -4,15 +4,9 @@ import com.cinque.annotations.FrameworkAnnotation;
 import com.cinque.pages.CustomerRegistrationPage;
 import com.cinque.pages.HomePage;
 import com.cinque.pages.LoginPage;
-import com.cinque.testdata.DTO.AddressDetailsData;
-import com.cinque.testdata.DTO.FinancialDetailsData;
-import com.cinque.testdata.DTO.OtherDetailsData;
-import com.cinque.testdata.DTO.PersonalDetailsData;
+import com.cinque.testdata.DTO.*;
 import com.cinque.testdata.TestData;
-import com.cinque.testdata.mapper.AddressDetailsMapper;
-import com.cinque.testdata.mapper.FinancialDetailsMapper;
-import com.cinque.testdata.mapper.IndividualOtherDetailsMapper;
-import com.cinque.testdata.mapper.IndividualPersonalDetailsMapper;
+import com.cinque.testdata.mapper.*;
 import com.cinque.utils.DataProviderUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -45,9 +39,10 @@ public class CustomerRegisterTest extends BaseTest{
         AddressDetailsData  addressData = AddressDetailsMapper.map(testdata);
         FinancialDetailsData financialData = FinancialDetailsMapper.map(testdata);
         OtherDetailsData otherData = IndividualOtherDetailsMapper.map(testdata);
+        IdentityDetailsData identityData = IdentityDetailsMapper.map(testdata);
 
         CustomerRegistrationPage page = new CustomerRegistrationPage();
-        page.fillIndividualIdentityDetails(personalData);
+        page.fillIndividualPersonalDetails(personalData);
         page.clickExpandButton();
         Thread.sleep(2000);
         page.fillAddressDetails(addressData);
@@ -56,7 +51,9 @@ public class CustomerRegisterTest extends BaseTest{
         page.fillFinancialDetails(financialData);
         page.fillIndividualOtherDetails(otherData);
         page.fillPromoDetails(testdata.getPromoCode(),testdata.getPromoExpiryDate());
-
-        Thread.sleep(10000);
+        Thread.sleep(5000);
+        page.fillIdentityDetails(identityData);
+        Thread.sleep(2000);
+        page.clickSaveButton();
     }
 }

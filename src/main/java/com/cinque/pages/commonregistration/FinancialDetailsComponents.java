@@ -32,7 +32,7 @@ public class FinancialDetailsComponents {
 //        }
 //    }
     private void selectEconomicActivity(String economicActivity) {
-        selectDropDown(DRP_ECONOMIC_ACTIVITY, economicActivity);
+        selectDropdownWithRetry(DRP_ECONOMIC_ACTIVITY, economicActivity);
     }
     private void enterAnnualIncome(String annualIncome) {
         sendKeys(TXT_ANNUAL_INCOME, annualIncome, CLICKABLE, "Annual Income" );
@@ -59,7 +59,7 @@ public class FinancialDetailsComponents {
     }
     private void selectBlockedCountries(String blockedCountries) {
         if(isDisplayed(DRP_BLOCKED_COUNTRIES)){
-            selectDropDown(DRP_BLOCKED_COUNTRIES, blockedCountries);
+            selectDropdownWithRetry(DRP_BLOCKED_COUNTRIES, blockedCountries);
         }
     }
     private void enterCoreActivities(String coreActivities) {
@@ -79,6 +79,9 @@ public class FinancialDetailsComponents {
         enterNoOfTransactionsRemittance(data.getNumberOfTransactionsRemittance());
         enterExpectedAnnualActivityFC(data.getExpectedAnnualActivityFC());
         enterNoOfTransactionsFC(data.getNumberOfTransactionsFC());
+        try{
+            Thread.sleep(500);
+        }catch(InterruptedException e){}
         selectBlockedCountries(data.getBlockedCountries());
         enterCoreActivities(data.getCoreActivities());
     }
@@ -90,6 +93,9 @@ public class FinancialDetailsComponents {
         enterNoOfTransactionsRemittance(data.getNumberOfTransactionsRemittance());
         enterExpectedAnnualActivityFC(data.getExpectedAnnualActivityFC());
         enterNoOfTransactionsFC(data.getNumberOfTransactionsFC());
+        try{
+            Thread.sleep(500);
+        }catch(InterruptedException e){}
         selectBlockedCountries(data.getBlockedCountries());
         enterCoreActivities(data.getCoreActivities());
     }

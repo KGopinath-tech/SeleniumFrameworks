@@ -1,10 +1,7 @@
 package com.cinque.pages;
 
 import com.cinque.pages.commonregistration.*;
-import com.cinque.testdata.DTO.AddressDetailsData;
-import com.cinque.testdata.DTO.FinancialDetailsData;
-import com.cinque.testdata.DTO.OtherDetailsData;
-import com.cinque.testdata.DTO.PersonalDetailsData;
+import com.cinque.testdata.DTO.*;
 import org.openqa.selenium.By;
 
 import static com.cinque.enums.WaitType.*;
@@ -19,9 +16,9 @@ public class CustomerRegistrationPage {
     private FinancialDetailsComponents financialDetails = new FinancialDetailsComponents();
     private OtherDetailsComponents otherDetails = new OtherDetailsComponents();
     private PromotionComponents promotionDetails = new PromotionComponents();
+    private IdentityDetailsComponents identityDetails = new IdentityDetailsComponents();
 
-
-    public void fillIndividualIdentityDetails(PersonalDetailsData data){
+    public void fillIndividualPersonalDetails(PersonalDetailsData data){
         personalDetails.fillIndividualPersonalDetails(data);
     }
     public void fillAddressDetails(AddressDetailsData data){address.fillAddress(data);}
@@ -30,6 +27,7 @@ public class CustomerRegistrationPage {
     public void fillFinancialDetails(FinancialDetailsData data){financialDetails.fillIndividualFinancialDetails(data);}
     public void fillIndividualOtherDetails(OtherDetailsData data){otherDetails.fillIndividualOtherDetails(data);}
     public void fillPromoDetails(String promoCode, String promoExpireDate){promotionDetails.fillPromoDetails(promoCode,promoExpireDate);}
+    public void fillIdentityDetails(IdentityDetailsData data){identityDetails.fillIdentityDetials(data);}
 
 
 
@@ -40,7 +38,9 @@ public class CustomerRegistrationPage {
     private static final By BTN_PRINT = By.xpath("//button[normalize-space()='Print']");
     private static final By BTN_DEACTIVATE = By.xpath("//button[normalize-space()='Deactivate']");
     private static final By KEBAB_MENU = By.id("moreOptionsDropdown");
-    private static final By BTN_EXPAND = By.xpath("//i[@class='fa-solid fa-angles-up']");
+    private static final By BTN_EXPAND = By.xpath("//a[normalize-space()='Expand All']");
+    private static final By BTN_CONFIRMATION_SAVE = By.xpath("//button[@class='btn btn-filled fs-medium']");
+    private static final By BTN_CONFIRMATION_CANCEL = By.xpath("//button[@class='btn btn-outline fs-medium']");
 
 
     public void getCustomerRegistrationMenu(){

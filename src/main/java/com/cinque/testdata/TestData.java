@@ -5,6 +5,8 @@ import io.github.sskorol.data.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Data
 public class TestData {
