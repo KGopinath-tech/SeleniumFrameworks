@@ -63,12 +63,12 @@ public class OtherDetailsComponents {
     }
     private void selectEmployee(String employee) {
         if(isDisplayed(DRP_EMPLOYEE)){
-        selectDropDown(DRP_EMPLOYEE,employee);}}
+            selectDropdownWithRetry(DRP_EMPLOYEE,employee);}}
     private void selectCBBusinessActivity(String businessActivity) {
-        selectDropDown(DRP_CB_BUSINESS_ACTIVITY, businessActivity);
+        selectDropdownWithRetry(DRP_CB_BUSINESS_ACTIVITY, businessActivity);
     }
     private void selectCompanyLegalStatus(String companyLegalStatus) {
-        selectDropDown(DRP_COMPANY_LEGAL_STATUS, companyLegalStatus);
+        selectDropdownWithRetry(DRP_COMPANY_LEGAL_STATUS, companyLegalStatus);
     }
     private void enterVATRegistrationNo(String VATRegistrationNo) {
         sendKeys(TXT_VAT_REG_NO, VATRegistrationNo,CLICKABLE, "VAT Registration No");
@@ -77,10 +77,10 @@ public class OtherDetailsComponents {
         sendKeys(TXT_CB_EXPIRY_DATE, CBExpiryDate,CLICKABLE, "CB Expiry Date");
     }
     private void selectNatureOfBusiness(String natureOfBusiness) {
-        selectDropDown(DRP_NATURE_OF_BUSINESS, natureOfBusiness);
+        selectDropdownWithRetry(DRP_NATURE_OF_BUSINESS, natureOfBusiness);
     }
     private void selectNatureOfBusinessSubType(String natureOfBusinessSubType) {
-        selectDropDown(DRP_NATURE_OF_BUSINESS_SUBTYPE, natureOfBusinessSubType);
+        selectDropdownWithRetry(DRP_NATURE_OF_BUSINESS_SUBTYPE, natureOfBusinessSubType);
     }
     private void selectCompanySubType(String companySubType) {
         selectDropDown(DRP_COMPANY_SUB_TYPE, companySubType);

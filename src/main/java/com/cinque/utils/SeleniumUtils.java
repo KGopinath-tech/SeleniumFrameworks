@@ -6,10 +6,7 @@ import com.cinque.driver.DriverManager;
 import com.cinque.enums.SelectionType;
 import com.cinque.enums.WaitType;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,6 +18,73 @@ import static com.cinque.enums.WaitType.*;
 
 public class SeleniumUtils {
 
+    protected static By activeDialog = By.xpath("//p-dialog[not(contains(@style,'display: none'))]");
+    protected static By loader = By.xpath("//div[contains(@class,'loader') or contains(@class,'spinner')]");
+    protected static By toastMessage = By.xpath("//div[contains(@class,'toast') or contains(@class,'p-toast-message')]");
+
+
+    public static void waitForPopupToClose() {
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(activeDialog));
+        } catch (TimeoutException e) {
+            System.out.println("Popup did not close within timeout");
+        }
+    }
+
+    public static void waitForLoaderToDisappear() {
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+        } catch (TimeoutException e) {
+            System.out.println("Loader still visible or not present");
+        }
+    }
+
+    public static String waitForToastMessage() {
+        try {
+            WebElement toast = wait.until(ExpectedConditions.visibilityOfElementLocated(toastMessage));
+            String message = toast.getText();
+
+            // Wait until it disappears (optional but useful)
+            wait.until(ExpectedConditions.invisibilityOf(toast));
+
+            return message;
+
+        } catch (TimeoutException e) {
+            throw new RuntimeException("Toast message not displayed");
+        }
+    }
+
+    public static void safeAction(Runnable action) {
+        int attempts = 0;
+
+        while (attempts < 3) {
+            try {
+                action.run();
+                return;
+            } catch (Exception e) {
+                attempts++;
+                waitForLoaderToDisappear();
+            }
+        }
+        throw new RuntimeException("Action failed after retries");
+    }
+
+    public static void waitForRepresentativeToBeSaved() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.xpath("//p-dialog[contains(@style,'display: block')]")
+        ));
+
+        waitForLoaderToDisappear(); // if loader exists
+    }
+    public static String waitForSaveToComplete() {
+
+        waitForLoaderToDisappear();   // backend processing
+        waitForPopupToClose();        // popup closes
+
+        String toast = waitForToastMessage(); // success/failure message
+
+        return toast;
+    }
 
     static WebDriverWait wait = new WebDriverWait(
             DriverManager.getDriver(),
@@ -92,6 +156,9 @@ public class SeleniumUtils {
                 ExpectedConditions.visibilityOfElementLocated(dropDownsearch)
         );
         search.clear();
+        try{
+            Thread.sleep(350);
+        }catch(InterruptedException e){}
         search.sendKeys(value);
         By option = By.xpath("//li[@role='option']//span[contains(normalize-space(),'" + value.toUpperCase() + "')]");
 
@@ -111,7 +178,7 @@ public class SeleniumUtils {
                 return;
             } catch (Exception e) {
                 attempts++;
-                System.out.println("Retrying dropdown: " + value);
+                System.out.println("Retrying "+by+" dropdown: " + value);
             }
         }
 

@@ -79,9 +79,6 @@ public class FinancialDetailsComponents {
         enterNoOfTransactionsRemittance(data.getNumberOfTransactionsRemittance());
         enterExpectedAnnualActivityFC(data.getExpectedAnnualActivityFC());
         enterNoOfTransactionsFC(data.getNumberOfTransactionsFC());
-        try{
-            Thread.sleep(500);
-        }catch(InterruptedException e){}
         selectBlockedCountries(data.getBlockedCountries());
         enterCoreActivities(data.getCoreActivities());
     }
@@ -93,9 +90,6 @@ public class FinancialDetailsComponents {
         enterNoOfTransactionsRemittance(data.getNumberOfTransactionsRemittance());
         enterExpectedAnnualActivityFC(data.getExpectedAnnualActivityFC());
         enterNoOfTransactionsFC(data.getNumberOfTransactionsFC());
-        try{
-            Thread.sleep(500);
-        }catch(InterruptedException e){}
         selectBlockedCountries(data.getBlockedCountries());
         enterCoreActivities(data.getCoreActivities());
     }

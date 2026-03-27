@@ -30,11 +30,8 @@ public class AddressComponents {
         if (isNotBlank(data.getDistrict())){
             sendKeys(TXT_DISTRICT, data.getDistrict(), CLICKABLE, "District");
         }
-        selectDropDown(DRP_EMIRATE, data.getEmirate());
-        selectDropDown(DRP_NEAR_AIRPORT, data.getNearestAirport());
-        try{
-            Thread.sleep(500);
-        }catch(InterruptedException e){}
+        selectDropdownWithRetry(DRP_EMIRATE, data.getEmirate());
+        selectDropdownWithRetry(DRP_NEAR_AIRPORT, data.getNearestAirport());
         selectDropdownWithRetry(DRP_COUNTRY, data.getCountry());
         if(isNotBlank(data.getHomeAddressInCountry()) && isDisplayed(TXT_HOME_ADDRESS)) {
             sendKeys(TXT_HOME_ADDRESS, data.getHomeAddressInCountry(), CLICKABLE, "HomeAddress");

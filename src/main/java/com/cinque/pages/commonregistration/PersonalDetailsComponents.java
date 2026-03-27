@@ -98,7 +98,7 @@ public class PersonalDetailsComponents {
     private void enterEmailID(String email) {
         sendKeys(TXT_EMAIL, email, CLICKABLE,"Email ID");
     }
-    private void selectCompanyType(String companyType){selectDropDown(DRP_COMPNAY_TYPE, companyType);}
+    private void selectCompanyType(String companyType){selectDropdown(DRP_COMPNAY_TYPE, companyType);}
     private void enterDateOfEstablishment(String dateOfEstablishment){sendKeys(TXT_DATE_OF_ESTABLISHMENT,dateOfEstablishment, CLICKABLE,"DateOfEstablishment");}
     private void selectCountryOfIncorporation(String countryOfEstablishment){selectDropDown(DRP_COUNTRY_OF_INCORPORATION, countryOfEstablishment);}
     private void enterPlaceOfIncorporation(String placeOfEstablishment){sendKeys(TXT_PLACE_OF_INCORPORATION,placeOfEstablishment, CLICKABLE,"PlaceOfEstablishment");}

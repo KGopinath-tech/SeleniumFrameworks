@@ -37,14 +37,14 @@ public class IdentityDetailsComponents {
     }
 
     public void selectIdType(String IdType) {
-        selectDropDown(DRP_ID_TYPE, IdType);
+        selectDropdownWithRetry(DRP_ID_TYPE, IdType);
     }
 
     public void  enterIdNumber(String IdNumber) {
         sendKeys(TXT_ID_NUMBER, IdNumber, PRESENT, "ID Number");
     }
     public void  selectIdIssueCountry(String issueCountry) {
-        selectDropDown(DRP_ID_ISSUECOUNTRY, issueCountry);
+        selectDropdownWithRetry(DRP_ID_ISSUECOUNTRY, issueCountry);
     }
 
     public void enterIdIssuePlace(String issuePlace) {
@@ -114,7 +114,7 @@ public class IdentityDetailsComponents {
         selectIdExpiryDate(data.getIdExpiryDate());
         enterVisaNumber(data.getVisaNumber());
         selectVisaExpDate(data.getVisaExpiryDate());
-       enableStatus();
+     //   enableStatus();
         uploadIdImages(data.getImagePaths());
         try{
             Thread.sleep(300);

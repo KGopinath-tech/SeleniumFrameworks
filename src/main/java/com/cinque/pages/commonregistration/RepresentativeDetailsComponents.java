@@ -2,6 +2,9 @@ package com.cinque.pages.commonregistration;
 
 import com.cinque.testdata.DTO.RepresentativeDetailsData;
 import org.openqa.selenium.By;
+
+import java.util.List;
+
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
 
@@ -32,7 +35,7 @@ public class RepresentativeDetailsComponents {
     private static final By DGE_STATUS = By.xpath("//label[contains(normalize-space(),'Status')]/parent::*//*[@id='flexCheckDefault']");
     private static final By REP_FILE_UPLOAD = By.xpath("//p-fileupload//input[@type='file']");
     private static final By BTN_CANCEL = By.xpath("//button[normalize-space()='Cancel']");
-    private static final By BTN_SAVE = By.xpath("//button[normalize-space()='Save']");
+    private static final By BTN_SAVE = By.xpath("//button[@class='btn btn-animation btn-filled fs-medium'][normalize-space()='Save']");
 
     private void clickAddButton() {
         click(BTN_ADD, CLICKABLE , "Add Button");
@@ -109,8 +112,8 @@ public class RepresentativeDetailsComponents {
     private void clickCancel() {
         click(BTN_CANCEL, CLICKABLE, "Cancel");
     }
-    private void clickSave() {
-        click(BTN_SAVE, CLICKABLE, "Save");
+    private void clickPopupSave() {
+       click(BTN_SAVE, CLICKABLE, "Save");
     }
 
     public void fillRepresentativeDetails(RepresentativeDetailsData data) {
@@ -140,7 +143,12 @@ public class RepresentativeDetailsComponents {
         selectRepRelation(data.getRelation());
         enableStatus();
         uploadRepIdImage(data.getRepIdImagePath());
-        clickSave();
+        clickPopupSave();
+    }
+    public void fillMultipleRepresentativeDetails(List<RepresentativeDetailsData> dataList) {
+        for (RepresentativeDetailsData data : dataList) {
+            fillRepresentativeDetails(data);
+        }
     }
 
 }

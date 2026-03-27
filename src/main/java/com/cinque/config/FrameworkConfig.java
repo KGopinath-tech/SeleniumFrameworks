@@ -11,5 +11,6 @@ public interface FrameworkConfig extends Config {
     String browser();
     String screenshotForPassedSteps();
     String screenshotForInfoSteps();
+    String entitySelection();
 }
 

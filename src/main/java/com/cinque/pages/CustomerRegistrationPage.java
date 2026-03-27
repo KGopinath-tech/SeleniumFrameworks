@@ -67,5 +67,7 @@ public class CustomerRegistrationPage {
     public void clickExpandButton(){
         click(BTN_EXPAND, CLICKABLE, "Expand");
     }
+    public void clickConfirmationSaveButton(){click(BTN_CONFIRMATION_SAVE, CLICKABLE);}
+    public void clickConfirmationCancelButton(){click(BTN_CONFIRMATION_CANCEL, CLICKABLE);}
 }
 
