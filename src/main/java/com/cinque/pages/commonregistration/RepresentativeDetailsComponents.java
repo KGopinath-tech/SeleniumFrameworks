@@ -1,8 +1,11 @@
 package com.cinque.pages.commonregistration;
 
+import com.cinque.driver.DriverManager;
 import com.cinque.testdata.DTO.RepresentativeDetailsData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import java.io.File;
 import java.util.List;
 
 import static com.cinque.enums.WaitType.*;
@@ -30,6 +33,7 @@ public class RepresentativeDetailsComponents {
     private static final By DRP_REP_ID_ISSUEDCOUNTRY = By.id("repIdIssCon");
     private static final By TXT_REP_VISANO = By.id("repVisaNo");
     private static final By TXT_REP_VISA_IDEXPIREDATE = By.xpath("//label[text()='Visa Expiry Date']/preceding-sibling::*//input");
+    private static final By TXT_REP_SHARE= By.id("repShare");
     private static final By DRP_REP_RELATION = By.id("repRelation");
     private static final By DGE_PEP = By.xpath("//label[contains(normalize-space(),'PEP')]/parent::*//*[@id='flexCheckDefault']");
     private static final By DGE_STATUS = By.xpath("//label[contains(normalize-space(),'Status')]/parent::*//*[@id='flexCheckDefault']");
@@ -41,7 +45,7 @@ public class RepresentativeDetailsComponents {
         click(BTN_ADD, CLICKABLE , "Add Button");
     }
     private void selectRepresentativeType(String type) {
-        selectDropdown(DRP_REPRESENTATIVE_TYPE, type);
+        selectDropdownWithRetry(DRP_REPRESENTATIVE_TYPE, type);
     }
     private void selectRepresentativeAddTo(String addTo) {
         selectDropdown(DRP_REPRESENTATIVE_ADD_TO, addTo);
@@ -59,22 +63,22 @@ public class RepresentativeDetailsComponents {
         selectDropdown(DRP_REP_GENDER, gender);
     }
     private void enterRepDob(String dob) {
-        selectDropdown(TXT_REP_DOB, dob);
+        enterDate(TXT_REP_DOB, dob, CLICKABLE);
     }
     private void selectRepNationality(String nationality) {
-        selectDropDown(DRP_REP_NATIONALITY, nationality);
+        selectDropdownWithRetry(DRP_REP_NATIONALITY, nationality);
     }
     private void selectRepDualNationality(String dualNationality) {
-        selectDropDown(DRP_REP_DUALNATIONALITY, dualNationality);
+        selectDropdownWithRetry(DRP_REP_DUALNATIONALITY, dualNationality);
     }
     private void selectRepPhoneCode(String phoneCode) {
-        selectDropDown(DRP_REP_PHONECODE, phoneCode);
+        selectDropdownWithRetry(DRP_REP_PHONECODE, phoneCode);
     }
     private void enterRepPhoneNumber(String phoneNumber) {
         sendKeys(TXT_REP_PHONE, phoneNumber, CLICKABLE, "Representative Phone Number");
     }
     private void enterRepIdType(String idType) {
-        selectDropdown(DRP_REP_IDTYPE, idType);
+        selectDropdownWithRetry(DRP_REP_IDTYPE, idType);
     }
     private void enterRepIdNumber(String idNumber) {
         sendKeys(TXT_REP_IDNUMBER, idNumber, CLICKABLE, "Representative ID Number");
@@ -83,31 +87,46 @@ public class RepresentativeDetailsComponents {
         sendKeys(TXT_REP_POI, placeOfIssue, CLICKABLE, "Representative Place Of Issue");
     }
     private void enterIdIssuedDate(String issuedDate) {
-        sendKeys(TXT_REP_ID_ISSUEDATE, issuedDate, CLICKABLE, "Representative ID Issued Date");
+        enterDate(TXT_REP_ID_ISSUEDATE, issuedDate, CLICKABLE);
     }
     private void enterIdExpireDate(String expireDate) {
-        sendKeys(TXT_REP_ID_EXPIRYDATE, expireDate, CLICKABLE, "Representative ID Expiry Date");
+        enterDate(TXT_REP_ID_EXPIRYDATE, expireDate, CLICKABLE);
     }
     private void enterIdIssuedCountry(String issuedCountry) {
-        selectDropDown(DRP_REP_ID_ISSUEDCOUNTRY, issuedCountry);
+        selectDropdownWithRetry(DRP_REP_ID_ISSUEDCOUNTRY, issuedCountry);
     }
     private void enterVisaNumber(String visaNumber) {
         sendKeys(TXT_REP_VISANO,  visaNumber, CLICKABLE, "Representative Visa Number");
     }
     private void enterVisaIdExpireDate(String expireDate) {
-        sendKeys(TXT_REP_VISA_IDEXPIREDATE, expireDate, CLICKABLE, "Representative Visa Expiry Date");
+        enterDate(TXT_REP_VISA_IDEXPIREDATE, expireDate, CLICKABLE);
     }
     private void selectRepRelation(String relation) {
-        selectDropdown(DRP_REP_RELATION, relation);
+        selectDropdownWithRetry(DRP_REP_RELATION, relation);
     }
+    private void enterShare(String share) {sendKeys(TXT_REP_SHARE, share, CLICKABLE, "Share");}
     private void enablePep(){
         setToggle(DGE_PEP, false);
     }
     private void enableStatus(){
-        setToggle(DGE_PEP, true);
+        setToggle(DGE_STATUS, true);
     }
-    private void uploadRepIdImage(String repId) {
-        sendKeys(REP_FILE_UPLOAD, repId, CLICKABLE, "Representative Image File Upload");
+    public void uploadRepIdImage(List<String> idImagePaths) {
+
+        String basePath = System.getProperty("user.dir") + "/src/test/resources/";
+        WebElement fileInput = DriverManager.getDriver().findElement(REP_FILE_UPLOAD);
+
+        for (String relativePath : idImagePaths) {
+
+            String fullPath = basePath + relativePath.trim();
+            File file = new File(fullPath);
+
+            if (!file.exists()) {
+                throw new RuntimeException("File not found: " + file.getAbsolutePath());
+            }
+
+            fileInput.sendKeys(file.getAbsolutePath());
+        }
     }
     private void clickCancel() {
         click(BTN_CANCEL, CLICKABLE, "Cancel");
@@ -139,13 +158,25 @@ public class RepresentativeDetailsComponents {
         if (isNotBlank(data.getVisaNumber())){
             enterVisaNumber(data.getVisaNumber());
         }
-        enterVisaIdExpireDate(data.getVisaIdExpiryDate());
+        if(isNotBlank(data.getVisaIdExpiryDate())){
+            enterVisaIdExpireDate(data.getVisaIdExpiryDate());
+        }
+        if (data.getRepIdImagePath() != null && !data.getRepIdImagePath().isEmpty()) {
+            uploadRepIdImage(data.getRepIdImagePath());
+        }
         selectRepRelation(data.getRelation());
-        enableStatus();
-        uploadRepIdImage(data.getRepIdImagePath());
+        if(isNotBlank(data.getShare()) && isDisplayed(TXT_REP_SHARE)){
+            enterShare(data.getShare());
+        }
+        //enablePep();
+        //enableStatus();
         clickPopupSave();
+        waitforSleep(650);
     }
     public void fillMultipleRepresentativeDetails(List<RepresentativeDetailsData> dataList) {
+        if (dataList == null || dataList.isEmpty()) {
+            return; // No representatives required for this test case — skip entirely
+        }
         for (RepresentativeDetailsData data : dataList) {
             fillRepresentativeDetails(data);
         }

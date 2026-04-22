@@ -1,10 +1,14 @@
 package com.cinque.testdata;
 
 
+import com.cinque.testdata.DTO.RepresentativeDetailsData;
+import com.cinque.utils.RepresentativeReader;
 import io.github.sskorol.data.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.helpers.CheckReturnValue;
 
+import java.util.Collections;
 import java.util.List;
 
 @NoArgsConstructor
@@ -156,6 +160,8 @@ public class TestData {
     private String UID;
     @Column(name="others")
     private String others;
+    @Column(name="registeredBy")
+    private String registeredBy;
 
     //Promo Details
     @Column(name="promoExpiryDate")

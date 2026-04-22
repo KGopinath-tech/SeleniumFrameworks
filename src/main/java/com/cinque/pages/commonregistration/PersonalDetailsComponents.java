@@ -1,6 +1,7 @@
 package com.cinque.pages.commonregistration;
 
 import com.cinque.testdata.DTO.PersonalDetailsData;
+import com.cinque.testdata.TestData;
 import org.openqa.selenium.By;
 
 import static com.cinque.enums.WaitType.*;
@@ -75,19 +76,19 @@ public class PersonalDetailsComponents {
         sendKeys(TXT_DOB, DOB, CLICKABLE,"DOB");
     }
     private void selectNationality(String nationality){
-        selectDropDown(DRP_NATIONALITY, nationality);
+        selectDropdownWithRetry(DRP_NATIONALITY, nationality);
     }
     private void selectDualNationality(String dualNationality){
-        selectDropDown(DRP_DUALNATIONALITY, dualNationality);
+        selectDropdownWithRetry(DRP_DUALNATIONALITY, dualNationality);
     }
     private void selectCountryOfBirth(String countryOfBirth) {
-        selectDropDown(DRP_COUNTRYOFBIRTH, countryOfBirth);
+        selectDropdownWithRetry(DRP_COUNTRYOFBIRTH, countryOfBirth);
     }
     private void enterPlaceOfBirth(String placeOfBirth){
         sendKeys(TXT_PLACEOFBIRTH,placeOfBirth, CLICKABLE,"PlaceOfBirth");
     }
     private void selectPhoneCode (String phoneCode){
-        selectDropDown(DRP_PHONECODE, phoneCode);
+        selectDropdownWithRetry(DRP_PHONECODE, phoneCode);
     }
     private void enterMobileNumber(String mobileNumber){
         sendKeys(TXT_MOBILE, mobileNumber, CLICKABLE,"Mobile Number");
@@ -100,7 +101,7 @@ public class PersonalDetailsComponents {
     }
     private void selectCompanyType(String companyType){selectDropdown(DRP_COMPNAY_TYPE, companyType);}
     private void enterDateOfEstablishment(String dateOfEstablishment){sendKeys(TXT_DATE_OF_ESTABLISHMENT,dateOfEstablishment, CLICKABLE,"DateOfEstablishment");}
-    private void selectCountryOfIncorporation(String countryOfEstablishment){selectDropDown(DRP_COUNTRY_OF_INCORPORATION, countryOfEstablishment);}
+    private void selectCountryOfIncorporation(String countryOfEstablishment){selectDropdownWithRetry(DRP_COUNTRY_OF_INCORPORATION, countryOfEstablishment);}
     private void enterPlaceOfIncorporation(String placeOfEstablishment){sendKeys(TXT_PLACE_OF_INCORPORATION,placeOfEstablishment, CLICKABLE,"PlaceOfEstablishment");}
 
 

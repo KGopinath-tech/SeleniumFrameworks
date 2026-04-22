@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 
 public class SidebarMenuComponent {
 
-    private static final By MENU_SIDEBAR = By.xpath("//i[@class='bi bi-text-left']");
+    private static final By MENU_SIDEBAR = By.xpath("//i[contains(@class,'fa-cogs')]/parent::div");
     private static final By LABEL_MASTER = By.xpath("//p[@class='menu-label fs-medium']");
     private static final By MENU_GENERAL = By.xpath("//span[text()='General']");
     private static final By MENU_CUSTOMER_REGISTRATION = By

@@ -32,7 +32,7 @@ public class FinancialDetailsComponents {
 //        }
 //    }
     private void selectEconomicActivity(String economicActivity) {
-        selectDropdownWithRetry(DRP_ECONOMIC_ACTIVITY, economicActivity);
+        selectDropdown(DRP_ECONOMIC_ACTIVITY, economicActivity);
     }
     private void enterAnnualIncome(String annualIncome) {
         sendKeys(TXT_ANNUAL_INCOME, annualIncome, CLICKABLE, "Annual Income" );

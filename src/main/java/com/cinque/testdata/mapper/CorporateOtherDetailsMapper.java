@@ -19,6 +19,7 @@ public class CorporateOtherDetailsMapper {
                 .natureOfBusinessSubtype(data.getNatureOfBusinessSubtype())
                 .companySubtype(data.getCompanySubtype())
                 .CADIban(data.getCADIban())
+                .registeredBy(data.getRegisteredBy())
                 .referredBy(data.getReferredBy())
                 .employee(data.getEmployee())
                 .UID(data.getUID())

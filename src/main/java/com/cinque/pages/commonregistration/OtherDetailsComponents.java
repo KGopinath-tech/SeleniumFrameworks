@@ -27,6 +27,7 @@ public class OtherDetailsComponents {
     private static final By DRP_COMPANY_SUB_TYPE = By.id("CompanySubType");
     private static final By TXT_UID = By.id("UId");
     private static final By TXT_OTHERS = By.id("Others");
+    private static final By DRP_REGISTER_FROM = By.id("RegisteredBy");
 
     private void enterRemarks(String remarks) {
         sendKeys(TXT_REMARKS, remarks,CLICKABLE, "Customer Remarks");
@@ -91,18 +92,27 @@ public class OtherDetailsComponents {
     private void enterOthers(String others) {
         sendKeys(TXT_OTHERS, others,CLICKABLE, "Others");
     }
+    private void selectRegisteredBy(String registeredBy) {selectDropdown(DRP_REGISTER_FROM, registeredBy);}
 
     public void fillIndividualOtherDetails(OtherDetailsData data){
-        enterRemarks(data.getRemarks());
-        enterLocation(data.getLocation());
+        if(isNotBlank(data.getRemarks())){
+            enterRemarks(data.getRemarks());
+        }
+        if(isNotBlank(data.getLocation())){
+            enterLocation(data.getLocation());
+        }
         clickRelatedParty();
         clickWatchlist();
-        enterWatchlistRemarks(data.getWatchlistRemarks());
+        if(isNotBlank(data.getWatchlistRemarks())){
+            enterWatchlistRemarks(data.getWatchlistRemarks());
+        }
         clickHighRisk();
-        enterHighRiskRemarks(data.getHighRiskRemarks());
-        enterCBLicenseNo(data.getCADIban());
+        if(isNotBlank(data.getHighRiskRemarks())){
+            enterHighRiskRemarks(data.getHighRiskRemarks());
+        }
         clickPep();
         //enterCadIban(data.getCADIban());
+        selectRegisteredBy(data.getRegisteredBy());
         selectReferredBy(data.getReferredBy());
         if(data.getReferredBy().equalsIgnoreCase("Employee")){
             selectEmployee(data.getEmployee());
@@ -113,23 +123,36 @@ public class OtherDetailsComponents {
 
     }
     public void fillCorpOtherDetails(OtherDetailsData data){
-        selectCBBusinessActivity(data.getCBBusinessActivity());
-        enterRemarks(data.getRemarks());
-        selectCompanyLegalStatus(data.getCompanyLegalStatus());
-        enterLocation(data.getLocation());
-        clickRelatedParty();
-        clickWatchlist();
-        enterWatchlistRemarks(data.getWatchlistRemarks());
-        clickHighRisk();
-        enterHighRiskRemarks(data.getHighRiskRemarks());
         enterVATRegistrationNo(data.getVATRegistrationNumber());
-        enterCBLicenseNo(data.getCBLicence());
-        enterCBExpiryDate(data.getCBExpiryDate());
         selectNatureOfBusiness(data.getNatureOfBusiness());
         selectNatureOfBusinessSubType(data.getNatureOfBusinessSubtype());
         selectCompanySubType(data.getCompanySubtype());
-        clickPep();
+        selectCBBusinessActivity(data.getCBBusinessActivity());
+        selectCompanyLegalStatus(data.getCompanyLegalStatus());
+        if(isNotBlank(data.getRemarks())){
+            enterRemarks(data.getRemarks());
+        }
+        if(isNotBlank(data.getLocation())){
+            enterLocation(data.getLocation());
+        }
         //enterCadIban(data.getCADIban());
+        clickRelatedParty();
+        clickWatchlist();
+        if(isNotBlank(data.getWatchlistRemarks())){
+            enterWatchlistRemarks(data.getWatchlistRemarks());
+        }
+        clickHighRisk();
+        if(isNotBlank(data.getHighRiskRemarks())){
+            enterHighRiskRemarks(data.getHighRiskRemarks());
+        }
+        if(isNotBlank(data.getCBLicence())){
+            enterCBLicenseNo(data.getCBLicence());
+        }
+        if(isNotBlank(data.getCBExpiryDate())){
+            enterCBExpiryDate(data.getCBExpiryDate());
+        }
+        clickPep();
+        selectRegisteredBy(data.getRegisteredBy());
         selectReferredBy(data.getReferredBy());
         if(data.getReferredBy().equalsIgnoreCase("Employee")){
             selectEmployee(data.getEmployee());

@@ -4,6 +4,8 @@ import com.cinque.pages.commonregistration.*;
 import com.cinque.testdata.DTO.*;
 import org.openqa.selenium.By;
 
+import java.util.List;
+
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
 
@@ -17,17 +19,21 @@ public class CustomerRegistrationPage {
     private OtherDetailsComponents otherDetails = new OtherDetailsComponents();
     private PromotionComponents promotionDetails = new PromotionComponents();
     private IdentityDetailsComponents identityDetails = new IdentityDetailsComponents();
+    private RepresentativeDetailsComponents representativeDetails = new RepresentativeDetailsComponents();
 
-    public void fillIndividualPersonalDetails(PersonalDetailsData data){
-        personalDetails.fillIndividualPersonalDetails(data);
-    }
+    public void fillIndividualPersonalDetails(PersonalDetailsData data){personalDetails.fillIndividualPersonalDetails(data);}
+    public void fillCorporatePersonalDetails(PersonalDetailsData data){personalDetails.fillCorporatePersonalDetails(data);}
     public void fillAddressDetails(AddressDetailsData data){address.fillAddress(data);}
     public void fillEmploymentDetails(String employerName, String occupation){
         employmentDetails.fillEmploymentDetails(employerName,occupation);}
-    public void fillFinancialDetails(FinancialDetailsData data){financialDetails.fillIndividualFinancialDetails(data);}
+    public void fillIndividualFinancialDetails(FinancialDetailsData data){financialDetails.fillIndividualFinancialDetails(data);}
+    public void fillCorporateFinancialDetails(FinancialDetailsData data){financialDetails.fillCorporateFinancialDetails(data);}
     public void fillIndividualOtherDetails(OtherDetailsData data){otherDetails.fillIndividualOtherDetails(data);}
+    public void fillCorporateOtherDetails(OtherDetailsData data){otherDetails.fillCorpOtherDetails(data);}
     public void fillPromoDetails(String promoCode, String promoExpireDate){promotionDetails.fillPromoDetails(promoCode,promoExpireDate);}
     public void fillIdentityDetails(IdentityDetailsData data){identityDetails.fillIdentityDetials(data);}
+    public void fillRepresentativeDetails(List<RepresentativeDetailsData> data){representativeDetails.fillMultipleRepresentativeDetails(data);}
+
 
 
 
@@ -41,6 +47,9 @@ public class CustomerRegistrationPage {
     private static final By BTN_EXPAND = By.xpath("//a[normalize-space()='Expand All']");
     private static final By BTN_CONFIRMATION_SAVE = By.xpath("//button[@class='btn btn-filled fs-medium']");
     private static final By BTN_CONFIRMATION_CANCEL = By.xpath("//button[@class='btn btn-outline fs-medium']");
+    private static final By BTN_IND_CUSTOMER_TYPE = By.xpath("//input[@id='type-I']");
+    private static final By BTN_CORP_CUSTOMER_TYPE = By.xpath("//input[@id='type-C']");
+    private static final By BTN_VENDOR_CUSTOMER_TYPE = By.xpath("//input[@id='type-V']");
 
 
     public void getCustomerRegistrationMenu(){
@@ -69,5 +78,8 @@ public class CustomerRegistrationPage {
     }
     public void clickConfirmationSaveButton(){click(BTN_CONFIRMATION_SAVE, CLICKABLE);}
     public void clickConfirmationCancelButton(){click(BTN_CONFIRMATION_CANCEL, CLICKABLE);}
+    public void selectIndividualCustomerType(){click(BTN_IND_CUSTOMER_TYPE, CLICKABLE);}
+    public void selectCorporateCustomerType(){click(BTN_CORP_CUSTOMER_TYPE, CLICKABLE);}
+    public void selectVendorCustomnerType(){click(BTN_VENDOR_CUSTOMER_TYPE, CLICKABLE);}
 }
 

@@ -23,6 +23,12 @@ public class SeleniumUtils {
     protected static By toastMessage = By.xpath("//div[contains(@class,'toast') or contains(@class,'p-toast-message')]");
 
 
+    public static void waitforSleep(long milliseconds) {
+        try{Thread.sleep(milliseconds);}
+        catch(InterruptedException e){}
+    }
+
+
     public static void waitForPopupToClose() {
         try {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(activeDialog));
@@ -90,9 +96,11 @@ public class SeleniumUtils {
             DriverManager.getDriver(),
             Duration.ofSeconds(Configfactory.getConfig().timeout()));
 
-    private static By dropDownsearch = By.xpath("//input[@type='text' or @role='searchbox']");
+    private static By dropDownsearch = By.xpath("//input[@role='searchbox']");
     private static By dropDownOptions(String value){
-        return By.xpath("//li[@role='option'][.//span[contains(text(),'" + value + "')]]");
+        return By.xpath("//li[@role='option'][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
+                + value.toLowerCase() + "')]");
+        //By.xpath("//li[@role='option']//span[contains(normalize-space(),'" + value.toUpperCase() + "')]");
     }
 
     public static void selectMultiDropdown(By dropdown, String... values) {
@@ -156,11 +164,10 @@ public class SeleniumUtils {
                 ExpectedConditions.visibilityOfElementLocated(dropDownsearch)
         );
         search.clear();
-        try{
-            Thread.sleep(350);
-        }catch(InterruptedException e){}
+        waitforSleep(350);
         search.sendKeys(value);
-        By option = By.xpath("//li[@role='option']//span[contains(normalize-space(),'" + value.toUpperCase() + "')]");
+        By option = By.xpath("//li[@role='option'][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
+                + value.toLowerCase() + "')]");
 
         wait.until(ExpectedConditions.presenceOfElementLocated(option));
         WebElement element = DriverManager.getDriver().findElement(option);
@@ -193,6 +200,7 @@ public class SeleniumUtils {
     public static boolean isNotBlank(String value){
         return StringUtils.isNotBlank(value);
     }
+
     public static void click(By by, WaitType waitType, String elementName) {
         WebElement element = waitFor(by, waitType);
         element.click();
@@ -209,6 +217,7 @@ public class SeleniumUtils {
         if (value == null) {
             throw new IllegalArgumentException(elementname + " value is null");
         }
+        element.clear();
         element.sendKeys(value);
         ExtentLogger.info(value+ " is entered successfully in " +elementname);
     }

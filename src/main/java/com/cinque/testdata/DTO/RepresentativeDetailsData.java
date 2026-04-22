@@ -1,14 +1,17 @@
 package com.cinque.testdata.DTO;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import io.github.sskorol.data.Column;
+import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Builder
 @ToString
 public class RepresentativeDetailsData {
 
+    private String testCaseName;
+    private int repOrder;
     private String representativeType;
     private String representativeFirstName;
     private String representativeMiddleName;
@@ -28,6 +31,9 @@ public class RepresentativeDetailsData {
     private String visaNumber;
     private String visaIdExpiryDate;
     private String relation;
-    private String repIdImagePath;
+    private String share;
+    private List<String> repIdImagePath;
+
+
 
 }

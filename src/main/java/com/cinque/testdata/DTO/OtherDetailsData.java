@@ -26,5 +26,5 @@ public class OtherDetailsData {
     private String companySubtype;
     private String UID;
     private String others;
-
+    private String registeredBy;
 }

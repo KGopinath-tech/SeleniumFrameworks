@@ -103,22 +103,22 @@ public class IdentityDetailsComponents {
 
     public void fillIdentityDetials(IdentityDetailsData data){
         clickAddButton();
-        try{
-            Thread.sleep(500);
-        }catch(Exception e){}
+        waitforSleep(500);
         selectIdType(data.getIdType());
         enterIdNumber(data.getIdNumber());
         selectIdIssueCountry(data.getIssueCountry());
         enterIdIssuePlace(data.getIssuePlace());
         selectIdIssueDate(data.getIssueDate());
         selectIdExpiryDate(data.getIdExpiryDate());
-        enterVisaNumber(data.getVisaNumber());
-        selectVisaExpDate(data.getVisaExpiryDate());
+        if(isNotBlank(data.getVisaNumber()) && isDisplayed(TXT_VISANUMBER)){
+            enterVisaNumber(data.getVisaNumber());
+        }
+        if(isNotBlank(data.getVisaExpiryDate()) && isDisplayed(CLD_VISAEXPIRYDATE)){
+            selectVisaExpDate(data.getVisaExpiryDate());
+        }
      //   enableStatus();
         uploadIdImages(data.getImagePaths());
-        try{
-            Thread.sleep(300);
-        }catch(Exception e){}
+        waitforSleep(300);
         clickSaveButton();
     }
 }

@@ -19,6 +19,7 @@ public class IndividualOtherDetailsMapper {
                 .natureOfBusiness(data.getNatureOfBusiness())
                 .natureOfBusinessSubtype(data.getNatureOfBusinessSubtype())
                 .companySubtype(data.getCompanySubtype())
+                .registeredBy(data.getRegisteredBy())
                 .referredBy(data.getReferredBy())
                 .employee(data.getEmployee())
                 .UID(data.getUID())
