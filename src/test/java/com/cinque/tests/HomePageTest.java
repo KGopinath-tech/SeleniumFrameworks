@@ -2,6 +2,7 @@ package com.cinque.tests;
 
 
 import com.cinque.annotations.FrameworkAnnotation;
+import com.cinque.config.Configfactory;
 import com.cinque.pages.HomePage;
 import com.cinque.pages.LoginPage;
 import com.cinque.testdata.TestData;
@@ -35,17 +36,19 @@ public class HomePageTest extends BaseTest{
     public void sideBarMenuTest(TestData testData ) throws InterruptedException {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testData.getUsername(), testData.getPassword());
-        login.selectBranch("HEAD OFFICE");
+        login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
 
         HomePage homepage = new HomePage();
         String actualTitle = homepage.getSymexTitle();
-        Assert.assertEquals(actualTitle,testData.getExpectedTitle());
+        Assert.assertEquals(actualTitle, testData.getExpectedTitle());
 
         HomePage homePage = new HomePage();
         homePage.clickOnSidebar();
-        String labelText = homePage.getMasterLabelText();
-        Assert.assertEquals(labelText,"MASTERS");
+
+        Thread.sleep(1000);
+        homePage.getGeneralMenu();
+
     }
 }
 

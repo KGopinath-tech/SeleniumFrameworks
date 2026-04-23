@@ -28,10 +28,15 @@ public class SeleniumUtils {
         catch(InterruptedException e){}
     }
 
+    private static final int WAIT_TIME = Math.toIntExact(Configfactory.getConfig().timeout());
 
-    public static void waitForPopupToClose() {
+    private static WebDriverWait getWait() {
+        return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIME));
+    }
+
+        public static void waitForPopupToClose() {
         try {
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(activeDialog));
+            getWait().until(ExpectedConditions.invisibilityOfElementLocated(activeDialog));
         } catch (TimeoutException e) {
             System.out.println("Popup did not close within timeout");
         }
@@ -39,7 +44,7 @@ public class SeleniumUtils {
 
     public static void waitForLoaderToDisappear() {
         try {
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+            getWait().until(ExpectedConditions.invisibilityOfElementLocated(loader));
         } catch (TimeoutException e) {
             System.out.println("Loader still visible or not present");
         }
@@ -47,11 +52,11 @@ public class SeleniumUtils {
 
     public static String waitForToastMessage() {
         try {
-            WebElement toast = wait.until(ExpectedConditions.visibilityOfElementLocated(toastMessage));
+            WebElement toast = getWait().until(ExpectedConditions.visibilityOfElementLocated(toastMessage));
             String message = toast.getText();
 
             // Wait until it disappears (optional but useful)
-            wait.until(ExpectedConditions.invisibilityOf(toast));
+            getWait().until(ExpectedConditions.invisibilityOf(toast));
 
             return message;
 
@@ -76,7 +81,7 @@ public class SeleniumUtils {
     }
 
     public static void waitForRepresentativeToBeSaved() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(
+        getWait().until(ExpectedConditions.invisibilityOfElementLocated(
                 By.xpath("//p-dialog[contains(@style,'display: block')]")
         ));
 
@@ -92,10 +97,6 @@ public class SeleniumUtils {
         return toast;
     }
 
-    static WebDriverWait wait = new WebDriverWait(
-            DriverManager.getDriver(),
-            Duration.ofSeconds(Configfactory.getConfig().timeout()));
-
     private static By dropDownsearch = By.xpath("//input[@role='searchbox']");
     private static By dropDownOptions(String value){
         return By.xpath("//li[@role='option'][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
@@ -106,18 +107,18 @@ public class SeleniumUtils {
     public static void selectMultiDropdown(By dropdown, String... values) {
 
         // 1. Open dropdown ONLY ONCE
-        WebElement dd = wait.until(ExpectedConditions.elementToBeClickable(dropdown));
+        WebElement dd = getWait().until(ExpectedConditions.elementToBeClickable(dropdown));
         dd.click();
 
         // 2. Wait for panel
         By panel = By.xpath("//div[@id='ServiceType_list']");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(panel));
+        getWait().until(ExpectedConditions.visibilityOfElementLocated(panel));
 
         for (String value : values) {
 
             // 3. Search (if available)
             try {
-                WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                WebElement search = getWait().until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//div[contains(@class,'p-multiselect-panel')]//input")
                 ));
                 search.clear();
@@ -128,7 +129,7 @@ public class SeleniumUtils {
             By option = By.xpath(
                     "//li[@role='option'][.//span[normalize-space()='" + value + "']]//div[contains(@class,'p-checkbox')]");
 
-            WebElement element = wait.until(ExpectedConditions.elementToBeClickable(option));
+            WebElement element = getWait().until(ExpectedConditions.elementToBeClickable(option));
 
             try {
                 element.click();
@@ -160,7 +161,7 @@ public class SeleniumUtils {
 
     public static void selectDropDown(By by, String value){
         click(by, CLICKABLE);
-        WebElement search = wait.until(
+        WebElement search = getWait().until(
                 ExpectedConditions.visibilityOfElementLocated(dropDownsearch)
         );
         search.clear();
@@ -169,7 +170,7 @@ public class SeleniumUtils {
         By option = By.xpath("//li[@role='option'][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
                 + value.toLowerCase() + "')]");
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(option));
+        getWait().until(ExpectedConditions.presenceOfElementLocated(option));
         WebElement element = DriverManager.getDriver().findElement(option);
         ((JavascriptExecutor)DriverManager.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
         ((JavascriptExecutor)DriverManager.getDriver()).executeScript("arguments[0].click();", element);
@@ -266,18 +267,18 @@ public class SeleniumUtils {
 
         switch (waitType) {
             case CLICKABLE:
-                return wait.until(ExpectedConditions.elementToBeClickable(by));
+                return getWait().until(ExpectedConditions.elementToBeClickable(by));
             case VISIBLE:
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+                return getWait().until(ExpectedConditions.visibilityOfElementLocated(by));
             case PRESENT:
-                return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+                return getWait().until(ExpectedConditions.presenceOfElementLocated(by));
             default:
                 throw new RuntimeException("Unsupported waiting type");
         }
     }
     public static void setToggle(By by, boolean shouldBeOn) {
 
-        WebElement toggle = wait.until(ExpectedConditions.elementToBeClickable(by));
+        WebElement toggle = getWait().until(ExpectedConditions.elementToBeClickable(by));
 
         boolean isCurrentlyOn = Boolean.parseBoolean(toggle.getAttribute("aria-checked"));
 

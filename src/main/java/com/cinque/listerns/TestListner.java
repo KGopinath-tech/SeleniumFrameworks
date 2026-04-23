@@ -2,6 +2,7 @@ package com.cinque.listerns;
 
 import com.cinque.Reports.ExtentLogger;
 import com.cinque.Reports.ExtentReport;
+import com.cinque.Reports.Extentmanager;
 import com.cinque.annotations.FrameworkAnnotation;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -14,32 +15,48 @@ public class TestListner implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        ExtentReport.createTest(result.getMethod().getDescription());
-        ExtentReport.assignAuthor(result.getMethod().getConstructorOrMethod().getMethod()
-                .getAnnotation(FrameworkAnnotation.class).author());
-        ExtentReport.assignCategory(result.getMethod().getConstructorOrMethod().getMethod()
-                .getAnnotation(FrameworkAnnotation.class).category());
+
+        String testName = result.getName();
+        ExtentReport.createTest(testName);
+
+        FrameworkAnnotation annotation = result.getMethod().getConstructorOrMethod()
+                .getMethod().getAnnotation(FrameworkAnnotation.class);
+        if (annotation != null) {
+            ExtentReport.assignAuthor(annotation.author());
+            ExtentReport.assignCategory(annotation.category());
+        }
     }
+
     @Override
     public void onTestSuccess(ITestResult result) {
-        ExtentLogger.pass(result.getName() + " is passed");
+        ExtentLogger.pass( result.getName() + " is passed");
+        Extentmanager.removeExtentTest(result.getName());
     }
+
     @Override
     public void onTestFailure(ITestResult result) {
         ExtentLogger.fail(result.getName() + " is failed");
-        ExtentLogger.fail(result.getThrowable().getMessage());
-        //ExtentLogger.fail(Arrays.toString(result.getThrowable().getStackTrace()));
+        if(result.getThrowable() != null) {
+            ExtentLogger.fail(result.getThrowable().getMessage());
+            //ExtentLogger.fail(Arrays.toString(result.getThrowable().getStackTrace()));
+        }
+        Extentmanager.removeExtentTest(result.getName());
     }
+
     @Override
     public void onStart(ITestContext context) {
         ExtentReport.initReports();
     }
+
     @Override
     public void onFinish(ITestContext context) {
         ExtentReport.flushReports();
     }
+
     @Override
     public void onTestSkipped(ITestResult result) {
-        ExtentLogger.info(result.getName() + " is skipped");
+        String testName = result.getName();
+        ExtentLogger.info(testName + " is skipped");
+        Extentmanager.removeExtentTest(testName);
     }
 }

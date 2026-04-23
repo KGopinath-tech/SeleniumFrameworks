@@ -13,7 +13,6 @@ public final class ExtentReport {
     private ExtentReport(){}
 
     public static ExtentReports extent;
-    public static ExtentTest extentTest;
 
     public static void initReports(){
 
@@ -23,14 +22,16 @@ public final class ExtentReport {
         extent = new ExtentReports();
         ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);
         extent.attachReporter(spark);
+    }
 
-    }
     public static void flushReports(){
-        extent.flush();
+        if(extent != null)
+            extent.flush();
     }
+
     public static synchronized void createTest(String testCaseName){
-         extentTest = extent.createTest(testCaseName);
-         Extentmanager.setExtentTest(extentTest);
+        ExtentTest test = extent.createTest(testCaseName);
+        Extentmanager.setExtentTest(testCaseName, test);
     }
     public static void assignAuthor(String author){
         Extentmanager.getExtentTest().assignAuthor(author);

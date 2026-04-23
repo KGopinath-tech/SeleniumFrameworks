@@ -19,7 +19,7 @@ import java.util.List;
 public class CustomerRegisterTest extends BaseTest{
 
     @FrameworkAnnotation(category = {"Smoke","Regression"})
-   // @Test(description = "Verify Individual Customer Registration",dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
+    @Test(description = "Verify Individual Customer Registration",dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
     public void registerIndividualCustomer(TestData testdata) throws InterruptedException {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());
@@ -63,7 +63,7 @@ public class CustomerRegisterTest extends BaseTest{
         Thread.sleep(60000);
     }
     @FrameworkAnnotation(category = {"Regression"}, author = "Shinitha")
-   @Test(description = "Verify Corporate Customer Registration",dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
+    @Test(description = "Verify Corporate Customer Registration",dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
     public void registerCorporateCustomer(TestData testdata) throws InterruptedException {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());

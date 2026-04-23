@@ -6,8 +6,10 @@ public final class Configfactory {
 
     private Configfactory(){}
 
+    private static final FrameworkConfig config =
+            ConfigFactory.create(FrameworkConfig.class);
 
     public static FrameworkConfig getConfig(){
-        return ConfigFactory.create(FrameworkConfig.class);
+        return config;
     }
 }
