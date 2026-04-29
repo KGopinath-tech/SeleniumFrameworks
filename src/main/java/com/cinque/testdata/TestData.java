@@ -1,15 +1,9 @@
 package com.cinque.testdata;
 
-
-import com.cinque.testdata.DTO.RepresentativeDetailsData;
-import com.cinque.utils.RepresentativeReader;
 import io.github.sskorol.data.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.slf4j.helpers.CheckReturnValue;
 
-import java.util.Collections;
-import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -23,6 +17,10 @@ public class TestData {
     private String password;
     @Column(name="expectedTitle")
     private String expectedTitle;
+    @Column(name= "toastType")
+    private String toastType;
+    @Column(name ="expectedMessages")
+    private String expectedMessage;
     //    @Column(name="number", converter = IntegerConverter.class)   //if want to read intefer value then need to provide this line
 //    public int number;
 

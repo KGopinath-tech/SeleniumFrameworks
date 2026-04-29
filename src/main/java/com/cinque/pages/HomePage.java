@@ -2,6 +2,7 @@ package com.cinque.pages;
 
 import com.cinque.driver.DriverManager;
 import com.cinque.pages.sideMenuComponent.SidebarMenuComponent;
+import static com.cinque.utils.SeleniumUtils.*;
 
 public class HomePage {
 

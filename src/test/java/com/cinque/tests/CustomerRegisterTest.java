@@ -9,9 +9,11 @@ import com.cinque.testdata.DTO.*;
 import com.cinque.testdata.TestData;
 import com.cinque.testdata.mapper.*;
 import com.cinque.utils.DataProviderUtils;
-import com.cinque.utils.RepresentativeReader;
+import com.cinque.utils.RepresentativeDataReader;
+import com.cinque.utils.MessageUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import static com.cinque.utils.SeleniumUtils.*;
 
 import java.util.List;
 
@@ -20,10 +22,10 @@ public class CustomerRegisterTest extends BaseTest{
 
     @FrameworkAnnotation(category = {"Smoke","Regression"})
     @Test(description = "Verify Individual Customer Registration",dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
-    public void registerIndividualCustomer(TestData testdata) throws InterruptedException {
+    public void registerIndividualCustomer(TestData testdata) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());
-        Thread.sleep(2000);
+        waitforSleep(1000);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
 
@@ -34,10 +36,9 @@ public class CustomerRegisterTest extends BaseTest{
         HomePage homePage = new HomePage();
         homePage.clickOnSidebar();
 
-        Thread.sleep(1000);
+        //Thread.sleep(500);
         homePage.getGeneralMenu();
         homePage.getCustomerRegistration();
-        Thread.sleep(2000);
 
         PersonalDetailsData personalData = IndividualPersonalDetailsMapper.map(testdata);
         AddressDetailsData  addressData = AddressDetailsMapper.map(testdata);
@@ -46,28 +47,27 @@ public class CustomerRegisterTest extends BaseTest{
         IdentityDetailsData identityData = IdentityDetailsMapper.map(testdata);
 
         CustomerRegistrationPage page = new CustomerRegistrationPage();
+        waitforSleep(3500);
         page.fillIndividualPersonalDetails(personalData);
         page.clickExpandButton();
-        Thread.sleep(1000);
+        waitforSleep(500);
         page.fillAddressDetails(addressData);
         page.fillEmploymentDetails(testdata.getEmployer(), testdata.getOccupation());
-        Thread.sleep(1000);
         page.fillIndividualFinancialDetails(financialData);
         page.fillIndividualOtherDetails(otherData);
         page.fillPromoDetails(testdata.getPromoCode(),testdata.getPromoExpiryDate());
-        Thread.sleep(1000);
         page.fillIdentityDetails(identityData);
-        Thread.sleep(1000);
         page.clickSaveButton();
         page.clickConfirmationSaveButton();
-        Thread.sleep(60000);
+        MessageUtils.validateMessages(testdata.getToastType(), testdata.getExpectedMessage());
+
     }
     @FrameworkAnnotation(category = {"Regression"}, author = "Shinitha")
     @Test(description = "Verify Corporate Customer Registration",dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
-    public void registerCorporateCustomer(TestData testdata) throws InterruptedException {
+    public void registerCorporateCustomer(TestData testdata) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());
-        Thread.sleep(2000);
+        waitforSleep(500);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
 
@@ -78,11 +78,9 @@ public class CustomerRegisterTest extends BaseTest{
         HomePage homePage = new HomePage();
         homePage.clickOnSidebar();
 
-        Thread.sleep(1000);
+        waitforSleep(500);
         homePage.getGeneralMenu();
         homePage.getCustomerRegistration();
-        Thread.sleep(2000);
-
 
         PersonalDetailsData corporateData = CorporatePersonalDetailsMapper.map(testdata);
         AddressDetailsData  addressData = AddressDetailsMapper.map(testdata);
@@ -91,25 +89,24 @@ public class CustomerRegisterTest extends BaseTest{
         IdentityDetailsData identityData = IdentityDetailsMapper.map(testdata);
 
         CustomerRegistrationPage page = new CustomerRegistrationPage();
+        waitforSleep(3500);
         page.selectCorporateCustomerType();
         page.fillCorporatePersonalDetails(corporateData);
         page.clickExpandButton();
-        Thread.sleep(1000);
+        //Thread.sleep(500);
         page.fillAddressDetails(addressData);
-        Thread.sleep(1000);
         page.fillCorporateFinancialDetails(financialData);
         page.fillCorporateOtherDetails(otherData);
         //page.fillPromoDetails(testdata.getPromoCode(),testdata.getPromoExpiryDate());
-        Thread.sleep(1000);
         page.fillIdentityDetails(identityData);
-        Thread.sleep(1000);
 
-        List<RepresentativeDetailsData> representatives =RepresentativeReader.RepresentativeDataReader.getRepresentatives(testdata.getTestcasename());
+        List<RepresentativeDetailsData> representatives = RepresentativeDataReader.getRepresentatives(testdata.getTestcasename());
         page.fillRepresentativeDetails(representatives);
-        Thread.sleep(10000);
+        waitforSleep(500);
         page.clickSaveButton();
         page.clickConfirmationSaveButton();
-        Thread.sleep(60000);
+        MessageUtils.validateMessages(testdata.getToastType(), testdata.getExpectedMessage());
+
     }
 
 }

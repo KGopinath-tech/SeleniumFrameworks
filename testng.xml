@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite" parallel="methods" thread-count="2" >
     <listeners>
-        <listener class-name="com.cinque.listerns.TestListner"/>
+        <listener class-name="com.cinque.listerns.TestListener"/>
     </listeners>
     <test name="SymexFrameworks">
         <classes>

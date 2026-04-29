@@ -8,6 +8,7 @@ import java.util.List;
 
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
+import static com.cinque.utils.SeleniumUtils.waitForLoaderToDisappear;
 
 public class CustomerRegistrationPage {
 
@@ -76,10 +77,16 @@ public class CustomerRegistrationPage {
     public void clickExpandButton(){
         click(BTN_EXPAND, CLICKABLE, "Expand");
     }
-    public void clickConfirmationSaveButton(){click(BTN_CONFIRMATION_SAVE, CLICKABLE);}
-    public void clickConfirmationCancelButton(){click(BTN_CONFIRMATION_CANCEL, CLICKABLE);}
+    public void clickConfirmationSaveButton(){
+        click(BTN_CONFIRMATION_SAVE, CLICKABLE);
+    }
+    public void clickConfirmationCancelButton(){
+        click(BTN_CONFIRMATION_CANCEL, CLICKABLE);
+    }
     public void selectIndividualCustomerType(){click(BTN_IND_CUSTOMER_TYPE, CLICKABLE);}
-    public void selectCorporateCustomerType(){click(BTN_CORP_CUSTOMER_TYPE, CLICKABLE);}
+    public void selectCorporateCustomerType(){
+        click(BTN_CORP_CUSTOMER_TYPE, CLICKABLE);
+    }
     public void selectVendorCustomnerType(){click(BTN_VENDOR_CUSTOMER_TYPE, CLICKABLE);}
 }
 

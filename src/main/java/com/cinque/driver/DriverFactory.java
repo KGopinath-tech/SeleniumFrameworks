@@ -1,7 +1,6 @@
 package com.cinque.driver;
 
-import com.cinque.enums.Browser;
-import io.github.bonigarcia.wdm.WebDriverManager;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -30,26 +29,6 @@ public final class DriverFactory {
         };
     }
 }
-
-//    public static WebDriver getDriver(String browserName){
-//
-//        WebDriver driver;
-//        if(browserName.equalsIgnoreCase("chrome")){
-//            WebDriverManager.chromedriver().setup();
-//            driver = new ChromeDriver();
-//        } else if (browserName.equalsIgnoreCase("firefox")){
-//            WebDriverManager.firefoxdriver().setup();
-//            driver = new FirefoxDriver();
-//        } else if  (browserName.equalsIgnoreCase("edge")){
-//            WebDriverManager.edgedriver().setup();
-//            driver= new EdgeDriver();
-//        }else {
-//            WebDriverManager.safaridriver().setup();
-//            driver = new SafariDriver();
-//        }
-//        return driver;
-//
-//    }
 
 
 

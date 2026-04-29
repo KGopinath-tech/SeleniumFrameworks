@@ -8,9 +8,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.util.Arrays;
-
-public class TestListner implements ITestListener {
+public class TestListener implements ITestListener {
 
 
     @Override

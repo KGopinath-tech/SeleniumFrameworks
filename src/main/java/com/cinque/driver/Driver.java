@@ -21,14 +21,6 @@ public final class Driver {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(config.timeout()));
         driver.get(config.url());
         DriverManager.setDriver(driver);
-
-//        String browser = Configfactory.getConfig().browser();
-//        WebDriver driver = DriverFactory.getDriver(browser);
-//        DriverManager.setDriver(driver);
-//        DriverManager.getDriver().manage().window().maximize();
-//        DriverManager.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Configfactory.getConfig().timeout()));
-//        DriverManager.getDriver().get(Configfactory.getConfig().url());
-
     }
 
     public static void quitDriver(){

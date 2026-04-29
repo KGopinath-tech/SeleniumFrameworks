@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class RepresentativeReader {
-
     public class RepresentativeDataReader {
 
         private static final String EXCEL_PATH = "src/test/resources/testdata/testdata.xlsx";
@@ -128,4 +126,3 @@ public class RepresentativeReader {
 
     }
 
-}

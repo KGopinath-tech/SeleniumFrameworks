@@ -15,12 +15,21 @@ import java.time.Duration;
 import java.util.List;
 
 import static com.cinque.enums.WaitType.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class SeleniumUtils {
 
-    protected static By activeDialog = By.xpath("//p-dialog[not(contains(@style,'display: none'))]");
-    protected static By loader = By.xpath("//div[contains(@class,'loader') or contains(@class,'spinner')]");
-    protected static By toastMessage = By.xpath("//div[contains(@class,'toast') or contains(@class,'p-toast-message')]");
+    private static final By NGX_SPINNER_TAG     = By.tagName("ngx-spinner");
+    private static final By NGX_SPINNER_OVERLAY = By.xpath(
+            "//ngx-spinner//div[contains(@class,'ngx-spinner-overlay')]");
+    private static final By PRIME_BLOCK_UI = By.xpath(
+            "//p-blockui//div[contains(@class,'p-blockui')]");
+    private static final By TOAST_MESSAGE = By.xpath(
+            "//div[contains(@class,'custom-toast')]" +
+                    " | //p-toast//div[contains(@class,'p-toast-message')]");
+    private static final By CONFIRMATION_DIALOG = By.xpath("//div[@role='dialog']");
+    private static final By CONFIRMATION_UPDATE_BTN = By.xpath("//*[contains(@class,'p-dialog')]//button[normalize-space()='Update']");
+    private static final By CONFIRMATION_CANCEL_BTN = By.xpath("//*[contains(@class,'p-dialog')]//button[normalize-space()='Cancel']");
 
 
     public static void waitforSleep(long milliseconds) {
@@ -34,69 +43,6 @@ public class SeleniumUtils {
         return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIME));
     }
 
-        public static void waitForPopupToClose() {
-        try {
-            getWait().until(ExpectedConditions.invisibilityOfElementLocated(activeDialog));
-        } catch (TimeoutException e) {
-            System.out.println("Popup did not close within timeout");
-        }
-    }
-
-    public static void waitForLoaderToDisappear() {
-        try {
-            getWait().until(ExpectedConditions.invisibilityOfElementLocated(loader));
-        } catch (TimeoutException e) {
-            System.out.println("Loader still visible or not present");
-        }
-    }
-
-    public static String waitForToastMessage() {
-        try {
-            WebElement toast = getWait().until(ExpectedConditions.visibilityOfElementLocated(toastMessage));
-            String message = toast.getText();
-
-            // Wait until it disappears (optional but useful)
-            getWait().until(ExpectedConditions.invisibilityOf(toast));
-
-            return message;
-
-        } catch (TimeoutException e) {
-            throw new RuntimeException("Toast message not displayed");
-        }
-    }
-
-    public static void safeAction(Runnable action) {
-        int attempts = 0;
-
-        while (attempts < 3) {
-            try {
-                action.run();
-                return;
-            } catch (Exception e) {
-                attempts++;
-                waitForLoaderToDisappear();
-            }
-        }
-        throw new RuntimeException("Action failed after retries");
-    }
-
-    public static void waitForRepresentativeToBeSaved() {
-        getWait().until(ExpectedConditions.invisibilityOfElementLocated(
-                By.xpath("//p-dialog[contains(@style,'display: block')]")
-        ));
-
-        waitForLoaderToDisappear(); // if loader exists
-    }
-    public static String waitForSaveToComplete() {
-
-        waitForLoaderToDisappear();   // backend processing
-        waitForPopupToClose();        // popup closes
-
-        String toast = waitForToastMessage(); // success/failure message
-
-        return toast;
-    }
-
     private static By dropDownsearch = By.xpath("//input[@role='searchbox']");
     private static By dropDownOptions(String value){
         return By.xpath("//li[@role='option'][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
@@ -107,18 +53,18 @@ public class SeleniumUtils {
     public static void selectMultiDropdown(By dropdown, String... values) {
 
         // 1. Open dropdown ONLY ONCE
-        WebElement dd = getWait().until(ExpectedConditions.elementToBeClickable(dropdown));
+        WebElement dd = getWait().until(elementToBeClickable(dropdown));
         dd.click();
 
         // 2. Wait for panel
         By panel = By.xpath("//div[@id='ServiceType_list']");
-        getWait().until(ExpectedConditions.visibilityOfElementLocated(panel));
+        getWait().until(visibilityOfElementLocated(panel));
 
         for (String value : values) {
 
             // 3. Search (if available)
             try {
-                WebElement search = getWait().until(ExpectedConditions.visibilityOfElementLocated(
+                WebElement search = getWait().until(visibilityOfElementLocated(
                         By.xpath("//div[contains(@class,'p-multiselect-panel')]//input")
                 ));
                 search.clear();
@@ -129,7 +75,7 @@ public class SeleniumUtils {
             By option = By.xpath(
                     "//li[@role='option'][.//span[normalize-space()='" + value + "']]//div[contains(@class,'p-checkbox')]");
 
-            WebElement element = getWait().until(ExpectedConditions.elementToBeClickable(option));
+            WebElement element = getWait().until(elementToBeClickable(option));
 
             try {
                 element.click();
@@ -162,10 +108,10 @@ public class SeleniumUtils {
     public static void selectDropDown(By by, String value){
         click(by, CLICKABLE);
         WebElement search = getWait().until(
-                ExpectedConditions.visibilityOfElementLocated(dropDownsearch)
+                visibilityOfElementLocated(dropDownsearch)
         );
         search.clear();
-        waitforSleep(350);
+        waitforSleep(250);
         search.sendKeys(value);
         By option = By.xpath("//li[@role='option'][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
                 + value.toLowerCase() + "')]");
@@ -229,15 +175,11 @@ public class SeleniumUtils {
 
             if (!calendars.isEmpty() && calendars.get(0).isDisplayed()) {
 
-                // Option 1: Press TAB (most stable)
-               // DriverManager.getDriver().switchTo().activeElement().sendKeys(Keys.TAB);
-
-                // Option 2 (backup): click outside if still visible
+                DriverManager.getDriver().switchTo().activeElement().sendKeys(Keys.TAB);
                 DriverManager.getDriver().findElement(By.tagName("body")).click();
             }
 
         } catch (Exception e) {
-            // Fail-safe: ignore
         }
     }
     public static void enterDate(By by, String value, WaitType waitType) {
@@ -267,9 +209,9 @@ public class SeleniumUtils {
 
         switch (waitType) {
             case CLICKABLE:
-                return getWait().until(ExpectedConditions.elementToBeClickable(by));
+                return getWait().until(elementToBeClickable(by));
             case VISIBLE:
-                return getWait().until(ExpectedConditions.visibilityOfElementLocated(by));
+                return getWait().until(visibilityOfElementLocated(by));
             case PRESENT:
                 return getWait().until(ExpectedConditions.presenceOfElementLocated(by));
             default:
@@ -278,7 +220,7 @@ public class SeleniumUtils {
     }
     public static void setToggle(By by, boolean shouldBeOn) {
 
-        WebElement toggle = getWait().until(ExpectedConditions.elementToBeClickable(by));
+        WebElement toggle = getWait().until(elementToBeClickable(by));
 
         boolean isCurrentlyOn = Boolean.parseBoolean(toggle.getAttribute("aria-checked"));
 
