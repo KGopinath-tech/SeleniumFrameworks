@@ -1,7 +1,6 @@
 package com.cinque.pages.commonregistration;
 
-import com.cinque.testdata.DTO.PersonalDetailsData;
-import com.cinque.testdata.TestData;
+import com.cinque.testdata.DTO.customerregisterdata.PersonalDetailsData;
 import org.openqa.selenium.By;
 
 import static com.cinque.enums.WaitType.*;

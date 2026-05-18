@@ -31,8 +31,7 @@ public class HomePageTest extends BaseTest{
 
     }
     @FrameworkAnnotation(category = "Integration")
-    @Test(description = "To check whether sidebar working to access menus", dataProvider = "getData",
-            dataProviderClass = DataProviderUtils.class)
+    @Test(description = "To check whether sidebar working to access menus", dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
     public void sideBarMenuTest(TestData testData ) throws InterruptedException {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testData.getUsername(), testData.getPassword());

@@ -8,7 +8,8 @@
         <classes>
 <!--            <class name="com.cinque.tests.HomePageTest"/>-->
 <!--               <class name="com.cinque.tests.DummyTest"/>-->
-            <class name="com.cinque.tests.CustomerRegisterTest"/>
+<!--            <class name="com.cinque.tests.CustomerRegisterTest"/>-->
+            <class name="com.cinque.tests.OutwardRemittanceTest"></class>
         </classes>
     </test>
 </suite>

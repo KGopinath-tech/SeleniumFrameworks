@@ -1,6 +1,6 @@
-package com.cinque.testdata.mapper;
+package com.cinque.testdata.mapper.customerregistermapper;
 
-import com.cinque.testdata.DTO.AddressDetailsData;
+import com.cinque.testdata.DTO.customerregisterdata.AddressDetailsData;
 import com.cinque.testdata.TestData;
 
 public class AddressDetailsMapper {

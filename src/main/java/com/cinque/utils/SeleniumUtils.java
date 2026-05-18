@@ -19,7 +19,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class SeleniumUtils {
 
-    private static final By NGX_SPINNER_TAG     = By.tagName("ngx-spinner");
+    private static final By NGX_SPINNER_TAG = By.tagName("ngx-spinner");
     private static final By NGX_SPINNER_OVERLAY = By.xpath(
             "//ngx-spinner//div[contains(@class,'ngx-spinner-overlay')]");
     private static final By PRIME_BLOCK_UI = By.xpath(
@@ -33,8 +33,10 @@ public class SeleniumUtils {
 
 
     public static void waitforSleep(long milliseconds) {
-        try{Thread.sleep(milliseconds);}
-        catch(InterruptedException e){}
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+        }
     }
 
     private static final int WAIT_TIME = Math.toIntExact(Configfactory.getConfig().timeout());
@@ -44,7 +46,8 @@ public class SeleniumUtils {
     }
 
     private static By dropDownsearch = By.xpath("//input[@role='searchbox']");
-    private static By dropDownOptions(String value){
+
+    private static By dropDownOptions(String value) {
         return By.xpath("//li[@role='option'][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
                 + value.toLowerCase() + "')]");
         //By.xpath("//li[@role='option']//span[contains(normalize-space(),'" + value.toUpperCase() + "')]");
@@ -69,7 +72,8 @@ public class SeleniumUtils {
                 ));
                 search.clear();
                 search.sendKeys(value);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
 
             // 4. Select checkbox option (IMPORTANT: not span click sometimes)
             By option = By.xpath(
@@ -87,6 +91,7 @@ public class SeleniumUtils {
         // 5. Close dropdown (VERY IMPORTANT)
         DriverManager.getDriver().findElement(By.xpath("//body")).click();
     }
+
     public static void selectDropdown(By dropdown, String... values) {
 
         if (DriverManager.getDriver().findElements(By.xpath("//p-multiselect")).size() > 0) {
@@ -99,13 +104,13 @@ public class SeleniumUtils {
     }
 
     public static String[] toArray(String data) {
-            if (data == null || data.trim().isEmpty()) {
-                return new String[0];
-            }
-            return data.split(",");
+        if (data == null || data.trim().isEmpty()) {
+            return new String[0];
         }
+        return data.split(",");
+    }
 
-    public static void selectDropDown(By by, String value){
+    public static void selectDropDown(By by, String value) {
         click(by, CLICKABLE);
         WebElement search = getWait().until(
                 visibilityOfElementLocated(dropDownsearch)
@@ -118,10 +123,11 @@ public class SeleniumUtils {
 
         getWait().until(ExpectedConditions.presenceOfElementLocated(option));
         WebElement element = DriverManager.getDriver().findElement(option);
-        ((JavascriptExecutor)DriverManager.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-        ((JavascriptExecutor)DriverManager.getDriver()).executeScript("arguments[0].click();", element);
+        ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+        ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].click();", element);
 
     }
+
     public static void selectDropdownWithRetry(By by, String value) {
 
         int attempts = 0;
@@ -132,19 +138,19 @@ public class SeleniumUtils {
                 return;
             } catch (Exception e) {
                 attempts++;
-                System.out.println("Retrying "+by+" dropdown: " + value);
+                System.out.println("Retrying " + by + " dropdown: " + value);
             }
         }
 
         throw new RuntimeException("Dropdown selection failed for: " + value);
     }
 
-    public static void selectDropdown(By dropdown, String value){
+    public static void selectDropdown(By dropdown, String value) {
         click(dropdown, CLICKABLE);
         click(dropDownOptions(value.trim()), CLICKABLE);
     }
 
-    public static boolean isNotBlank(String value){
+    public static boolean isNotBlank(String value) {
         return StringUtils.isNotBlank(value);
     }
 
@@ -153,12 +159,13 @@ public class SeleniumUtils {
         element.click();
         ExtentLogger.info(elementName + " clicked successfully");
     }
+
     public static void click(By by, WaitType waitType) {
         WebElement element = waitFor(by, waitType);
         element.click();
     }
 
-    public static void sendKeys(By by, String value, WaitType waitType, String elementname){
+    public static void sendKeys(By by, String value, WaitType waitType, String elementname) {
 
         WebElement element = waitFor(by, waitType);
         if (value == null) {
@@ -166,8 +173,9 @@ public class SeleniumUtils {
         }
         element.clear();
         element.sendKeys(value);
-        ExtentLogger.info(value+ " is entered successfully in " +elementname);
+        ExtentLogger.info(value + " is entered successfully in " + elementname);
     }
+
     private static void handleCalendarIfPresent() {
         try {
             List<WebElement> calendars = DriverManager.getDriver()
@@ -182,29 +190,33 @@ public class SeleniumUtils {
         } catch (Exception e) {
         }
     }
+
     public static void enterDate(By by, String value, WaitType waitType) {
         WebElement element = waitFor(by, waitType);
         element.clear();
         element.sendKeys(value);
         element.sendKeys(Keys.TAB);
     }
-    public static void select(WebElement element, String elementName, String userInput, SelectionType selectType){
+
+    public static void select(WebElement element, String elementName, String userInput, SelectionType selectType) {
         Select select = new Select(element);
-        if(selectType == selectType.VALUE)
-        select.selectByValue(userInput);
+        if (selectType == selectType.VALUE)
+            select.selectByValue(userInput);
         else if (selectType == selectType.INDEX) {
             select.selectByIndex(Integer.parseInt(userInput));
         } else if (selectType == selectType.VISIBLE_TEXT) {
             select.selectByVisibleText(userInput);
-        }else if (selectType == selectType.CONTAIN_TEXT){
+        } else if (selectType == selectType.CONTAIN_TEXT) {
             select.selectByContainsVisibleText(userInput);
         }
-        ExtentLogger.info(elementName+ " is selected successfully");
+        ExtentLogger.info(elementName + " is selected successfully");
     }
+
     public static boolean isDisplayed(By by) {
-       return DriverManager.getDriver().findElement(by).isDisplayed();
+        return DriverManager.getDriver().findElement(by).isDisplayed();
 
     }
+
     private static WebElement waitFor(By by, WaitType waitType) {
 
         switch (waitType) {
@@ -218,14 +230,73 @@ public class SeleniumUtils {
                 throw new RuntimeException("Unsupported waiting type");
         }
     }
-    public static void setToggle(By by, boolean shouldBeOn) {
+
+    public static void setToggle(By by, boolean desiredState) {
 
         WebElement toggle = getWait().until(elementToBeClickable(by));
 
-        boolean isCurrentlyOn = Boolean.parseBoolean(toggle.getAttribute("aria-checked"));
+        boolean currentState = getToggleState(toggle);
+        System.out.println("[Toggle] Current: " + currentState + " → Desired: " + desiredState);
 
-        if (isCurrentlyOn != shouldBeOn) {
-            toggle.click();
+        // Step 2: Only click if state needs to change
+        if (currentState == desiredState) {
+            System.out.println("[Toggle] Already in desired state — skipping click.");
+            return;
         }
+
+        toggle.click();
+
+        // 🔍 TEMPORARY DEBUG — paste this right after toggle.click()
+        WebElement debug = DriverManager.getDriver().findElement(by);
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+
+        System.out.println("=== TOGGLE DEBUG ===");
+        System.out.println("isSelected()         : " + debug.isSelected());
+        System.out.println("attr[checked]        : " + debug.getAttribute("checked"));
+        System.out.println("attr[aria-checked]   : " + debug.getAttribute("aria-checked"));
+        System.out.println("attr[class]          : " + debug.getAttribute("class"));
+        System.out.println("attr[data-checked]   : " + debug.getAttribute("data-checked"));
+        System.out.println("JS .checked          : " + js.executeScript("return arguments[0].checked;", debug));
+        System.out.println("JS .value            : " + js.executeScript("return arguments[0].value;", debug));
+        System.out.println("tagName              : " + debug.getTagName());
+        System.out.println("====================");
+
+        try {
+            getWait().until(driver1 -> {
+                // ✅ Re-locate fresh element every poll — avoids stale reference
+                WebElement freshToggle = driver1.findElement(by);
+                return getToggleState(freshToggle) == desiredState;
+            });
+            System.out.println("[Toggle] Successfully switched to: " + desiredState);
+
+        } catch (TimeoutException e) {
+            // ✅ Take actual state at timeout — gives meaningful error
+            WebElement freshToggle = DriverManager.getDriver().findElement(by);
+            boolean actualState = getToggleState(freshToggle);
+            throw new IllegalStateException(
+                    String.format("[Toggle] Failed! Desired: %s | Actual: %s | Locator: %s",
+                            desiredState, actualState, by)
+            );
+        }
+
+    }
+    private static boolean getToggleState(WebElement element) {
+        // Strategy 1: Live JS property (most reliable for custom toggles)
+        Object prop = ((JavascriptExecutor) DriverManager.getDriver())
+                .executeScript("return arguments[0].checked;", element);
+        if (prop != null) {
+            return Boolean.TRUE.equals(prop);
+        }
+
+        // Strategy 2: aria-checked (for ARIA-based toggles)
+        String ariaChecked = element.getAttribute("aria-checked");
+        if (ariaChecked != null) {
+            return "true".equalsIgnoreCase(ariaChecked);
+        }
+
+        // Strategy 3: Fallback to Selenium native
+        return element.isSelected();
     }
 }
+
+

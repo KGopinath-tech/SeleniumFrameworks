@@ -1,4 +1,4 @@
-package com.cinque.testdata.DTO;
+package com.cinque.testdata.DTO.customerregisterdata;
 
 import lombok.Builder;
 import lombok.Getter;

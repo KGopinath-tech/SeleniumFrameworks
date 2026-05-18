@@ -1,6 +1,6 @@
 package com.cinque.pages.commonregistration;
 
-import com.cinque.testdata.DTO.FinancialDetailsData;
+import com.cinque.testdata.DTO.customerregisterdata.FinancialDetailsData;
 import org.openqa.selenium.By;
 
 import static com.cinque.enums.WaitType.CLICKABLE;

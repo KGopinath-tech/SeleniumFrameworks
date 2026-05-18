@@ -5,9 +5,9 @@ import com.cinque.config.Configfactory;
 import com.cinque.pages.CustomerRegistrationPage;
 import com.cinque.pages.HomePage;
 import com.cinque.pages.LoginPage;
-import com.cinque.testdata.DTO.*;
+import com.cinque.testdata.DTO.customerregisterdata.*;
 import com.cinque.testdata.TestData;
-import com.cinque.testdata.mapper.*;
+import com.cinque.testdata.mapper.customerregistermapper.*;
 import com.cinque.utils.DataProviderUtils;
 import com.cinque.utils.RepresentativeDataReader;
 import com.cinque.utils.MessageUtils;
@@ -29,25 +29,23 @@ public class CustomerRegisterTest extends BaseTest{
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
 
-        HomePage homepage = new HomePage();
-        String actualTitle = homepage.getSymexTitle();
+        HomePage homePage = new HomePage();
+        String actualTitle = homePage.getSymexTitle();
         Assert.assertEquals(actualTitle, testdata.getExpectedTitle());
 
-        HomePage homePage = new HomePage();
         homePage.clickOnSidebar();
-
         //Thread.sleep(500);
         homePage.getGeneralMenu();
         homePage.getCustomerRegistration();
 
         PersonalDetailsData personalData = IndividualPersonalDetailsMapper.map(testdata);
-        AddressDetailsData  addressData = AddressDetailsMapper.map(testdata);
+        AddressDetailsData addressData = AddressDetailsMapper.map(testdata);
         FinancialDetailsData financialData = FinancialDetailsMapper.map(testdata);
         OtherDetailsData otherData = IndividualOtherDetailsMapper.map(testdata);
         IdentityDetailsData identityData = IdentityDetailsMapper.map(testdata);
 
-        CustomerRegistrationPage page = new CustomerRegistrationPage();
         waitforSleep(3500);
+        CustomerRegistrationPage page = new CustomerRegistrationPage();
         page.fillIndividualPersonalDetails(personalData);
         page.clickExpandButton();
         waitforSleep(500);
@@ -71,13 +69,11 @@ public class CustomerRegisterTest extends BaseTest{
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
 
-        HomePage homepage = new HomePage();
-        String actualTitle = homepage.getSymexTitle();
+        HomePage homePage = new HomePage();
+        String actualTitle = homePage.getSymexTitle();
         Assert.assertEquals(actualTitle, testdata.getExpectedTitle());
 
-        HomePage homePage = new HomePage();
         homePage.clickOnSidebar();
-
         waitforSleep(500);
         homePage.getGeneralMenu();
         homePage.getCustomerRegistration();
@@ -88,12 +84,12 @@ public class CustomerRegisterTest extends BaseTest{
         OtherDetailsData otherData = CorporateOtherDetailsMapper.map(testdata);
         IdentityDetailsData identityData = IdentityDetailsMapper.map(testdata);
 
-        CustomerRegistrationPage page = new CustomerRegistrationPage();
         waitforSleep(3500);
+        CustomerRegistrationPage page = new CustomerRegistrationPage();
         page.selectCorporateCustomerType();
         page.fillCorporatePersonalDetails(corporateData);
         page.clickExpandButton();
-        //Thread.sleep(500);
+        waitforSleep(500);
         page.fillAddressDetails(addressData);
         page.fillCorporateFinancialDetails(financialData);
         page.fillCorporateOtherDetails(otherData);

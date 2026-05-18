@@ -1,6 +1,6 @@
 package com.cinque.pages.commonregistration;
 
-import com.cinque.testdata.DTO.AddressDetailsData;
+import com.cinque.testdata.DTO.customerregisterdata.AddressDetailsData;
 import org.openqa.selenium.By;
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;

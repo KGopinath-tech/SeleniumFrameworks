@@ -3,6 +3,7 @@ package com.cinque.utils;
 import com.cinque.config.Configfactory;
 import com.cinque.driver.DriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,30 +21,38 @@ public class MessageUtils {
             "//div[contains(@class,'toast')]");
     private static final int WAIT_TIME = Math.toIntExact(Configfactory.getConfig().timeout());
     private static final By NGX_SPINNER_TAG     = By.tagName("ngx-spinner");
+    private static final Duration SPINNER_APPEAR_TIMEOUT    = Duration.ofSeconds(5);
+    private static final Duration SPINNER_DISAPPEAR_TIMEOUT = Duration.ofSeconds(30);
 
     private static WebDriverWait getWait() {
         return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIME));
     }
 
-    private static void waitForNgxSpinner() {
+    public static void waitForNgxSpinner() {
         WebDriver driver = DriverManager.getDriver();
-        WebDriverWait wait = getWait();
+        WebDriverWait appearWait    = new WebDriverWait(driver, SPINNER_APPEAR_TIMEOUT);
+        WebDriverWait disappearWait = new WebDriverWait(driver, SPINNER_DISAPPEAR_TIMEOUT);
 
+        boolean spinnerAppeared = false;
         try {
-            // Wait briefly for spinner to appear (optional)
-            wait.withTimeout(Duration.ofSeconds(2))
-                    .until(ExpectedConditions.presenceOfElementLocated(NGX_SPINNER_TAG));
-        } catch (Exception ignored) {
-            // Spinner never appeared → continue
+            appearWait.until(ExpectedConditions.visibilityOfElementLocated(NGX_SPINNER_TAG));
+            spinnerAppeared = true;
+            System.out.println("Spinner Loader Detected — waiting for it to disappear...");
+        } catch (TimeoutException ignored) {
+            // Spinner never became visible → nothing to wait for
+            System.out.println("Spinner Loader Did not appear — skipping wait.");
         }
-
-        try {
-            // Now wait until ALL spinners disappear
-            wait.until(ExpectedConditions.invisibilityOfAllElements(
-                    driver.findElements(NGX_SPINNER_TAG)
-            ));
-        } catch (Exception e) {
-            System.out.println("Spinner still visible or not found, continuing...");
+        if (spinnerAppeared) {
+            try {
+                // invisibilityOfElementLocated works even if element leaves DOM entirely
+                disappearWait.until(
+                        ExpectedConditions.invisibilityOfElementLocated(NGX_SPINNER_TAG)
+                );
+                System.out.println("Spinner disappeared — proceeding.");
+            } catch (TimeoutException e) {
+                System.out.println("WARNING: Spinner Loader Still visible after "
+                        + SPINNER_DISAPPEAR_TIMEOUT.getSeconds() + "s — proceeding anyway.");
+            }
         }
     }
 

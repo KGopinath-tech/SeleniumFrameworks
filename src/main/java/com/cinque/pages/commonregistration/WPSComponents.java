@@ -1,6 +1,6 @@
 package com.cinque.pages.commonregistration;
 
-import com.cinque.testdata.DTO.WPSDetailsData;
+import com.cinque.testdata.DTO.customerregisterdata.WPSDetailsData;
 import org.openqa.selenium.By;
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
@@ -64,6 +64,8 @@ public class WPSComponents {
     private void enterAtmCharge(String atmCharge) {
         sendKeys(TXT_ATM_CHARGE, atmCharge, CLICKABLE, "ATM Charge");
     }
+
+
     public void fillWPSDetails(WPSDetailsData data){
         enterMOLID(data.getMOLId());
         enterVAT_GIBAN(data.getVATGiban());

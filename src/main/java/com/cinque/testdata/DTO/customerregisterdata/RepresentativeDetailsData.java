@@ -1,6 +1,5 @@
-package com.cinque.testdata.DTO;
+package com.cinque.testdata.DTO.customerregisterdata;
 
-import io.github.sskorol.data.Column;
 import lombok.*;
 
 import java.util.List;

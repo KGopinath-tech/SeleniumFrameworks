@@ -1,7 +1,7 @@
 package com.cinque.pages.commonregistration;
 
 import com.cinque.driver.DriverManager;
-import com.cinque.testdata.DTO.RepresentativeDetailsData;
+import com.cinque.testdata.DTO.customerregisterdata.RepresentativeDetailsData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

@@ -1,7 +1,7 @@
 package com.cinque.utils;
 
 
-import com.cinque.testdata.DTO.RepresentativeDetailsData;
+import com.cinque.testdata.DTO.customerregisterdata.RepresentativeDetailsData;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 

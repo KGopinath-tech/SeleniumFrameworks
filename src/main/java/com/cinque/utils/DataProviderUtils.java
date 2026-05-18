@@ -1,5 +1,6 @@
 package com.cinque.utils;
 
+import com.cinque.testdata.OutwardRemittanceTestData;
 import com.cinque.testdata.TestData;
 import io.github.sskorol.core.DataSupplier;
 import io.github.sskorol.data.TestDataReader;
@@ -18,6 +19,15 @@ public class DataProviderUtils {
         String testcaseName = method.getName();
         return TestDataReader.use(XlsxReader.class).withTarget(TestData.class)
                 .withSource("testdata/testdata.xlsx")
+                .read().filter(testdata -> testdata.getTestcasename().equalsIgnoreCase(testcaseName));
+    }
+
+    @DataSupplier
+    public StreamEx<OutwardRemittanceTestData> getOutwardData(Method method) {
+
+        String testcaseName = method.getName();
+        return TestDataReader.use(XlsxReader.class).withTarget(OutwardRemittanceTestData.class)
+                .withSource("testdata/outwardtestdata.xlsx")
                 .read().filter(testdata -> testdata.getTestcasename().equalsIgnoreCase(testcaseName));
     }
 }

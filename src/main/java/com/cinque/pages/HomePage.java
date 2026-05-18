@@ -18,9 +18,6 @@ public class HomePage {
     public void clickOnSidebar() {
         sidebarMenuComponent.getSideMenu();
     }
-    public String  getMasterLabelText(){
-        return sidebarMenuComponent.getLabelText();
-    }
     public void getGeneralMenu(){ sidebarMenuComponent.getGeneralMenu();}
     public void getCustomerRegistration(){
         sidebarMenuComponent.getCustomerRegistration();

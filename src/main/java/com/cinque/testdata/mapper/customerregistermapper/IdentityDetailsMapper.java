@@ -1,6 +1,6 @@
-package com.cinque.testdata.mapper;
+package com.cinque.testdata.mapper.customerregistermapper;
 
-import com.cinque.testdata.DTO.IdentityDetailsData;
+import com.cinque.testdata.DTO.customerregisterdata.IdentityDetailsData;
 import com.cinque.testdata.TestData;
 
 import java.util.Arrays;

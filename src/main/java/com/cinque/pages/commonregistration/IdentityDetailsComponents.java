@@ -1,15 +1,12 @@
 package com.cinque.pages.commonregistration;
 
 import com.cinque.driver.DriverManager;
-import com.cinque.pages.CustomerRegistrationPage;
-import com.cinque.testdata.DTO.IdentityDetailsData;
+import com.cinque.testdata.DTO.customerregisterdata.IdentityDetailsData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;

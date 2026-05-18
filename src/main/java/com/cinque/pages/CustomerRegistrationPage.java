@@ -1,14 +1,11 @@
 package com.cinque.pages;
 
 import com.cinque.pages.commonregistration.*;
-import com.cinque.testdata.DTO.*;
+import com.cinque.testdata.DTO.customerregisterdata.*;
 import org.openqa.selenium.By;
-
 import java.util.List;
-
 import static com.cinque.enums.WaitType.*;
 import static com.cinque.utils.SeleniumUtils.*;
-import static com.cinque.utils.SeleniumUtils.waitForLoaderToDisappear;
 
 public class CustomerRegistrationPage {
 
