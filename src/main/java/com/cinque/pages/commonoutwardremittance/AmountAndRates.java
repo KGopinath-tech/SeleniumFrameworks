@@ -37,6 +37,7 @@ public class AmountAndRates {
     }
 
     public void fillOutwardAmountDetails(AmountAndRatesData data){
+        waitForSleep(1000);
         enterFCAmount(data.getFcamount());
         waitForNgxSpinner();
         if(isNotBlank(data.getLcamount())){
@@ -51,7 +52,8 @@ public class AmountAndRates {
         if(isNotBlank(data.getDiscount())) {
             enterDiscount(data.getDiscount());
         }
-        waitforSleep(250);
+        waitForSleep(250);
         selectPayMode(data.getPaymode());
+        waitForNgxSpinner();
     }
 }

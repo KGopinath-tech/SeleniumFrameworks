@@ -72,30 +72,30 @@ public class SidebarMenuComponent {
 
     public void getSpecialRateScreenMenu(){
         getTransactionMenu();
-        waitforSleep(350);
+        waitForSleep(350);
         getGeneralMenu();
-        waitforSleep(350);
+        waitForSleep(350);
         click(GEN_SPECIAL_RATE_MENU,  CLICKABLE);
     }
     public void getOutwardRemittanceMenu(){
         getTransactionMenu();
-        waitforSleep(350);
+        waitForSleep(350);
         getOutwardMenu();
-        waitforSleep(450);
+        waitForSleep(450);
         click(OUT_OUTWARD_REMITTANCE_MENU,  CLICKABLE);
     }
     public void getRefundStopPaymentMenu(){
         getTransactionMenu();
-        waitforSleep(350);
+        waitForSleep(350);
         getOutwardMenu();
-        waitforSleep(450);
+        waitForSleep(450);
         click(OUT_REFUND_MENU,  CLICKABLE);
     }
     public void getAmendmentMenu(){
         getTransactionMenu();
-        waitforSleep(350);
+        waitForSleep(350);
         getOutwardMenu();
-        waitforSleep(450);
+        waitForSleep(450);
         click(OUT_AMENDMENT_MENU,  CLICKABLE);
     }
 

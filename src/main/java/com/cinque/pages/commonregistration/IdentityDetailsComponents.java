@@ -100,7 +100,7 @@ public class IdentityDetailsComponents {
 
     public void fillIdentityDetials(IdentityDetailsData data){
         clickAddButton();
-        waitforSleep(500);
+        waitForSleep(500);
         selectIdType(data.getIdType());
         enterIdNumber(data.getIdNumber());
         selectIdIssueCountry(data.getIssueCountry());
@@ -115,7 +115,7 @@ public class IdentityDetailsComponents {
         }
      //   enableStatus();
         uploadIdImages(data.getImagePaths());
-        waitforSleep(300);
+        waitForSleep(300);
         clickSaveButton();
     }
 }

@@ -15,6 +15,10 @@ public class OutwardRemittanceTestData {
     private String username;
     @Column(name="password")
     private String password;
+    @Column(name= "toastType")
+    private String toastType;
+    @Column(name ="expectedMessages")
+    private String expectedMessage;
 
     //Product Section
     @Column(name="country")

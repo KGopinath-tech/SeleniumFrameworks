@@ -4,6 +4,8 @@ import static com.cinque.enums.WaitType.*;
 
 import com.cinque.testdata.DTO.outwardremittancedata.ReceiverInformationData;
 import org.openqa.selenium.By;
+
+import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
 import static com.cinque.utils.SeleniumUtils.*;
 
 public class ReceiverInformation {
@@ -60,6 +62,8 @@ public class ReceiverInformation {
         sendKeys(TXT_RECEIVER_MOBILE_NUMBER, receiverMobileNumber, CLICKABLE , "Receiver Mobile Number");
     }
     private void selectIdType(String receiverIdType) {
+        waitForSleep(1000);
+        waitForNgxSpinner();
         selectDropdown(DRP_RECEIVER_IDTYPE, receiverIdType);
     }
     private void eneterReceiverIdNumber(String receiverIdNumber) {

@@ -25,7 +25,7 @@ public class CustomerRegisterTest extends BaseTest{
     public void registerIndividualCustomer(TestData testdata) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());
-        waitforSleep(1000);
+        waitForSleep(1000);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
 
@@ -44,11 +44,11 @@ public class CustomerRegisterTest extends BaseTest{
         OtherDetailsData otherData = IndividualOtherDetailsMapper.map(testdata);
         IdentityDetailsData identityData = IdentityDetailsMapper.map(testdata);
 
-        waitforSleep(3500);
+        waitForSleep(3500);
         CustomerRegistrationPage page = new CustomerRegistrationPage();
         page.fillIndividualPersonalDetails(personalData);
         page.clickExpandButton();
-        waitforSleep(500);
+        waitForSleep(500);
         page.fillAddressDetails(addressData);
         page.fillEmploymentDetails(testdata.getEmployer(), testdata.getOccupation());
         page.fillIndividualFinancialDetails(financialData);
@@ -65,7 +65,7 @@ public class CustomerRegisterTest extends BaseTest{
     public void registerCorporateCustomer(TestData testdata) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());
-        waitforSleep(500);
+        waitForSleep(500);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
 
@@ -74,7 +74,7 @@ public class CustomerRegisterTest extends BaseTest{
         Assert.assertEquals(actualTitle, testdata.getExpectedTitle());
 
         homePage.clickOnSidebar();
-        waitforSleep(500);
+        waitForSleep(500);
         homePage.getGeneralMenu();
         homePage.getCustomerRegistration();
 
@@ -84,12 +84,12 @@ public class CustomerRegisterTest extends BaseTest{
         OtherDetailsData otherData = CorporateOtherDetailsMapper.map(testdata);
         IdentityDetailsData identityData = IdentityDetailsMapper.map(testdata);
 
-        waitforSleep(3500);
+        waitForSleep(3500);
         CustomerRegistrationPage page = new CustomerRegistrationPage();
         page.selectCorporateCustomerType();
         page.fillCorporatePersonalDetails(corporateData);
         page.clickExpandButton();
-        waitforSleep(500);
+        waitForSleep(500);
         page.fillAddressDetails(addressData);
         page.fillCorporateFinancialDetails(financialData);
         page.fillCorporateOtherDetails(otherData);
@@ -98,7 +98,7 @@ public class CustomerRegisterTest extends BaseTest{
 
         List<RepresentativeDetailsData> representatives = RepresentativeDataReader.getRepresentatives(testdata.getTestcasename());
         page.fillRepresentativeDetails(representatives);
-        waitforSleep(500);
+        waitForSleep(500);
         page.clickSaveButton();
         page.clickConfirmationSaveButton();
         MessageUtils.validateMessages(testdata.getToastType(), testdata.getExpectedMessage());

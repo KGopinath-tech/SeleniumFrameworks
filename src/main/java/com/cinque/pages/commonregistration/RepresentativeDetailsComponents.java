@@ -171,7 +171,7 @@ public class RepresentativeDetailsComponents {
         //enablePep();
         //enableStatus();
         clickPopupSave();
-        waitforSleep(650);
+        waitForSleep(650);
     }
     public void fillMultipleRepresentativeDetails(List<RepresentativeDetailsData> dataList) {
         if (dataList == null || dataList.isEmpty()) {

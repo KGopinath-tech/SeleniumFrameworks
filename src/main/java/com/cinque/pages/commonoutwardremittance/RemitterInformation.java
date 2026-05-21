@@ -46,8 +46,9 @@ public class RemitterInformation {
 
     public void fillRemitterInformation(RemitterInformationData data){
         enterRemSearch(data.getRemitterid());
+        waitForSleep(350);
         clickSearchButton();
-        waitforSleep(350);
+        waitForSleep(350);
         waitForNgxSpinner();
         if(isDisplayed(BTN_POPUP_CLOSE)){
             clickonCloseButton();
@@ -61,6 +62,5 @@ public class RemitterInformation {
         selectPurposeOfTransfer(data.getPurposeoftransfer());
         selectSourceOfIncome(data.getSourceofincome());
         selectThirdParty();
-
     }
 }

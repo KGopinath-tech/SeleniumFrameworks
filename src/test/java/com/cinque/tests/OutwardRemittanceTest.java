@@ -8,10 +8,10 @@ import com.cinque.testdata.DTO.outwardremittancedata.*;
 import com.cinque.testdata.OutwardRemittanceTestData;
 import com.cinque.testdata.mapper.outwardremittancemapper.*;
 import com.cinque.utils.DataProviderUtils;
+import com.cinque.utils.MessageUtils;
 import org.testng.annotations.Test;
 
-import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
-import static com.cinque.utils.SeleniumUtils.waitforSleep;
+import static com.cinque.utils.SeleniumUtils.waitForSleep;
 
 public class OutwardRemittanceTest extends BaseTest {
 
@@ -20,32 +20,32 @@ public class OutwardRemittanceTest extends BaseTest {
     public void InitiateOutwardRemittanceTTSale(OutwardRemittanceTestData testData) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testData.getUsername(), testData.getPassword());
-        waitforSleep(1000);
+        waitForSleep(1000);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
-        waitforSleep(2000);
+        waitForSleep(2000);
         OutwardRemittancePage  outwardRemittancePage = new OutwardRemittancePage();
         outwardRemittancePage.getOuwardemittanceScreen();
-        waitforSleep(5000);
+        waitForSleep(3000);
 
         ProductSectionData productSectionData = ProductSectionMapper.map(testData);
         AmountAndRatesData amountAndRatesData = AmountAndRatesMapper.map(testData);
         RemitterInformationData remitterData = RemitterInformationMapper.map(testData);
-        ReceiverInformationData ReceiverData = ReceiverInformationMapper.map(testData);
+        ReceiverInformationData receiverData = ReceiverInformationMapper.map(testData);
         ComplianceInformationData complianceData = ComplianceInformationMapper.map(testData);
 
         outwardRemittancePage.fillProductSectionDetails(productSectionData);
-        waitforSleep(1000);
+        waitForSleep(1000);
         outwardRemittancePage.fillAmountAndRates(amountAndRatesData);
-        waitforSleep(1000);
+        waitForSleep(1000);
         outwardRemittancePage.fillRemitterInformation(remitterData);
-        waitforSleep(2000);
-        outwardRemittancePage.fillReceiverInformation(ReceiverData);
-        waitforSleep(1000);
+        //waitForSleep(1000);
+        outwardRemittancePage.fillReceiverInformation(receiverData);
+        waitForSleep(1000);
         outwardRemittancePage.fillComplianceDetails(complianceData);
-        waitforSleep(1000);
+        waitForSleep(1000);
         outwardRemittancePage.clickOnSave();
-        waitforSleep(1000);
-
+        MessageUtils.validateMessages(testData.getToastType(), testData.getExpectedMessage());
+        waitForSleep(1000);
     }
 }
