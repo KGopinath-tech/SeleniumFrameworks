@@ -1,11 +1,11 @@
 package com.cinque.testdata.mapper.customerregistermapper;
 
 import com.cinque.testdata.DTO.customerregisterdata.OtherDetailsData;
-import com.cinque.testdata.TestData;
+import com.cinque.testdata.CustomerRegisterTestData;
 
 public class CorporateOtherDetailsMapper {
 
-    public static OtherDetailsData map (TestData data){
+    public static OtherDetailsData map (CustomerRegisterTestData data){
         return OtherDetailsData.builder().CBBusinessActivity(data.getCBBusinessActivity())
                 .remarks(data.getRemarks())
                 .companyLegalStatus(data.getCompanyLegalStatus())

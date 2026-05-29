@@ -5,7 +5,7 @@ import com.cinque.annotations.FrameworkAnnotation;
 import com.cinque.config.Configfactory;
 import com.cinque.pages.HomePage;
 import com.cinque.pages.LoginPage;
-import com.cinque.testdata.TestData;
+import com.cinque.testdata.CustomerRegisterTestData;
 import com.cinque.utils.DataProviderUtils;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -16,7 +16,7 @@ public class HomePageTest extends BaseTest{
 
     @FrameworkAnnotation(category = {"Smoke","Regression"})
     @Test(description = "To check Symex Title", dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
-    public void titleValidationTest(TestData testData) throws InterruptedException {
+    public void titleValidationTest(CustomerRegisterTestData testData) throws InterruptedException {
 
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testData.getUsername(), testData.getPassword());
@@ -32,7 +32,7 @@ public class HomePageTest extends BaseTest{
     }
     @FrameworkAnnotation(category = "Integration")
     @Test(description = "To check whether sidebar working to access menus", dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
-    public void sideBarMenuTest(TestData testData ) throws InterruptedException {
+    public void sideBarMenuTest(CustomerRegisterTestData testData ) throws InterruptedException {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testData.getUsername(), testData.getPassword());
         login.selectBranch(Configfactory.getConfig().entitySelection());

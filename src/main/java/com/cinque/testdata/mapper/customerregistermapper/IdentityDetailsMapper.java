@@ -1,7 +1,7 @@
 package com.cinque.testdata.mapper.customerregistermapper;
 
 import com.cinque.testdata.DTO.customerregisterdata.IdentityDetailsData;
-import com.cinque.testdata.TestData;
+import com.cinque.testdata.CustomerRegisterTestData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class IdentityDetailsMapper {
 
-    public static IdentityDetailsData map (TestData data){
+    public static IdentityDetailsData map (CustomerRegisterTestData data){
 
         List<String> images = null;
 

@@ -35,6 +35,10 @@ public class SeleniumUtils {
             } catch (TimeoutException e) {}
         }
     }
+    public static String getCurrentAreaValue(By locator){
+        getWait().until(ExpectedConditions.presenceOfElementLocated(locator));
+        return DriverManager.getDriver().findElement(locator).getAttribute("aria-valuemax");
+    }
 
     public static void waitForSleep(long milliseconds) {
         try {
@@ -114,20 +118,35 @@ public class SeleniumUtils {
     }
 
     public static void selectDropDown(By by, String value) {
-        click(by, CLICKABLE);
-        WebElement search = getWait().until(
-                visibilityOfElementLocated(dropDownsearch)
-        );
-        search.clear();
-        waitForSleep(250);
-        search.sendKeys(value);
-        By option = By.xpath("//li[@role='option'][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
-                + value.toLowerCase() + "')]");
 
-        getWait().until(ExpectedConditions.presenceOfElementLocated(option));
-        WebElement element = DriverManager.getDriver().findElement(option);
-        ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-        ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].click();", element);
+        WebDriver driver = DriverManager.getDriver();
+
+        WebElement dropdown = getWait().until(elementToBeClickable(by));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dropdown);
+        waitForSleep(200);
+
+        WebElement trigger = dropdown.findElement(By.cssSelector(".p-dropdown-trigger"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", trigger);
+        waitForSleep(250);
+
+        WebElement filterInput = getWait().until(
+                visibilityOfElementLocated(By.cssSelector(".p-dropdown-panel .p-dropdown-filter"))
+        );
+
+        filterInput.click();
+        waitForSleep(200);
+        filterInput.sendKeys(value.toUpperCase());
+        waitForSleep(300);
+
+        By option = By.xpath(
+                "//li[@role='option'][contains(" +
+                        "translate(@aria-label, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" +
+                        value.toLowerCase() +
+                        "')]"
+        );
+
+        WebElement element = getWait().until(visibilityOfElementLocated(option));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
 
     }
 

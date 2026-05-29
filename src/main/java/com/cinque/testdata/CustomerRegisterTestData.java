@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-public class TestData {
+public class CustomerRegisterTestData {
 
     @Column(name ="testcasename")
     private String testcasename;

@@ -1,11 +1,11 @@
 package com.cinque.testdata.mapper.customerregistermapper;
 
 import com.cinque.testdata.DTO.customerregisterdata.PersonalDetailsData;
-import com.cinque.testdata.TestData;
+import com.cinque.testdata.CustomerRegisterTestData;
 
 public class IndividualPersonalDetailsMapper {
 
-    public static PersonalDetailsData map(TestData data){
+    public static PersonalDetailsData map(CustomerRegisterTestData data){
 
         return PersonalDetailsData.builder().customercategory(data.getCustomercategory())
                 .riskcategory(data.getRiskcategory())

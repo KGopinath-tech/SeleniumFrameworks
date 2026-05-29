@@ -9,7 +9,8 @@
 <!--            <class name="com.cinque.tests.HomePageTest"/>-->
 <!--               <class name="com.cinque.tests.DummyTest"/>-->
 <!--            <class name="com.cinque.tests.CustomerRegisterTest"/>-->
-            <class name="com.cinque.tests.OutwardRemittanceTest"></class>
+<!--            <class name="com.cinque.tests.OutwardRemittanceTest"></class>-->
+            <class name="com.cinque.tests.SpecialRateRequestTest"></class>
         </classes>
     </test>
 </suite>

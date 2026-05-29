@@ -1,11 +1,11 @@
 package com.cinque.testdata.mapper.customerregistermapper;
 
 import com.cinque.testdata.DTO.customerregisterdata.FinancialDetailsData;
-import com.cinque.testdata.TestData;
+import com.cinque.testdata.CustomerRegisterTestData;
 
 public class FinancialDetailsMapper {
 
-    public static FinancialDetailsData map (TestData data) {
+    public static FinancialDetailsData map (CustomerRegisterTestData data) {
         return FinancialDetailsData.builder().serviceType(data.getServiceType())
                 .economicActivity(data.getEconomicActivity())
                 .annualIncome(data.getAnnualIncome())

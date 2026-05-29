@@ -6,7 +6,7 @@ import com.cinque.pages.CustomerRegistrationPage;
 import com.cinque.pages.HomePage;
 import com.cinque.pages.LoginPage;
 import com.cinque.testdata.DTO.customerregisterdata.*;
-import com.cinque.testdata.TestData;
+import com.cinque.testdata.CustomerRegisterTestData;
 import com.cinque.testdata.mapper.customerregistermapper.*;
 import com.cinque.utils.DataProviderUtils;
 import com.cinque.utils.RepresentativeDataReader;
@@ -22,7 +22,7 @@ public class CustomerRegisterTest extends BaseTest{
 
     @FrameworkAnnotation(category = {"Smoke","Regression"})
     @Test(description = "Verify Individual Customer Registration",dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
-    public void registerIndividualCustomer(TestData testdata) {
+    public void registerIndividualCustomer(CustomerRegisterTestData testdata) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());
         waitForSleep(1000);
@@ -62,7 +62,7 @@ public class CustomerRegisterTest extends BaseTest{
     }
     @FrameworkAnnotation(category = {"Regression"}, author = "Shinitha")
     @Test(description = "Verify Corporate Customer Registration",dataProvider = "getData", dataProviderClass = DataProviderUtils.class)
-    public void registerCorporateCustomer(TestData testdata) {
+    public void registerCorporateCustomer(CustomerRegisterTestData testdata) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());
         waitForSleep(500);

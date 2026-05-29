@@ -1,5 +1,7 @@
 package com.cinque.pages;
 
+import com.cinque.pages.sideMenuComponent.SidebarMenuComponent;
+import com.cinque.testdata.DTO.specialraterequest.SpecialRateRequestData;
 import org.openqa.selenium.By;
 
 import static com.cinque.enums.WaitType.*;
@@ -7,6 +9,10 @@ import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
 import static com.cinque.utils.SeleniumUtils.*;
 
 public class SpecialRateRequestPage {
+
+    private SidebarMenuComponent sidebarMenuComponent = new SidebarMenuComponent();
+
+    public void getSpecialRateRequestScreen(){sidebarMenuComponent.getSpecialRateScreenMenu();}
 
     private static final By BTN_REMITTANCE = By.xpath("//button[contains(.,'Remittance')]");
     private static final By BTN_FOREX = By.xpath("//button[contains(.,'Forex')]");
@@ -21,8 +27,8 @@ public class SpecialRateRequestPage {
     private static final By TXT_SEARCHBOX = By.xpath("//input[@placeholder='Search By UID']");
     private static final By BTN_SEARCH = By.xpath("//button[@class='modern-search-button']");
     private static final By BTN_ADVANCED_SEARCH = By.xpath("//button[@class='advanced-btn ms-2']");
-    private static final By DATE_VALUE_DATE = By.id("icondisplay");
-    private static final By DRP_RMCURRENCY = By.id("rmcurrency");
+    private static final By DATE_VALUE_DATE = By.id("valueDate");
+    private static final By DRP_RMCURRENCY = By.cssSelector("p-dropdown[inputid='rmcurrency']");
     private static final By DRP_CORRESPONDENT = By.id("correspondent");
     private static final By DRP_PAYMODE = By.id("paymode");
     private static final By TXT_FCAMOUNT = By.id("fcAmount");
@@ -40,18 +46,77 @@ public class SpecialRateRequestPage {
 
     private void naviateRemittanceRequestScreen(){click(BTN_REMITTANCE, CLICKABLE);}
     private void naviateForexRequestScreen(){click(BTN_FOREX, CLICKABLE);}
-    private void clickOnSaveButton(){click(BTN_SAVE, CLICKABLE);}
-    private void clickOnClearButton(){click(BTN_CLEAR, CLICKABLE);}
-    private void clickOnApproveButton(){click(BTN_APPROVE, CLICKABLE);}
-    private void clickOnUpdateButton(){click(BTN_UPDATE, CLICKABLE);}
-    private void clickOnDeleteButton(){click(BTN_DELETE, CLICKABLE);}
-    private void clickOnDisapproveButton(){click(BTN_DISAPPROVE, CLICKABLE);}
-    private void clickOnAuditLogButton(){click(BTN_AUDITLOG, CLICKABLE);}
     private void enterRemIdInSearchBox(String remId){sendKeys(TXT_SEARCHBOX, remId, CLICKABLE, "Rem Search");}
     private void clickOnSearchButton(){click(BTN_SEARCH, CLICKABLE);}
     private void enterValueDate(String date){enterDate(DATE_VALUE_DATE, date, CLICKABLE);}
-    private void selectCurrency(String currency){selectDropdownWithRetry(DRP_RMCURRENCY,  currency);}
+    private void selectRMCurrency(String currency){selectDropdownWithRetry(DRP_RMCURRENCY,  currency);}
     private void selectCorrespondent(String correspondent){selectDropdownWithRetry(DRP_CORRESPONDENT, correspondent);}
     private void selectPaymode(String payMode){selectDropdownWithRetry(DRP_PAYMODE, payMode);}
     private void enterFCAmount(String fcAmount){sendKeys(TXT_FCAMOUNT, fcAmount, CLICKABLE, "FC Amount");}
+    private void enterLCAmount(String lcAmount){sendKeys(TXT_LCAMOUNT, lcAmount, CLICKABLE, "LC Amount");}
+    private void enterRMRemark(String remark){sendKeys(TXT_RMREMARK,  remark, CLICKABLE, "RM Remark");}
+    private void selectFCType(String type){selectDropdownWithRetry(DRP_FCTYPE, type);}
+    private void selectFCTransactionType(String type){selectDropdownWithRetry(DRP_TRANSACTIONTYPE, type);}
+    private void selectCurrency(String currency){selectDropdownWithRetry(DRP_FCCURRENCY, currency);}
+    private void enterFCRemark(String remark){selectDropdownWithRetry(DRP_FCTYPE, remark);}
+    private void clickConfirmationLeave(){click(BTN_CONFIRMATION_LEAVEPAGE, CLICKABLE);}
+
+    public void clickOnSaveButton(){click(BTN_SAVE, CLICKABLE);}
+    public void clickOnClearButton(){click(BTN_CLEAR, CLICKABLE);}
+    public void clickOnApproveButton(){click(BTN_APPROVE, CLICKABLE);}
+    public void clickOnUpdateButton(){click(BTN_UPDATE, CLICKABLE);}
+    public void clickOnDeleteButton(){click(BTN_DELETE, CLICKABLE);}
+    public void clickOnDisapproveButton(){click(BTN_DISAPPROVE, CLICKABLE);}
+    public void clickOnAuditLogButton(){click(BTN_AUDITLOG, CLICKABLE);}
+    public void getApprovalNo(){getCurrentAreaValue(TXT_APPROVALNO);}
+    public void getSpecialRate(){getCurrentAreaValue(TXT_SPECIAL_RATE);}
+
+    public void initiateRMSpecialRateRequest(SpecialRateRequestData data) {
+        naviateRemittanceRequestScreen();
+        waitForSleep(200);
+//        if(isDisplayed(BTN_CONFIRMATION_LEAVEPAGE)){
+//            clickConfirmationLeave();
+//        }
+        enterRemIdInSearchBox(data.getRemid());
+        waitForSleep(250);
+        clickOnSearchButton();
+        waitForNgxSpinner();
+        if(isNotBlank(data.getValuedate())){
+            enterValueDate(data.getValuedate());
+        }
+        selectRMCurrency(data.getRmcurrency());
+        selectCorrespondent(data.getCorrespondent());
+        selectPaymode(data.getRmpaymode());
+        if(isNotBlank(data.getRmfcamount())) {
+            enterFCAmount(data.getRmfcamount());
+        }
+        if(isNotBlank(data.getRmlcamount())) {
+            enterLCAmount(data.getRmlcamount());
+        }
+        if(isNotBlank(data.getRmremark())){
+            enterRMRemark(data.getRmremark());
+        }
+    }
+    public void initiateFCSpecialRateRequest(SpecialRateRequestData data) {
+        naviateForexRequestScreen();
+        waitForSleep(200);
+        if(isDisplayed(BTN_CONFIRMATION_LEAVEPAGE)){
+            clickConfirmationLeave();
+        }
+        selectFCType(data.getFctype());
+        selectFCTransactionType(data.getFctransactiontype());
+        selectCurrency(data.getFccurrency());
+        if(isNotBlank(data.getFcamount())){
+            enterFCAmount(data.getFcamount());
+        }
+        if(isNotBlank(data.getLcamount())){
+            enterLCAmount(data.getLcamount());
+        }
+        if(isNotBlank(data.getValuedate())){
+            enterValueDate(data.getValuedate());
+        }
+        if(isNotBlank(data.getFcremark())){
+            enterFCRemark(data.getFcremark());
+        }
+    }
 }

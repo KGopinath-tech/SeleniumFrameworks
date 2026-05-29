@@ -1,11 +1,11 @@
 package com.cinque.testdata.mapper.customerregistermapper;
 
 import com.cinque.testdata.DTO.customerregisterdata.OtherDetailsData;
-import com.cinque.testdata.TestData;
+import com.cinque.testdata.CustomerRegisterTestData;
 
 public class IndividualOtherDetailsMapper {
 
-    public static OtherDetailsData map (TestData data){
+    public static OtherDetailsData map (CustomerRegisterTestData data){
         return OtherDetailsData.builder().remarks(data.getRemarks())
                 .location(data.getLocation())
                 .watchlistRemarks(data.getWatchlistRemarks())
