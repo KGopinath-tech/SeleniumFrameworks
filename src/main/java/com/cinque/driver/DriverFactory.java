@@ -15,9 +15,6 @@ public final class DriverFactory {
     private DriverFactory() {
     }
 
-    // One-time setup per browser type, thread-safe
-    private static final Map<String, Boolean> initialized = new ConcurrentHashMap<>();
-
     public static WebDriver getDriver(String browserName) {
 
         return switch (browserName.toLowerCase()) {
