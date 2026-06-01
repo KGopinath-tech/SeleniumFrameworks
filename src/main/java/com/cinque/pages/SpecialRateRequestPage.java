@@ -39,9 +39,9 @@ public class SpecialRateRequestPage {
     private static final By TXT_TRANSFER_RATE = By.xpath("//p-inputnumber[@inputid='transferrate']");
     private static final By TXT_SPECIAL_RATE = By.xpath("//p-inputnumber[@inputid='specialrate']");
     private static final By BTN_CONFIRMATION_LEAVEPAGE = By.xpath("//button[contains(.,'Leave Page')]");
-    private static final By DRP_FCTYPE = By.id("fcType");
-    private static final By DRP_TRANSACTIONTYPE = By.id("transactionType");
-    private static final By DRP_FCCURRENCY = By.id("fccurrency");
+    private static final By DRP_FCTYPE = By.id("fcTypes");
+    private static final By DRP_TRANSACTIONTYPE = By.id("pn_id_10");
+    private static final By DRP_FCCURRENCY = By.id("pn_id_12");
     private static final By TXT_FCREMARK = By.id("rtRemark");
 
     private void naviateRemittanceRequestScreen(){click(BTN_REMITTANCE, CLICKABLE);}
@@ -58,7 +58,7 @@ public class SpecialRateRequestPage {
     private void selectFCType(String type){selectDropdownWithRetry(DRP_FCTYPE, type);}
     private void selectFCTransactionType(String type){selectDropdownWithRetry(DRP_TRANSACTIONTYPE, type);}
     private void selectCurrency(String currency){selectDropdownWithRetry(DRP_FCCURRENCY, currency);}
-    private void enterFCRemark(String remark){selectDropdownWithRetry(DRP_FCTYPE, remark);}
+    private void enterFCRemark(String remark){sendKeys(TXT_FCREMARK, remark,CLICKABLE, "FC Remark");}
     private void clickConfirmationLeave(){click(BTN_CONFIRMATION_LEAVEPAGE, CLICKABLE);}
 
     public void clickOnSaveButton(){click(BTN_SAVE, CLICKABLE);}

@@ -127,7 +127,7 @@ public class SeleniumUtils {
 
         WebElement trigger = dropdown.findElement(By.cssSelector(".p-dropdown-trigger"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", trigger);
-        waitForSleep(250);
+        waitForSleep(200);
 
         WebElement filterInput = getWait().until(
                 visibilityOfElementLocated(By.cssSelector(".p-dropdown-panel .p-dropdown-filter"))
@@ -136,7 +136,7 @@ public class SeleniumUtils {
         filterInput.click();
         waitForSleep(200);
         filterInput.sendKeys(value.toUpperCase());
-        waitForSleep(300);
+        waitForSleep(250);
 
         By option = By.xpath(
                 "//li[@role='option'][contains(" +
