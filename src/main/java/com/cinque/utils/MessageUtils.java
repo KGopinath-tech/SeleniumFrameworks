@@ -18,13 +18,12 @@ public class MessageUtils {
     private static final int WAIT_TIME              = Math.toIntExact(Configfactory.getConfig().timeout());
     private static final int STALE_RETRY_SLEEP_MS   = 300;
     private static final int TOAST_POLL_INTERVAL_MS = 200;
-    private static final int TOAST_MAX_WAIT_MS      = 35_000; // covers your 20-30s toast lifetime
+    private static final int TOAST_MAX_WAIT_MS      = 35_000;
 
     private static final By       NGX_SPINNER_TAG           = By.tagName("ngx-spinner");
     private static final Duration SPINNER_APPEAR_TIMEOUT    = Duration.ofSeconds(5);
     private static final Duration SPINNER_DISAPPEAR_TIMEOUT = Duration.ofSeconds(30);
 
-    // JS scripts — immune to StaleElementReferenceException
     private static final String JS_GET_TOAST_HEADER = """
         var toasts = document.querySelectorAll("div[class*='toast']");
         if (!toasts || toasts.length === 0) return null;
@@ -42,7 +41,6 @@ public class MessageUtils {
         return text !== '' ? text : null;
         """;
 
-    // ─── Driver helpers ────────────────────────────────────────────────────────────
     private static WebDriverWait getWait() {
         return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIME));
     }
@@ -51,7 +49,6 @@ public class MessageUtils {
         return (JavascriptExecutor) DriverManager.getDriver();
     }
 
-    // ─── Spinner Guard (called ONCE per public entry-point, never inside workers) ──
     public static void waitForNgxSpinner() {
         WebDriver driver = DriverManager.getDriver();
         WebDriverWait appearWait    = new WebDriverWait(driver, SPINNER_APPEAR_TIMEOUT);
@@ -78,14 +75,6 @@ public class MessageUtils {
         }
     }
 
-// ─── Internal JS poller — NO spinner call, called only after guard ─────────────
-    /**
-     * Polls JavaScript every TOAST_POLL_INTERVAL_MS until the script returns
-     * non-blank text OR TOAST_MAX_WAIT_MS elapses.
-     *
-     * Never holds a WebElement → zero risk of StaleElementReferenceException.
-     * Reads innerText directly → works during CSS fade-in and fade-out animations.
-     */
     private static String pollToastViaJs(String jsScript, String label) {
         long deadline = System.currentTimeMillis() + TOAST_MAX_WAIT_MS;
         int  attempt  = 0;
@@ -112,7 +101,6 @@ public class MessageUtils {
                         + "Verify the toast CSS class contains 'toast'.");
     }
 
-    // ─── Internal workers — NO spinner guard, used within a single validated flow ──
     private static String fetchToastHeader() {
         return pollToastViaJs(JS_GET_TOAST_HEADER, "header");
     }
@@ -130,26 +118,21 @@ public class MessageUtils {
         return lines.isEmpty() ? List.of(fullText) : lines;
     }
 
-    // ─── Public API — spinner guard called HERE and ONLY here ─────────────────────
     public static String getToastHeader() {
-        waitForNgxSpinner();        // ← guard lives here
-        return fetchToastHeader();  // ← internal worker, no re-guard
+        waitForNgxSpinner();
+        return fetchToastHeader();
     }
 
     public static List<String> getMessages() {
-        waitForNgxSpinner();         // ← guard lives here
-        return fetchToastMessages(); // ← internal worker, no re-guard
+        waitForNgxSpinner();
+        return fetchToastMessages();
     }
 
-    /**
-     * Single spinner wait → fetch header → fetch messages → validate.
-     * No redundant spinner calls inside the chain.
-     */
     public static void validateMessages(String expectedType, String expectedMessagesRaw) {
-        waitForNgxSpinner();                          // ← ONE guard for the entire flow
+        waitForNgxSpinner();
 
-        String       actualHeader   = fetchToastHeader();   // no re-guard
-        List<String> actualMessages = fetchToastMessages(); // no re-guard
+        String actualHeader = fetchToastHeader();
+        List<String> actualMessages = fetchToastMessages();
 
         System.out.println("=== Toast Validation ===");
         System.out.println("  Expected type : " + expectedType);
@@ -166,7 +149,7 @@ public class MessageUtils {
 
         // 2. Message presence check
         List<String> expectedMessages = getExpectedMessagesFromExcel(expectedMessagesRaw);
-        List<String> missing          = new ArrayList<>();
+        List<String> missing = new ArrayList<>();
 
         for (String expected : expectedMessages) {
             boolean found = actualMessages.stream()
@@ -186,9 +169,9 @@ public class MessageUtils {
     }
 
     public static void validateMultipleSmart(List<String> expectedList) {
-        waitForNgxSpinner();                          // ← ONE guard for the entire flow
+        waitForNgxSpinner();
 
-        List<String> actualMessages   = fetchToastMessages(); // no re-guard
+        List<String> actualMessages   = fetchToastMessages();
         List<String> normalizedActual = actualMessages.stream()
                 .map(MessageUtils::normalize)
                 .collect(Collectors.toList());

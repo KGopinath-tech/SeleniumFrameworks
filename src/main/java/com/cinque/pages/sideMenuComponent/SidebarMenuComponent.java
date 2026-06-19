@@ -69,6 +69,7 @@ public class SidebarMenuComponent {
     private void getOutwardMenu(){
         click(TXN_OUTWARD_MENU,  CLICKABLE);
     }
+    private void getInwardMenu(){click(TXN_INWARD_MENU,  CLICKABLE);}
 
     public void getSpecialRateScreenMenu(){
         getTransactionMenu();
@@ -97,6 +98,13 @@ public class SidebarMenuComponent {
         getOutwardMenu();
         waitForSleep(450);
         click(OUT_AMENDMENT_MENU,  CLICKABLE);
+    }
+    public void getInwardRemittanceMenu(){
+        getTransactionMenu();
+        waitForSleep(350);
+        getInwardMenu();
+        waitForSleep(450);
+        click(IN_INWARD_REMITTANCE_MENU,  CLICKABLE);
     }
 
 }

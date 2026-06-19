@@ -23,4 +23,10 @@ public class SpecialRateRequestData {
     private String fcamount;
     private String lcamount;
     private String fcremark;
+    private String searchreferenceno;
+    private String searchfromdate;
+    private String searchtodate;
+    private String searchstatus;
+    private String searchtransactiontype;
+
 }

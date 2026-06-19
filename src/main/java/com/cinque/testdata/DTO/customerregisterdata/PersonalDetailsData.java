@@ -32,4 +32,5 @@ public class PersonalDetailsData {
     private String dateofestablishment;
     private String countryofincorporation;
     private String placeofincorporation;
+
 }

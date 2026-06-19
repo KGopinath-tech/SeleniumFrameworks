@@ -25,7 +25,7 @@ public class SpecialRateRequestPage {
     private static final By BTN_AUDITLOG = By.xpath("//a[normalize-space()='Audit Log']");
 
     private static final By TXT_SEARCHBOX = By.xpath("//input[@placeholder='Search By UID']");
-    private static final By BTN_SEARCH = By.xpath("//button[@class='modern-search-button']");
+    private static final By BTN_SEARCH_BUTTON = By.xpath("//button[@class='modern-search-button']");
     private static final By BTN_ADVANCED_SEARCH = By.xpath("//button[@class='advanced-btn ms-2']");
     private static final By DATE_VALUE_DATE = By.id("valueDate");
     private static final By DRP_RMCURRENCY = By.cssSelector("p-dropdown[inputid='rmcurrency']");
@@ -44,10 +44,18 @@ public class SpecialRateRequestPage {
     private static final By DRP_FCCURRENCY = By.id("pn_id_12");
     private static final By TXT_FCREMARK = By.id("rtRemark");
 
+    private static final By BTN_SEARCH_TRANSACTION = By.xpath("//button[normalize-space()='Search Transaction']");
+    private static final By TXT_REFERENCE_NO = By.id("refno");
+    private static final By TXT_FROM_DATE = By.xpath("//label[text()='From Date']/preceding-sibling::*//input");
+    private static final By TXT_TO_DATE = By.xpath("//label[text()='To Date']/preceding-sibling::*//input");
+    private static final By DRP_STATUS = By.id("status");
+    private static final By DRP_TRANSACTION_TYPE = By.id("searchtxntype");
+    private static final By BTN_SEARCH = By.xpath("//button[normalize-space()='Search']");
+
     private void naviateRemittanceRequestScreen(){click(BTN_REMITTANCE, CLICKABLE);}
     private void naviateForexRequestScreen(){click(BTN_FOREX, CLICKABLE);}
     private void enterRemIdInSearchBox(String remId){sendKeys(TXT_SEARCHBOX, remId, CLICKABLE, "Rem Search");}
-    private void clickOnSearchButton(){click(BTN_SEARCH, CLICKABLE);}
+    private void clickOnSearchButton(){click(BTN_SEARCH_BUTTON, CLICKABLE);}
     private void enterValueDate(String date){enterDate(DATE_VALUE_DATE, date, CLICKABLE);}
     private void selectRMCurrency(String currency){selectDropdownWithRetry(DRP_RMCURRENCY,  currency);}
     private void selectCorrespondent(String correspondent){selectDropdownWithRetry(DRP_CORRESPONDENT, correspondent);}
@@ -61,6 +69,14 @@ public class SpecialRateRequestPage {
     private void enterFCRemark(String remark){sendKeys(TXT_FCREMARK, remark,CLICKABLE, "FC Remark");}
     private void clickConfirmationLeave(){click(BTN_CONFIRMATION_LEAVEPAGE, CLICKABLE);}
 
+    private void clickSearchTransaction(){click(BTN_SEARCH_TRANSACTION, CLICKABLE);}
+    private void enterReferenceNo(String refNo){sendKeys(TXT_REFERENCE_NO, refNo, CLICKABLE, "Ref No");}
+    private void enterFromDate(String fromDate){enterDate(TXT_FROM_DATE, fromDate, CLICKABLE);}
+    private void enterToDate(String toDate){enterDate(TXT_TO_DATE, toDate, CLICKABLE);}
+    private void selectStatus(String status){selectDropdownWithRetry(DRP_STATUS, status);}
+    private void selectTransactionType(String type){selectDropdownWithRetry(DRP_TRANSACTION_TYPE, type);}
+    private void clickSearchToGetSpecialRateEntries(){click(BTN_SEARCH,  CLICKABLE);}
+
     public void clickOnSaveButton(){click(BTN_SAVE, CLICKABLE);}
     public void clickOnClearButton(){click(BTN_CLEAR, CLICKABLE);}
     public void clickOnApproveButton(){click(BTN_APPROVE, CLICKABLE);}
@@ -70,6 +86,28 @@ public class SpecialRateRequestPage {
     public void clickOnAuditLogButton(){click(BTN_AUDITLOG, CLICKABLE);}
     public void getApprovalNo(){getCurrentAreaValue(TXT_APPROVALNO);}
     public void getSpecialRate(){getCurrentAreaValue(TXT_SPECIAL_RATE);}
+
+    public void searchTransaction(SpecialRateRequestData data){
+        clickSearchTransaction();
+        waitForSleep(250);
+        if(isNotBlank(data.getSearchreferenceno())){
+            enterReferenceNo(data.getSearchreferenceno());
+        }
+        if(isNotBlank(data.getSearchfromdate())){
+            enterFromDate(data.getSearchfromdate());
+        }
+        if(isNotBlank(data.getSearchtodate())){
+            enterToDate(data.getSearchtodate());
+        }
+        if(isNotBlank(data.getSearchstatus())){
+            selectStatus(data.getSearchstatus());
+        }
+        if(isNotBlank(data.getSearchtransactiontype())){
+            selectTransactionType(data.getSearchtransactiontype());
+        }
+        clickSearchToGetSpecialRateEntries();
+    }
+
 
     public void initiateRMSpecialRateRequest(SpecialRateRequestData data) {
         naviateRemittanceRequestScreen();

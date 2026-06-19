@@ -50,4 +50,16 @@ public class SpecialRateRequestTestData {
     private String lcamount;
     @Column(name="fcremark")
     private String fcremark;
+
+    //Special rate search
+    @Column(name="searchreferenceno")
+    private String searchreferenceno;
+    @Column(name="searchfromdate")
+    private String searchfromdate;
+    @Column(name="searchtodate")
+    private String searchtodate;
+    @Column(name="searchstatus")
+    private String searchstatus;
+    @Column(name="searchtransactiontype")
+    private String searchtransactiontype;
 }

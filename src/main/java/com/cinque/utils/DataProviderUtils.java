@@ -1,5 +1,6 @@
 package com.cinque.utils;
 
+import com.cinque.testdata.InwardRemittanceTestData;
 import com.cinque.testdata.OutwardRemittanceTestData;
 import com.cinque.testdata.CustomerRegisterTestData;
 import com.cinque.testdata.SpecialRateRequestTestData;
@@ -35,6 +36,14 @@ public class DataProviderUtils {
         String testcaseName = method.getName();
         return TestDataReader.use(XlsxReader.class).withTarget(SpecialRateRequestTestData.class)
                 .withSource("testdata/specialratedata.xlsx")
+                .read().filter(testdata -> testdata.getTestcasename().equalsIgnoreCase(testcaseName));
+    }
+    @DataSupplier
+    public StreamEx<InwardRemittanceTestData> getInawardeData(Method method) {
+
+        String testcaseName = method.getName();
+        return TestDataReader.use(XlsxReader.class).withTarget(InwardRemittanceTestData.class)
+                .withSource("testdata/inwardtestdata.xlsx")
                 .read().filter(testdata -> testdata.getTestcasename().equalsIgnoreCase(testcaseName));
     }
 }

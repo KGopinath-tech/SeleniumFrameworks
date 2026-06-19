@@ -255,7 +255,6 @@ public class SeleniumUtils {
 
         try {
             getWait().until(driver1 -> {
-                // Re-locate fresh element every poll — avoids stale reference
                 WebElement freshToggle = driver1.findElement(by);
                 return getToggleState(freshToggle) == desiredState;
             });
@@ -273,20 +272,18 @@ public class SeleniumUtils {
 
     }
     private static boolean getToggleState(WebElement element) {
-        // Live JS property (most reliable for custom toggles)
+
         Object prop = ((JavascriptExecutor) DriverManager.getDriver())
                 .executeScript("return arguments[0].checked;", element);
         if (prop != null) {
             return Boolean.TRUE.equals(prop);
         }
 
-        // aria-checked (for ARIA-based toggles)
         String ariaChecked = element.getAttribute("aria-checked");
         if (ariaChecked != null) {
             return "true".equalsIgnoreCase(ariaChecked);
         }
 
-        // Fallback to Selenium native
         return element.isSelected();
     }
 }

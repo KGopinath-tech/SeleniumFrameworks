@@ -13,11 +13,12 @@ public final class ExtentReport {
     private ExtentReport(){}
 
     public static ExtentReports extent;
+    public static String reportPath;
 
     public static void initReports(){
 
         String reportName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + "_ExtentReport.html";
-        String reportPath = FrameworkConstants.getReportPath() + reportName;
+        reportPath = FrameworkConstants.getReportPath() + reportName;
 
         extent = new ExtentReports();
         ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);
@@ -29,14 +30,18 @@ public final class ExtentReport {
             extent.flush();
     }
 
-    public static synchronized void createTest(String testCaseName){
-        ExtentTest test = extent.createTest(testCaseName);
-        Extentmanager.setExtentTest(testCaseName, test);
+    public static synchronized void createTest(String testName){
+        ExtentTest test = extent.createTest(testName);
+        Extentmanager.setExtentTest(testName, test);
     }
-    public static void assignAuthor(String author){
-        Extentmanager.getExtentTest().assignAuthor(author);
+    public static void assignAuthor(String testName, String author){
+        ExtentTest test = Extentmanager.getExtentTest(testName);
+        if (test != null)
+            test.assignAuthor(author);
     }
-    public static void assignCategory(String[] category) {
-        Extentmanager.getExtentTest().assignCategory(category);
+    public static void assignCategory(String testName, String[] category) {
+        ExtentTest test = Extentmanager.getExtentTest(testName);
+        if (test != null)
+            test.assignCategory(category);
     }
 }
