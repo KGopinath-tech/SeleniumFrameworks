@@ -70,6 +70,8 @@ public class InwardRemittanceTestData {
     private String idissuedate;
     @Column(name="idexpirydate")
     private String idexpirydate;
+    @Column(name="emirate")
+    private String emirate;
     @Column(name="nearbyairport")
     private String nearbyairport;
 
@@ -87,6 +89,5 @@ public class InwardRemittanceTestData {
     private String economicactivity;
     @Column(name="purposeoftransfer")
     private String purposeoftransfer;
-
 
 }

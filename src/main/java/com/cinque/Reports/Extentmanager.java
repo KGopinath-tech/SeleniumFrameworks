@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Extentmanager {
 
-
     private static final Map<String, ExtentTest> EXTENT_TEST_MAP = new ConcurrentHashMap<>();
 
     public static ExtentTest getExtentTest(String testName ) {

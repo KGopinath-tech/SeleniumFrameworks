@@ -20,8 +20,9 @@ public class SenderComponent {
     private static final By DRP_IDTYPE = By.id("senderIdType");
     private static final By TXT_IDNUMBER = By.id("senderIdNumber");
     private static final By TXT_ISSUE_PLACE = By.id("senderIssuePlace");
-    private static final By CLD_ISSUE_DATE = By.xpath("//label[text()='Expiry Date']/preceding-sibling::*//input");
-    private static final By CLD_EXPIRY_DATE = By.xpath("//input[contains(@class,'p-element') and contains(@class,'ng-tns-c1685646730-23')]");
+    private static final By CLD_ISSUE_DATE = By.xpath("//label[text()='Issue Date']/preceding-sibling::*//input");
+    private static final By CLD_EXPIRY_DATE = By.xpath("(//label[text()='Expiry Date']/preceding-sibling::*//input)[2]");
+    private static final By DRP_EMIRATE = By.id("senderEmirate");
     private static final By DRP_NEARBYAIRPORT = By.id("senderNearbyAirport");
 
     private void selectSenderType(String senderType) {selectDropdownWithRetry(DRP_SENDER_TYPE, senderType);}
@@ -39,7 +40,8 @@ public class SenderComponent {
     private void enterIssuePlace(String issuePlace){sendKeys(TXT_ISSUE_PLACE,  issuePlace, CLICKABLE,"Issue Place");}
     private void enterIssueDate(String issueDate){sendKeys(CLD_ISSUE_DATE, issueDate, CLICKABLE,"Issue Date");}
     private void enterExpiryDate(String expiryDate){sendKeys(CLD_EXPIRY_DATE, expiryDate, CLICKABLE,"Expiry Date");}
-    private void selectNearByAirport(String airport){selectDropdownWithRetry(DRP_NATIONALITY, airport);}
+    private void selectEmirate(String emirate){selectDropdownWithRetry(DRP_EMIRATE, emirate);}
+    private void selectNearByAirport(String airport){selectDropdownWithRetry(DRP_NEARBYAIRPORT, airport);}
 
     public void fillSenderDetails(SenderDetailsData data){
         selectSenderType(data.getSendertype());
@@ -57,6 +59,9 @@ public class SenderComponent {
         enterIssuePlace(data.getIdissueplace());
         enterIssueDate(data.getIdissuedate());
         enterExpiryDate(data.getIdexpirydate());
+        if(isNotBlank(data.getEmirate()) && isDisplayed(DRP_EMIRATE)){
+            selectEmirate(data.getEmirate());
+        }
         selectNearByAirport(data.getNearbyairport());
     }
 }

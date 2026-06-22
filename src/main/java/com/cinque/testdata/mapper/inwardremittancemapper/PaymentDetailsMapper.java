@@ -9,7 +9,7 @@ public class PaymentDetailsMapper {
         return PaymentDetailsData.builder()
                 .country(data.getCountry())
                 .product(data.getProduct())
-                .currency(data.getCity())
+                .currency(data.getCurrency())
                 .inwardtype(data.getInwardtype())
                 .expirydate(data.getExpirydate())
                 .commissiontype(data.getCommissiontype())

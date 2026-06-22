@@ -3,6 +3,7 @@ package com.cinque.pages.commoninwardremittance;
 import com.cinque.testdata.DTO.inwardremittancedata.PaymentDetailsData;
 import org.openqa.selenium.By;
 import static com.cinque.enums.WaitType.*;
+import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
 import static com.cinque.utils.SeleniumUtils.*;
 
 public class PaymentComponent {
@@ -24,7 +25,7 @@ public class PaymentComponent {
     private void selectInwardType(String inwardType) {selectDropdownWithRetry(DRP_INWARD_TYPE, inwardType);}
     private void enterExpiryDate(String date){enterDate(CLD_EXPIRY_DATE, date , CLICKABLE);}
     private void selectCommission(String commisionType) {selectDropdownWithRetry(DRP_COMMISSION, commisionType);}
-    private void enterRCN(String rcn) {selectDropdownWithRetry(TXT_RCN, rcn);}
+    private void enterRCN(String rcn) {sendKeys(TXT_RCN, rcn, CLICKABLE, "RCN No");}
     private void enterFCAmount(String amount){sendKeys(TXT_FC_AMOUNT, amount, CLICKABLE, "FC Amount");}
     private void enterAgentCommission(String commission){sendKeys(TXT_AGENT_COMMISSION, commission, CLICKABLE, "AgentCommission");}
     private void enterReceiverCommission(String commission){sendKeys(TXT_RECEIVER_COMMISSION, commission, CLICKABLE, "ReceiverCommission");}
@@ -38,6 +39,7 @@ public class PaymentComponent {
         selectCommission(data.getCommissiontype());
         enterRCN(data.getRcnno());
         enterFCAmount(data.getFcamount());
+        waitForNgxSpinner();
         enterAgentCommission(data.getAgentcommission());
         enterReceiverCommission(data.getReceivercommission());
     }

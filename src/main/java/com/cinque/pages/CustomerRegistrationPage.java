@@ -5,6 +5,7 @@ import com.cinque.testdata.DTO.customerregisterdata.*;
 import org.openqa.selenium.By;
 import java.util.List;
 import static com.cinque.enums.WaitType.*;
+import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
 import static com.cinque.utils.SeleniumUtils.*;
 
 public class CustomerRegistrationPage {
@@ -58,6 +59,7 @@ public class CustomerRegistrationPage {
     }
     public void clickSaveButton(){
         click(BTN_SAVE, CLICKABLE, "Save Button");
+        waitForNgxSpinner();
     }
     public void clickApproveButton(){
         click(BTN_APPROVE, CLICKABLE, "Approve Button");

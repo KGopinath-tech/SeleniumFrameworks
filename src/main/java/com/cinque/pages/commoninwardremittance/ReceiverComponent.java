@@ -4,6 +4,7 @@ import com.cinque.testdata.DTO.inwardremittancedata.ReceiverDetailsData;
 import org.openqa.selenium.By;
 
 import static com.cinque.enums.WaitType.*;
+import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
 import static com.cinque.utils.SeleniumUtils.*;
 
 public class ReceiverComponent {
@@ -31,10 +32,11 @@ public class ReceiverComponent {
     public void fillReceiverDetails(ReceiverDetailsData data){
         enterRemIdInSearchBox(data.getRemid());
         clickOnSearchButton();
+        waitForNgxSpinner();
         selectRelation(data.getRelation());
-        enterBank(data.getBank());
-        enterBranch(data.getBranch());
-        enterAccountNo(data.getAccountno());
+        if(isNotBlank(data.getBank())){ enterBank(data.getBank());}
+        if(isNotBlank(data.getBranch())){ enterBranch(data.getBranch());}
+        if(isNotBlank(data.getAccountno())){ enterAccountNo(data.getAccountno());}
         selectEconomicActivity(data.getEconomicactivity());
         selectPurpose(data.getPurposeoftransfer());
     }

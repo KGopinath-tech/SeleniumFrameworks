@@ -77,7 +77,10 @@ public class SpecialRateRequestPage {
     private void selectTransactionType(String type){selectDropdownWithRetry(DRP_TRANSACTION_TYPE, type);}
     private void clickSearchToGetSpecialRateEntries(){click(BTN_SEARCH,  CLICKABLE);}
 
-    public void clickOnSaveButton(){click(BTN_SAVE, CLICKABLE);}
+    public void clickOnSaveButton(){
+        click(BTN_SAVE, CLICKABLE);
+        waitForNgxSpinner();
+    }
     public void clickOnClearButton(){click(BTN_CLEAR, CLICKABLE);}
     public void clickOnApproveButton(){click(BTN_APPROVE, CLICKABLE);}
     public void clickOnUpdateButton(){click(BTN_UPDATE, CLICKABLE);}

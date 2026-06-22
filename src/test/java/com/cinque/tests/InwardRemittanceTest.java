@@ -17,7 +17,7 @@ public class InwardRemittanceTest extends BaseTest {
 
     @FrameworkAnnotation(category = {"Integration", "Regression"}, author = "Gopinath")
     @Test(dataProvider = "getInawardeData", dataProviderClass = DataProviderUtils.class)
-    public void InwardRemittanceTest(InwardRemittanceTestData testData) {
+    public void InitiateInwardRemittanceTest(InwardRemittanceTestData testData) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testData.getUsername(), testData.getPassword());
         waitForSleep(2500);

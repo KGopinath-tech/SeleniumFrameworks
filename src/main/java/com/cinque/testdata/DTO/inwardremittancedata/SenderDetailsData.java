@@ -24,6 +24,7 @@ public class SenderDetailsData {
     private String idissueplace;
     private String idissuedate;
     private String idexpirydate;
+    private String emirate;
     private String nearbyairport;
 
 }

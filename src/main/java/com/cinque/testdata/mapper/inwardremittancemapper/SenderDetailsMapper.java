@@ -22,6 +22,7 @@ public class SenderDetailsMapper {
                 idissueplace(data.getIdissueplace()).
                 idissuedate(data.getIdissuedate()).
                 idexpirydate(data.getIdexpirydate()).
+                emirate(data.getEmirate()).
                 nearbyairport(data.getNearbyairport()).
                 build();
     }

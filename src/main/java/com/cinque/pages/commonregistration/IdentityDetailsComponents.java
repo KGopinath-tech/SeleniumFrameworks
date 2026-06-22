@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.List;
 
 import static com.cinque.enums.WaitType.*;
+import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
 import static com.cinque.utils.SeleniumUtils.*;
 
 public class IdentityDetailsComponents {
@@ -117,6 +118,7 @@ public class IdentityDetailsComponents {
         uploadIdImages(data.getImagePaths());
         waitForSleep(300);
         clickSaveButton();
+        waitForNgxSpinner();
     }
 }
 
