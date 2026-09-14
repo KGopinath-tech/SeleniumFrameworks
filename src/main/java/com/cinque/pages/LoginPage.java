@@ -1,6 +1,7 @@
 package com.cinque.pages;
 
 import static com.cinque.enums.WaitType.*;
+import static com.cinque.utils.MessageUtils.*;
 import static com.cinque.utils.SeleniumUtils.*;
 
 
@@ -31,6 +32,7 @@ public class LoginPage {
         return new HomePage();
     }
     public void selectBranch(String value){
+        waitForNgxSpinner();
         DropDownUtils.select(DRP_BRANCH,value, SelectionType.VISIBLE_TEXT);
     }
 

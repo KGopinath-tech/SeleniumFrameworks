@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.cinque.enums.WaitType.*;
@@ -61,53 +62,217 @@ public class SeleniumUtils {
     }
 
     public static void selectMultiDropdown(By dropdown, String... values) {
-
-        // 1. Open dropdown ONLY ONCE
-        WebElement dd = getWait().until(elementToBeClickable(dropdown));
-        dd.click();
-
-        // 2. Wait for panel
-        By panel = By.xpath("//div[@id='ServiceType_list']");
-        getWait().until(visibilityOfElementLocated(panel));
-
-        for (String value : values) {
-
-            // 3. Search (if available)
-            try {
-                WebElement search = getWait().until(visibilityOfElementLocated(
-                        By.xpath("//div[contains(@class,'p-multiselect-panel')]//input")
-                ));
-                search.clear();
-                search.sendKeys(value);
-            } catch (Exception ignored) {
-            }
-
-            // 4. Select checkbox option (IMPORTANT: not span click sometimes)
-            By option = By.xpath(
-                    "//li[@role='option'][.//span[normalize-space()='" + value + "']]//div[contains(@class,'p-checkbox')]");
-
-            WebElement element = getWait().until(elementToBeClickable(option));
-
-            try {
-                element.click();
-            } catch (Exception e) {
-                ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].click();", element);
-            }
+        String[] selections = expandCommaSeparatedValues(values);
+        if (selections.length == 0) {
+            return;
         }
 
-        // 5. Close dropdown (VERY IMPORTANT)
-        DriverManager.getDriver().findElement(By.xpath("//body")).click();
+        WebDriver driver = DriverManager.getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        WebElement multiSelectRoot = resolveMultiSelectRoot(dropdown);
+        js.executeScript("arguments[0].scrollIntoView({block:'center'});", multiSelectRoot);
+
+        By panelLocator = resolveMultiSelectPanelLocator(multiSelectRoot);
+        openMultiSelectPanel(multiSelectRoot, panelLocator);
+
+        for (String value : selections) {
+            selectMultiSelectOption(panelLocator, value);
+        }
+
+        closeMultiSelectPanel(panelLocator);
     }
 
     public static void selectDropdown(By dropdown, String... values) {
-
-        if (!DriverManager.getDriver().findElements(By.xpath("//p-multiselect")).isEmpty()) {
+        if (isPrimeNgMultiSelect(dropdown)) {
             selectMultiDropdown(dropdown, values);
         } else {
             for (String value : values) {
-                selectDropDown(dropdown, value);
+                if (isNotBlank(value)) {
+                    selectDropDown(dropdown, value.trim());
+                }
             }
         }
+    }
+
+    private static boolean isPrimeNgMultiSelect(By dropdown) {
+        WebElement element = getWait().until(presenceOfElementLocated(dropdown));
+        return !element.findElements(By.xpath(
+                "./ancestor-or-self::p-multiselect | ./ancestor-or-self::*[contains(@class,'p-multiselect')]"
+        )).isEmpty();
+    }
+
+    private static WebElement resolveMultiSelectRoot(By dropdown) {
+        WebElement element = getWait().until(elementToBeClickable(dropdown));
+        List<WebElement> roots = element.findElements(By.xpath(
+                "./ancestor::p-multiselect[1] | ./ancestor::*[contains(@class,'p-multiselect') and not(contains(@class,'p-multiselect-panel'))][1]"
+        ));
+        return roots.isEmpty() ? element : roots.get(0);
+    }
+
+    private static By resolveMultiSelectPanelLocator(WebElement multiSelectRoot) {
+        String rootId = multiSelectRoot.getAttribute("id");
+        if (isNotBlank(rootId)) {
+            return By.id(rootId + "_list");
+        }
+
+        List<WebElement> comboboxes = multiSelectRoot.findElements(By.cssSelector(
+                "[role='combobox'], input[id], input[data-pc-name='multiselect']"
+        ));
+
+        for (WebElement combobox : comboboxes) {
+            String ariaControls = combobox.getAttribute("aria-controls");
+            if (isNotBlank(ariaControls)) {
+                return By.id(ariaControls);
+            }
+        }
+
+        for (WebElement combobox : comboboxes) {
+            String id = combobox.getAttribute("id");
+            if (isNotBlank(id)) {
+                return By.id(id + "_list");
+            }
+        }
+
+        throw new IllegalStateException("Unable to resolve PrimeNG multiselect panel for: " + multiSelectRoot);
+    }
+
+    private static void openMultiSelectPanel(WebElement multiSelectRoot, By panelLocator) {
+        if (isMultiSelectPanelOpen(panelLocator)) {
+            return;
+        }
+
+        WebDriver driver = DriverManager.getDriver();
+        WebElement trigger = multiSelectRoot.findElement(By.cssSelector(
+                ".p-multiselect-trigger, .p-multiselect-label-container, .p-multiselect"
+        ));
+        jsClick(driver, trigger);
+        getWait().until(visibilityOfElementLocated(panelLocator));
+    }
+
+    private static boolean isMultiSelectPanelOpen(By panelLocator) {
+        List<WebElement> panels = DriverManager.getDriver().findElements(panelLocator);
+        return !panels.isEmpty() && panels.get(0).isDisplayed();
+    }
+
+    private static void selectMultiSelectOption(By panelLocator, String value) {
+        WebDriver driver = DriverManager.getDriver();
+        String normalizedValue = value.toLowerCase();
+        String literal = xpathLiteral(normalizedValue);
+        String ariaMatch = "contains(translate(@aria-label,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),"
+                + literal + ")";
+        String textMatch = ".//span[contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),"
+                + literal + ")]";
+
+        WebElement panel = getWait().until(visibilityOfElementLocated(panelLocator));
+        filterMultiSelectOptions(panel, value);
+
+        WebElement option = getWait().until(d -> {
+            WebElement visiblePanel = d.findElement(panelLocator);
+            List<WebElement> matches = visiblePanel.findElements(By.xpath(
+                    ".//li[@role='option' and not(contains(@class,'p-disabled')) and (" + ariaMatch + " or " + textMatch + ")]"
+            ));
+            return matches.isEmpty() ? null : matches.get(0);
+        });
+
+        if ("true".equalsIgnoreCase(option.getAttribute("aria-selected"))) {
+            clearMultiSelectFilter(panelLocator);
+            return;
+        }
+
+        WebElement checkbox = option.findElement(By.cssSelector(".p-checkbox-box, .p-checkbox"));
+        jsClick(driver, checkbox);
+
+        getWait().until(d -> "true".equalsIgnoreCase(
+                d.findElement(panelLocator)
+                        .findElement(By.xpath(".//li[@role='option' and (" + ariaMatch + " or " + textMatch + ")]"))
+                        .getAttribute("aria-selected")
+        ));
+
+        clearMultiSelectFilter(panelLocator);
+    }
+
+    private static void filterMultiSelectOptions(WebElement panel, String value) {
+        List<WebElement> filters = panel.findElements(By.cssSelector(
+                ".p-multiselect-filter, input[role='searchbox'], .p-multiselect-header input"
+        ));
+        if (filters.isEmpty()) {
+            return;
+        }
+
+        WebElement filter = filters.get(0);
+        filter.click();
+        filter.clear();
+        filter.sendKeys(value);
+    }
+
+    private static void clearMultiSelectFilter(By panelLocator) {
+        WebElement panel = DriverManager.getDriver().findElement(panelLocator);
+        List<WebElement> filters = panel.findElements(By.cssSelector(
+                ".p-multiselect-filter, input[role='searchbox'], .p-multiselect-header input"
+        ));
+        if (filters.isEmpty()) {
+            return;
+        }
+
+        filters.get(0).clear();
+    }
+
+    private static String xpathLiteral(String value) {
+        if (!value.contains("'")) {
+            return "'" + value + "'";
+        }
+        if (!value.contains("\"")) {
+            return "\"" + value + "\"";
+        }
+
+        String[] parts = value.split("'", -1);
+        StringBuilder expression = new StringBuilder("concat(");
+        for (int i = 0; i < parts.length; i++) {
+            if (i > 0) {
+                expression.append(", \"'\", ");
+            }
+            expression.append("'").append(parts[i]).append("'");
+        }
+        expression.append(")");
+        return expression.toString();
+    }
+
+    private static void closeMultiSelectPanel(By panelLocator) {
+        WebDriver driver = DriverManager.getDriver();
+        if (!isMultiSelectPanelOpen(panelLocator)) {
+            return;
+        }
+
+        driver.switchTo().activeElement().sendKeys(Keys.ESCAPE);
+        getWait().until(ExpectedConditions.invisibilityOfElementLocated(panelLocator));
+    }
+
+    private static void jsClick(WebDriver driver, WebElement element) {
+        try {
+            element.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
+    }
+
+    private static String[] expandCommaSeparatedValues(String... values) {
+        List<String> expanded = new ArrayList<>();
+        if (values == null) {
+            return new String[0];
+        }
+
+        for (String value : values) {
+            if (!isNotBlank(value)) {
+                continue;
+            }
+            for (String part : value.split(",")) {
+                if (isNotBlank(part)) {
+                    expanded.add(part.trim());
+                }
+            }
+        }
+        return expanded.toArray(new String[0]);
     }
 
     public static String[] toArray(String data) {
@@ -123,20 +288,20 @@ public class SeleniumUtils {
 
         WebElement dropdown = getWait().until(elementToBeClickable(by));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dropdown);
-        waitForSleep(200);
+        waitForSleep(100);
 
         WebElement trigger = dropdown.findElement(By.cssSelector(".p-dropdown-trigger"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", trigger);
-        waitForSleep(200);
+        waitForSleep(100);
 
         WebElement filterInput = getWait().until(
                 visibilityOfElementLocated(By.cssSelector(".p-dropdown-panel .p-dropdown-filter"))
         );
 
         filterInput.click();
-        waitForSleep(200);
+        waitForSleep(100);
         filterInput.sendKeys(value.toUpperCase());
-        waitForSleep(250);
+        waitForSleep(200);
 
         By option = By.xpath(
                 "//li[@role='option'][contains(" +
@@ -272,19 +437,39 @@ public class SeleniumUtils {
 
     }
     private static boolean getToggleState(WebElement element) {
-
-        Object prop = ((JavascriptExecutor) DriverManager.getDriver())
-                .executeScript("return arguments[0].checked;", element);
-        if (prop != null) {
-            return Boolean.TRUE.equals(prop);
-        }
-
-        String ariaChecked = element.getAttribute("aria-checked");
-        if (ariaChecked != null) {
-            return "true".equalsIgnoreCase(ariaChecked);
-        }
-
-        return element.isSelected();
+        Object state = ((JavascriptExecutor) DriverManager.getDriver()).executeScript(
+                "var el = arguments[0];" +
+                "function readAria(node) {" +
+                "  if (!node) return null;" +
+                "  var aria = node.getAttribute('aria-checked');" +
+                "  return aria === null ? null : aria === 'true';" +
+                "}" +
+                "function readChecked(node) {" +
+                "  if (!node || typeof node.checked !== 'boolean') return null;" +
+                "  return node.checked;" +
+                "}" +
+                "function resolveInput(node) {" +
+                "  if (!node) return null;" +
+                "  if (node.matches('input[type=\"checkbox\"], input[role=\"switch\"], [role=\"switch\"]')) return node;" +
+                "  return node.querySelector('input[type=\"checkbox\"], input[role=\"switch\"], [role=\"switch\"]');" +
+                "}" +
+                "var aria = readAria(el);" +
+                "if (aria !== null) return aria;" +
+                "var checked = readChecked(el);" +
+                "if (checked !== null) return checked;" +
+                "var input = resolveInput(el);" +
+                "if (input) {" +
+                "  aria = readAria(input);" +
+                "  if (aria !== null) return aria;" +
+                "  checked = readChecked(input);" +
+                "  if (checked !== null) return checked;" +
+                "}" +
+                "var root = el.closest('.p-inputswitch, .form-check, .form-switch');" +
+                "if (root && root.classList.contains('p-inputswitch-checked')) return true;" +
+                "return false;",
+                element
+        );
+        return Boolean.TRUE.equals(state);
     }
 }
 

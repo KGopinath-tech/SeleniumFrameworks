@@ -26,4 +26,5 @@ public class FakeData {
     public static String getMobilenumber(){
         return faker.phoneNumber().cellPhone();
     }
+    public static String getAddress(){ return faker.address().fullAddress();}
 }

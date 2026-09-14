@@ -14,7 +14,7 @@ public class FinancialDetailsComponents {
     private static final By TXT_ANNUAL_INCOME = By.id("AnnualIncome");
     private static final By TXT_EXP_ANNUAL_AVT_REMITTANCE = By.id("ExpectedAnnualActivityRemittance");
     private static final By TXT_No_TXNS_REMITTANCE = By.id("NoOfTransactionsRemittance");
-    private static final By TXT_EXP_ANNUAL_AVT_FC = By.id("ExpectedAnnualActivityFC");
+    private static final By TXT_EXP_ANNUAL_AVT_FC = By.xpath("//input[@name='ExpectedAnnualActivityFC']");
     private static final By TXT_No_TXNS_FC = By.id("NoOfTransactionsFC");
     private static final By DRP_BLOCKED_COUNTRIES = By.id("BlockedCountries");
     private static final By TXT_CORE_ACTIVITIES = By.id("CoreActivities");
@@ -23,6 +23,7 @@ public class FinancialDetailsComponents {
     private void selectServiceType(String serviceType) {
         selectDropdown(DRP_SERVICE_TYPE, serviceType);
     }
+
 
 //    private void selectServiceType(String data) {
 //        String[] values = toArray(data);
@@ -58,9 +59,7 @@ public class FinancialDetailsComponents {
         }
     }
     private void selectBlockedCountries(String blockedCountries) {
-        if(isDisplayed(DRP_BLOCKED_COUNTRIES)){
             selectDropdownWithRetry(DRP_BLOCKED_COUNTRIES, blockedCountries);
-        }
     }
     private void enterCoreActivities(String coreActivities) {
         if(isDisplayed(TXT_CORE_ACTIVITIES)){
@@ -79,7 +78,9 @@ public class FinancialDetailsComponents {
         enterNoOfTransactionsRemittance(data.getNumberOfTransactionsRemittance());
         enterExpectedAnnualActivityFC(data.getExpectedAnnualActivityFC());
         enterNoOfTransactionsFC(data.getNumberOfTransactionsFC());
-        selectBlockedCountries(data.getBlockedCountries());
+        if(isNotBlank(data.getBlockedCountries()) && isDisplayed(DRP_BLOCKED_COUNTRIES))  {
+            selectBlockedCountries(data.getBlockedCountries());
+        }
         enterCoreActivities(data.getCoreActivities());
     }
     public void fillCorporateFinancialDetails(FinancialDetailsData data){
@@ -90,7 +91,9 @@ public class FinancialDetailsComponents {
         enterNoOfTransactionsRemittance(data.getNumberOfTransactionsRemittance());
         enterExpectedAnnualActivityFC(data.getExpectedAnnualActivityFC());
         enterNoOfTransactionsFC(data.getNumberOfTransactionsFC());
-        selectBlockedCountries(data.getBlockedCountries());
+        if(isNotBlank(data.getBlockedCountries()) && isDisplayed(DRP_BLOCKED_COUNTRIES))  {
+            selectBlockedCountries(data.getBlockedCountries());
+        }
         enterCoreActivities(data.getCoreActivities());
     }
 }
