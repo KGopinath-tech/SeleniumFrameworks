@@ -2,6 +2,8 @@ package com.cinque.pages;
 
 import com.cinque.driver.DriverManager;
 import com.cinque.pages.sideMenuComponent.SidebarMenuComponent;
+
+import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
 import static com.cinque.utils.SeleniumUtils.*;
 
 public class HomePage {
@@ -20,6 +22,7 @@ public class HomePage {
     }
     public void getGeneralMenu(){ sidebarMenuComponent.getGeneralMenu();}
     public void getCustomerRegistration(){
-        sidebarMenuComponent.getCustomerRegistration();
+        sidebarMenuComponent.getCustomerRegistrationMenu();
+        waitForNgxSpinner();
     }
 }

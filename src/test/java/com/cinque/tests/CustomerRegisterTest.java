@@ -13,6 +13,8 @@ import com.cinque.utils.RepresentativeDataReader;
 import com.cinque.utils.MessageUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
 import static com.cinque.utils.SeleniumUtils.*;
 
 import java.util.List;
@@ -25,39 +27,29 @@ public class CustomerRegisterTest extends BaseTest{
     public void registerIndividualCustomer(CustomerRegisterTestData testdata) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());
-        waitForSleep(1000);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
 
         HomePage homePage = new HomePage();
         String actualTitle = homePage.getSymexTitle();
         Assert.assertEquals(actualTitle, testdata.getExpectedTitle());
-
-        homePage.clickOnSidebar();
-        //Thread.sleep(500);
-        homePage.getGeneralMenu();
         homePage.getCustomerRegistration();
 
-        PersonalDetailsData personalData = IndividualPersonalDetailsMapper.map(testdata);
-        AddressDetailsData addressData = AddressDetailsMapper.map(testdata);
-        FinancialDetailsData financialData = FinancialDetailsMapper.map(testdata);
-        OtherDetailsData otherData = IndividualOtherDetailsMapper.map(testdata);
-        IdentityDetailsData identityData = IdentityDetailsMapper.map(testdata);
-
-        waitForSleep(3500);
         CustomerRegistrationPage page = new CustomerRegistrationPage();
-        page.fillIndividualPersonalDetails(personalData);
+        page.fillIndividualPersonalDetails(IndividualPersonalDetailsMapper.map(testdata));
         page.clickExpandButton();
-        waitForSleep(500);
-        page.fillAddressDetails(addressData);
+        page.fillAddressDetails(AddressDetailsMapper.map(testdata));
         page.fillEmploymentDetails(testdata.getEmployer(), testdata.getOccupation());
-        page.fillIndividualFinancialDetails(financialData);
-        page.fillIndividualOtherDetails(otherData);
+        page.fillIndividualFinancialDetails(FinancialDetailsMapper.map(testdata));
+        page.fillIndividualOtherDetails(IndividualOtherDetailsMapper.map(testdata));
         page.fillPromoDetails(testdata.getPromoCode(),testdata.getPromoExpiryDate());
-        page.fillIdentityDetails(identityData);
+        page.fillIdentityDetails(IdentityDetailsMapper.map(testdata));
         page.clickSaveButton();
         page.clickConfirmationSaveButton();
+        page.clickApproveButton();
+        page.clickConfirmationApproveButton();
         MessageUtils.validateMessages(testdata.getToastType(), testdata.getExpectedMessage());
+        waitForSleep(5000);
 
     }
     @FrameworkAnnotation(category = {"Regression"}, author = "Shinitha")
@@ -65,43 +57,32 @@ public class CustomerRegisterTest extends BaseTest{
     public void registerCorporateCustomer(CustomerRegisterTestData testdata) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testdata.getUsername(), testdata.getPassword());
-        waitForSleep(500);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
 
         HomePage homePage = new HomePage();
         String actualTitle = homePage.getSymexTitle();
         Assert.assertEquals(actualTitle, testdata.getExpectedTitle());
-
-        homePage.clickOnSidebar();
-        waitForSleep(500);
-        homePage.getGeneralMenu();
         homePage.getCustomerRegistration();
 
-        PersonalDetailsData corporateData = CorporatePersonalDetailsMapper.map(testdata);
-        AddressDetailsData  addressData = AddressDetailsMapper.map(testdata);
-        FinancialDetailsData financialData = FinancialDetailsMapper.map(testdata);
-        OtherDetailsData otherData = CorporateOtherDetailsMapper.map(testdata);
-        IdentityDetailsData identityData = IdentityDetailsMapper.map(testdata);
-
-        waitForSleep(3500);
         CustomerRegistrationPage page = new CustomerRegistrationPage();
         page.selectCorporateCustomerType();
-        page.fillCorporatePersonalDetails(corporateData);
+        page.fillCorporatePersonalDetails(CorporatePersonalDetailsMapper.map(testdata));
         page.clickExpandButton();
-        waitForSleep(500);
-        page.fillAddressDetails(addressData);
-        page.fillCorporateFinancialDetails(financialData);
-        page.fillCorporateOtherDetails(otherData);
+        page.fillAddressDetails(AddressDetailsMapper.map(testdata));
+        page.fillCorporateFinancialDetails(FinancialDetailsMapper.map(testdata));
+        page.fillCorporateOtherDetails(CorporateOtherDetailsMapper.map(testdata));
         //page.fillPromoDetails(testdata.getPromoCode(),testdata.getPromoExpiryDate());
-        page.fillIdentityDetails(identityData);
+        page.fillIdentityDetails(IdentityDetailsMapper.map(testdata));
 
         List<RepresentativeDetailsData> representatives = RepresentativeDataReader.getRepresentatives(testdata.getTestcasename());
         page.fillRepresentativeDetails(representatives);
-        waitForSleep(500);
         page.clickSaveButton();
         page.clickConfirmationSaveButton();
+        page.clickApproveButton();
+        page.clickConfirmationApproveButton();
         MessageUtils.validateMessages(testdata.getToastType(), testdata.getExpectedMessage());
+        waitForSleep(5000);
 
     }
 

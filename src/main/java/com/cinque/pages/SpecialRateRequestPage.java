@@ -30,6 +30,7 @@ public class SpecialRateRequestPage {
     private static final By DATE_VALUE_DATE = By.id("valueDate");
     private static final By DRP_RMCURRENCY = By.cssSelector("p-dropdown[inputid='rmcurrency']");
     private static final By DRP_CORRESPONDENT = By.id("correspondent");
+    private static final By DRP_PRODUCT = By.id("product");
     private static final By DRP_PAYMODE = By.id("paymode");
     private static final By TXT_FCAMOUNT = By.id("fcAmount");
     private static final By TXT_LCAMOUNT = By.id("lcAmount");
@@ -40,8 +41,8 @@ public class SpecialRateRequestPage {
     private static final By TXT_SPECIAL_RATE = By.xpath("//p-inputnumber[@inputid='specialrate']");
     private static final By BTN_CONFIRMATION_LEAVEPAGE = By.xpath("//button[contains(.,'Leave Page')]");
     private static final By DRP_FCTYPE = By.id("fcTypes");
-    private static final By DRP_TRANSACTIONTYPE = By.id("pn_id_10");
-    private static final By DRP_FCCURRENCY = By.id("pn_id_12");
+    private static final By DRP_TRANSACTIONTYPE = By.id("transactionType");
+    private static final By DRP_FCCURRENCY = By.id("fccurrency");
     private static final By TXT_FCREMARK = By.id("rtRemark");
 
     private static final By BTN_SEARCH_TRANSACTION = By.xpath("//button[normalize-space()='Search Transaction']");
@@ -59,6 +60,7 @@ public class SpecialRateRequestPage {
     private void enterValueDate(String date){enterDate(DATE_VALUE_DATE, date, CLICKABLE);}
     private void selectRMCurrency(String currency){selectDropdownWithRetry(DRP_RMCURRENCY,  currency);}
     private void selectCorrespondent(String correspondent){selectDropdownWithRetry(DRP_CORRESPONDENT, correspondent);}
+    private void selectProduct(String product){selectDropdownWithRetry(DRP_PRODUCT, product);}
     private void selectPaymode(String payMode){selectDropdownWithRetry(DRP_PAYMODE, payMode);}
     private void enterFCAmount(String fcAmount){sendKeys(TXT_FCAMOUNT, fcAmount, CLICKABLE, "FC Amount");}
     private void enterLCAmount(String lcAmount){sendKeys(TXT_LCAMOUNT, lcAmount, CLICKABLE, "LC Amount");}
@@ -127,6 +129,7 @@ public class SpecialRateRequestPage {
         }
         selectRMCurrency(data.getRmcurrency());
         selectCorrespondent(data.getCorrespondent());
+        selectProduct(data.getProduct());
         selectPaymode(data.getRmpaymode());
         if(isNotBlank(data.getRmfcamount())) {
             enterFCAmount(data.getRmfcamount());

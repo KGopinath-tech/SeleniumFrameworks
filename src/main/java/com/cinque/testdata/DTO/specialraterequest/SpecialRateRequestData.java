@@ -13,6 +13,7 @@ public class SpecialRateRequestData {
     private String valuedate;
     private String rmcurrency;
     private String correspondent;
+    private String product;
     private String rmpaymode;
     private String rmfcamount;
     private String rmlcamount;

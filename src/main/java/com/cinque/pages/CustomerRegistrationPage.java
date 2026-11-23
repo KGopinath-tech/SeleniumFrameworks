@@ -44,8 +44,9 @@ public class CustomerRegistrationPage {
     private static final By BTN_DEACTIVATE = By.xpath("//button[normalize-space()='Deactivate']");
     private static final By KEBAB_MENU = By.id("moreOptionsDropdown");
     private static final By BTN_EXPAND = By.xpath("//a[normalize-space()='Expand All']");
-    private static final By BTN_CONFIRMATION_SAVE = By.xpath("//button[@class='btn btn-filled fs-medium']");
-    private static final By BTN_CONFIRMATION_CANCEL = By.xpath("//button[@class='btn btn-outline fs-medium']");
+    private static final By BTN_CONFIRMATION_SAVE = By.xpath("//button[@class='btn btn-filled fs-medium d-inline-flex align-items-center'][contains(normalize-space(),'Save')]");
+    private static final By BTN_CONFIRMATION_APPROVE = By.xpath("//button[@class='btn btn-filled fs-medium d-inline-flex align-items-center'][contains(normalize-space(),'Approve')]");
+    private static final By BTN_CONFIRMATION_CANCEL = By.xpath("//button[@class='btn btn-outline fs-medium d-inline-flex align-items-center ng-star-inserted'][contains(normalize-space(),'Cancel')]");
     private static final By BTN_IND_CUSTOMER_TYPE = By.xpath("//input[@id='type-I']");
     private static final By BTN_CORP_CUSTOMER_TYPE = By.xpath("//input[@id='type-C']");
     private static final By BTN_VENDOR_CUSTOMER_TYPE = By.xpath("//input[@id='type-V']");
@@ -59,9 +60,9 @@ public class CustomerRegistrationPage {
     }
     public void clickSaveButton(){
         click(BTN_SAVE, CLICKABLE, "Save Button");
-        waitForNgxSpinner();
     }
     public void clickApproveButton(){
+        waitForNgxSpinner();
         click(BTN_APPROVE, CLICKABLE, "Approve Button");
     }
     public void clickPrintButton(){
@@ -75,9 +76,15 @@ public class CustomerRegistrationPage {
     }
     public void clickExpandButton(){
         click(BTN_EXPAND, CLICKABLE, "Expand");
+        waitForSleep(300);
     }
     public void clickConfirmationSaveButton(){
         click(BTN_CONFIRMATION_SAVE, CLICKABLE);
+        waitForNgxSpinner();
+    }
+    public void clickConfirmationApproveButton(){
+        click(BTN_CONFIRMATION_APPROVE, CLICKABLE);
+        waitForNgxSpinner();
     }
     public void clickConfirmationCancelButton(){
         click(BTN_CONFIRMATION_CANCEL, CLICKABLE);

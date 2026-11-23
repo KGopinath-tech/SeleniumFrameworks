@@ -19,6 +19,7 @@ public class AmountAndRates {
 
     private void enterFCAmount(String FCAmount) {
         sendKeys(TXT_FC_AMOUNT, FCAmount, CLICKABLE, "FC Amount");
+        waitForSleep(500);
     }
     private void enterLCAmount(String LCAmount) {
         sendKeys(TXT_LC_AMOUNT, LCAmount, CLICKABLE, "LC Amount");
@@ -37,9 +38,7 @@ public class AmountAndRates {
     }
 
     public void fillOutwardAmountDetails(AmountAndRatesData data){
-        waitForSleep(1000);
         enterFCAmount(data.getFcamount());
-        waitForNgxSpinner();
         if(isNotBlank(data.getLcamount())){
             enterLCAmount(data.getLcamount());
         }

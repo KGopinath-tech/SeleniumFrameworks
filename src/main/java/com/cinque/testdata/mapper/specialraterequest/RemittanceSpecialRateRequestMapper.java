@@ -12,6 +12,7 @@ public class RemittanceSpecialRateRequestMapper {
                 .valuedate(data.getValuedate())
                 .rmcurrency(data.getRmcurrency())
                 .correspondent(data.getCorrespondent())
+                .product(data.getProduct())
                 .rmpaymode(data.getRmpaymode())
                 .rmfcamount(data.getRmfcamount())
                 .rmlcamount(data.getRmlcamount())

@@ -200,7 +200,6 @@ public class MessageUtils {
         } catch (Exception ignored) {}
     }
 
-    // ─── Helpers ───────────────────────────────────────────────────────────────────
     private static String normalize(String text) {
         return text.toLowerCase()
                 .replaceAll("[^a-z0-9 ]", "")

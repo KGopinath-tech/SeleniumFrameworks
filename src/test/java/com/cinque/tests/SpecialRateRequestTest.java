@@ -21,16 +21,13 @@ public class SpecialRateRequestTest extends BaseTest{
     public void InitiateRemittanceSpecialRate(SpecialRateRequestTestData testData){
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testData.getUsername(), testData.getPassword());
-        waitForSleep(2500);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
-        waitForSleep(2000);
+
         SpecialRateRequestPage specialRateRequestPage = new SpecialRateRequestPage();
         specialRateRequestPage.getSpecialRateRequestScreen();
-        waitForSleep(1000);
 
-        SpecialRateRequestData requestData = RemittanceSpecialRateRequestMapper.map(testData);
-        specialRateRequestPage.initiateRMSpecialRateRequest(requestData);
+        specialRateRequestPage.initiateRMSpecialRateRequest(RemittanceSpecialRateRequestMapper.map(testData));
         specialRateRequestPage.clickOnSaveButton();
         MessageUtils.validateMessages(testData.getToastType(), testData.getExpectedMessage());
         waitForSleep(1000);
@@ -40,13 +37,11 @@ public class SpecialRateRequestTest extends BaseTest{
     public void InitiateFcSpecialRate(SpecialRateRequestTestData testData){
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testData.getUsername(), testData.getPassword());
-        waitForSleep(2500);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
-        waitForSleep(2000);
+
         SpecialRateRequestPage specialRateRequestPage = new SpecialRateRequestPage();
         specialRateRequestPage.getSpecialRateRequestScreen();
-        waitForSleep(1000);
 
         SpecialRateRequestData requestData = FCSpecialRateRequestMapper.map(testData);
         specialRateRequestPage.initiateFCSpecialRateRequest(requestData);

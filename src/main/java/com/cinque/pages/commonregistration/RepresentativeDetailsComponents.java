@@ -172,7 +172,6 @@ public class RepresentativeDetailsComponents {
         //enablePep();
         //enableStatus();
         clickPopupSave();
-        waitForNgxSpinner();
     }
     public void fillMultipleRepresentativeDetails(List<RepresentativeDetailsData> dataList) {
         if (dataList == null || dataList.isEmpty()) {

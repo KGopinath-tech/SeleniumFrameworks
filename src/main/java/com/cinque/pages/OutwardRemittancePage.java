@@ -46,6 +46,7 @@ public class OutwardRemittancePage {
     private static final By BTN_ADD_DOCUMENT = By.xpath("//*[@class='dropdown-menu show']/*[normalize-space()='Add/View Document']");
     private static final By BTN_AUDIT_LOGS = By.xpath("//*[@class='dropdown-menu show']/*[normalize-space()='Audit Logs']");
     private static final By BTN_INITIATE_TRANSACTION = By.xpath("//button[normalize-space()='Initiate Transaction']");
+    private static final By BTN_CONFIRMATION_APPROVE = By.xpath("//button[@class='btn btn-filled fs-medium d-inline-flex align-items-center'][contains(normalize-space(),'Approve')]");
 
     public void clickOnSave (){
         click(BTN_SAVE, CLICKABLE);
@@ -79,4 +80,8 @@ public class OutwardRemittancePage {
         click(BTN_INITIATE_TRANSACTION, CLICKABLE);
     }
 
+    public void clickOnConfirmationApprove (){
+        click(BTN_CONFIRMATION_APPROVE, CLICKABLE);
+        waitForNgxSpinner();
+    }
 }

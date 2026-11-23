@@ -10,6 +10,10 @@ import static com.cinque.utils.SeleniumUtils.*;
 
 public class ReceiverInformation {
 
+    private static final By BTN_CLEAR = By.xpath("//button[@class='btn btn-filled clear-button fs-medium'][normalize-space()='Clear']");
+    private static final By BTN_ADV_SEARCH = By.xpath("//button[@class='btn btn-filled fs-medium']//*[@class='btn-icon-style slider-icon']");
+    private static final By BTN_SEARCH= By.xpath("//button[@class='btn btn-filled px-5'][normalize-space()='Search']");
+
     private static final By DRP_RECEIVER_TYPE = By.id("receiverType");
     private static final By DRP_RECEIVER_GENDER = By.id("receiverGender");
     private static final By TXT_RECEIVER_FIRSTNAME = By.id("receiverFirstName");
@@ -62,8 +66,6 @@ public class ReceiverInformation {
         sendKeys(TXT_RECEIVER_MOBILE_NUMBER, receiverMobileNumber, CLICKABLE , "Receiver Mobile Number");
     }
     private void selectIdType(String receiverIdType) {
-        waitForSleep(1000);
-        waitForNgxSpinner();
         selectDropdown(DRP_RECEIVER_IDTYPE, receiverIdType);
     }
     private void eneterReceiverIdNumber(String receiverIdNumber) {
@@ -122,5 +124,6 @@ public class ReceiverInformation {
         if(isNotBlank(data.getReceivernearbyairport())){
             selectReceiverAirport(data.getReceivernearbyairport());
         }
+        waitForNgxSpinner();
     }
 }

@@ -7,28 +7,33 @@ import org.openqa.selenium.By;
 public class SidebarMenuComponent {
 
     //Masters
+    private static final By MENU_MASTERS = By.xpath("//*[@class='menu-icon fs-icon-regular fa-solid fa-cogs']");
     private static final By MENU_SIDEBAR = By.xpath("//i[contains(@class,'fa-cogs')]/parent::div");
     private static final By MENU_GENERAL = By.xpath("//div//span[contains(text(),'General')]");
-    private static final By MENU_CUSTOMER_REGISTRATION = By
-            .xpath("//span[@class='grand-child-label fs-medium'][normalize-space()='Customer Registration']");
+    private static final By MENU_KYC = By.xpath("//span[contains(text(),'KYC')]");
     private static final By MENU_EMPLOYEE = By.xpath("//span[text()='Employee']");
 
     public void getSideMenu() {
         click(MENU_SIDEBAR, CLICKABLE, "Side Menu");
     }
+    public void getMastersMenu(){click(MENU_MASTERS, CLICKABLE);}
     public void getGeneralMenu(){
         click(MENU_GENERAL, CLICKABLE,"General Menu");
     }
+    public void getKYCMenu(){click(MENU_KYC, CLICKABLE,"KYC Menu");}
     public void getEmployee(){
         click(MENU_EMPLOYEE, CLICKABLE,"Employee Menu");
     }
-    public void getCustomerRegistration(){click(MENU_CUSTOMER_REGISTRATION, CLICKABLE,"Customer Registration Menu");}
+
+    //KYC
+    private static final By MENU_CUSTOMER_REGISTRATION = By.xpath("//span[normalize-space()='Customer Registration']");
+    private static final By MENU_ID_MASTER = By.xpath("//span[normalize-space()='ID Master']");
 
     //Transactions
     private static final By TRANSACTIONS_MENU = By.xpath("//div/i[contains(@class,'fa-credit-card')]");
     private static final By GEN_SPECIAL_RATE_MENU = By.xpath("//*[contains(text(),'Special Rate')]");
 
-    private static final By TXN_OUTWARD_MENU = By.xpath("//div//span[contains(text(),'Outward')]");
+    private static final By TXN_OUTWARD_MENU = By.xpath("//div//span[normalize-space()='Outward']");
     private static final By OUT_OUTWARD_REMITTANCE_MENU =
             By.xpath("//span[@class='grand-child-label fs-medium'][normalize-space()='Outward Remittance']");
     private static final By OUT_REFUND_MENU =
@@ -70,6 +75,14 @@ public class SidebarMenuComponent {
         click(TXN_OUTWARD_MENU,  CLICKABLE);
     }
     private void getInwardMenu(){click(TXN_INWARD_MENU,  CLICKABLE);}
+
+    public void getCustomerRegistrationMenu(){
+        getMastersMenu();
+        waitForSleep(350);
+        getKYCMenu();
+        waitForSleep(350);
+        click(MENU_CUSTOMER_REGISTRATION,  CLICKABLE);
+    }
 
     public void getSpecialRateScreenMenu(){
         getTransactionMenu();

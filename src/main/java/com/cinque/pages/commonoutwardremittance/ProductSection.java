@@ -34,13 +34,13 @@ public class ProductSection {
         selectCountry(data.getCountry());
         waitForNgxSpinner();
         selectCurrency(data.getCurrency());
+        waitForNgxSpinner();
         if(data.getProducttype().equalsIgnoreCase("Bank/Agent")) {
             clickBank();
         }
         else if(data.getProducttype().equalsIgnoreCase("Express Product")) {
             clickExpressProduct();
         } else { clickInterBranch(); }
-
         waitForNgxSpinner();
         selectProduct(data.getProduct());
         waitForNgxSpinner();

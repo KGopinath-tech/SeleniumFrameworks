@@ -28,6 +28,8 @@ public class SpecialRateRequestTestData {
     private String rmcurrency;
     @Column(name="correspondent")
     private String correspondent;
+    @Column(name="product")
+    private String product;
     @Column(name="rmpaymode")
     private String rmpaymode;
     @Column(name="rmfcamount")
