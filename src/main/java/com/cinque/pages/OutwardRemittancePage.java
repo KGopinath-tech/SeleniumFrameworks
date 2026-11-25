@@ -10,15 +10,15 @@ import static com.cinque.utils.SeleniumUtils.*;
 
 public class OutwardRemittancePage {
 
-    private SidebarMenuComponent sidebarMenuComponent = new SidebarMenuComponent();
+    private final SidebarMenuComponent sidebarMenuComponent = new SidebarMenuComponent();
 
     public void getOuwardemittanceScreen(){sidebarMenuComponent.getOutwardRemittanceMenu();}
 
-    private AmountAndRates amountAndRates = new AmountAndRates();
-    private ComplianceDetails complianceDetails = new ComplianceDetails();
-    private ProductSection productSection = new ProductSection();
-    private ReceiverInformation  receiverInformation = new ReceiverInformation();
-    private RemitterInformation  remitterInformation = new RemitterInformation();
+    private final AmountAndRates amountAndRates = new AmountAndRates();
+    private final ComplianceDetails complianceDetails = new ComplianceDetails();
+    private final ProductSection productSection = new ProductSection();
+    private final ReceiverInformation  receiverInformation = new ReceiverInformation();
+    private final RemitterInformation  remitterInformation = new RemitterInformation();
 
     public void fillProductSectionDetails(ProductSectionData data){
         productSection.fillProductSectionDetails(data);

@@ -11,8 +11,8 @@ import com.cinque.utils.DataProviderUtils;
 import com.cinque.utils.MessageUtils;
 import org.testng.annotations.Test;
 
-import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
-import static com.cinque.utils.SeleniumUtils.waitForSleep;
+import static com.cinque.utils.MessageUtils.*;
+
 
 public class OutwardRemittanceTest extends BaseTest {
 
@@ -27,7 +27,6 @@ public class OutwardRemittanceTest extends BaseTest {
         OutwardRemittancePage  outwardRemittancePage = new OutwardRemittancePage();
         outwardRemittancePage.getOuwardemittanceScreen();
 
-        waitForNgxSpinner();
         outwardRemittancePage.fillProductSectionDetails(ProductSectionMapper.map(testData));
         outwardRemittancePage.fillRemitterInformation(RemitterInformationMapper.map(testData));
         outwardRemittancePage.fillAmountAndRates(AmountAndRatesMapper.map(testData));
@@ -37,7 +36,7 @@ public class OutwardRemittanceTest extends BaseTest {
         outwardRemittancePage.clickOnApprove();
         outwardRemittancePage.clickOnConfirmationApprove();
 
-        MessageUtils.validateMessages(testData.getToastType(), testData.getExpectedMessage());
+        validateMessages(testData.getToastType(), testData.getExpectedMessage());
 
     }
 }

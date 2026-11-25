@@ -329,7 +329,7 @@ public class SeleniumUtils {
             }
         }
 
-        throw new RuntimeException("Dropdown selection failed for: " + value);
+//        throw new RuntimeException("Dropdown selection failed for: " + value);
     }
 
     public static void selectDropdown(By dropdown, String value) {

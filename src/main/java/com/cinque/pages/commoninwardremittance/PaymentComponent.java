@@ -31,16 +31,18 @@ public class PaymentComponent {
     private void enterReceiverCommission(String commission){sendKeys(TXT_RECEIVER_COMMISSION, commission, CLICKABLE, "ReceiverCommission");}
 
     public void fillPaymentDetails(PaymentDetailsData data){
+        waitForNgxSpinner();
         selectCountry(data.getCountry());
         selectProduct(data.getProduct());
         selectCurrency(data.getCurrency());
         selectInwardType(data.getInwardtype());
         enterExpiryDate(data.getExpirydate());
         selectCommission(data.getCommissiontype());
+        enterAgentCommission(data.getAgentcommission());
+        enterReceiverCommission(data.getReceivercommission());
+        waitForNgxSpinner();
         enterRCN(data.getRcnno());
         enterFCAmount(data.getFcamount());
         waitForNgxSpinner();
-        enterAgentCommission(data.getAgentcommission());
-        enterReceiverCommission(data.getReceivercommission());
     }
 }

@@ -7,7 +7,7 @@ import static com.cinque.utils.SeleniumUtils.*;
 public class PromotionComponents {
 
     private static final By TXT_PROMOTION_EXPIRY_DATE = By.xpath("//label[normalize-space()='Promotion Expiry Date']/preceding-sibling::*//input");
-    private static final By GDE_APPLY_PROMO = By.xpath("//label[normalize-space()='Apply Promo']/preceding-sibling::*[@id='flexCheckDefault']");
+    private static final By DGE_APPLY_PROMO = By.xpath("//label[normalize-space()='Apply Promo']/preceding-sibling::*[@id='flexCheckDefault']");
     private static final By TXT_PROMO_CODE = By.id("PromoCode");
 
     private PromotionComponents enterPromoExpireDate(String promoExpireDate) {
@@ -15,7 +15,7 @@ public class PromotionComponents {
         return this;
     }
     private PromotionComponents applyPromoCode() {
-        setToggle(GDE_APPLY_PROMO, true);
+        setToggle(DGE_APPLY_PROMO, true);
         return this;
     }
     private PromotionComponents enterPromoCode(String promoCode) {

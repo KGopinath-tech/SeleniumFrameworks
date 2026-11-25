@@ -31,6 +31,7 @@ public class ProductSection {
     private void selectDeliveryMode(String deliveryMode) { selectDropdown(DRP_DELIVERY_MODE, deliveryMode); }
 
     public void fillProductSectionDetails(ProductSectionData data){
+        waitForNgxSpinner();
         selectCountry(data.getCountry());
         waitForNgxSpinner();
         selectCurrency(data.getCurrency());

@@ -10,7 +10,7 @@ import static com.cinque.utils.SeleniumUtils.*;
 
 public class SpecialRateRequestPage {
 
-    private SidebarMenuComponent sidebarMenuComponent = new SidebarMenuComponent();
+    private final SidebarMenuComponent sidebarMenuComponent = new SidebarMenuComponent();
 
     public void getSpecialRateRequestScreen(){sidebarMenuComponent.getSpecialRateScreenMenu();}
 
@@ -41,8 +41,8 @@ public class SpecialRateRequestPage {
     private static final By TXT_SPECIAL_RATE = By.xpath("//p-inputnumber[@inputid='specialrate']");
     private static final By BTN_CONFIRMATION_LEAVEPAGE = By.xpath("//button[contains(.,'Leave Page')]");
     private static final By DRP_FCTYPE = By.id("fcTypes");
-    private static final By DRP_TRANSACTIONTYPE = By.id("transactionType");
-    private static final By DRP_FCCURRENCY = By.id("fccurrency");
+    private static final By DRP_TRANSACTIONTYPE = By.xpath("//div[normalize-space()='Transaction Type']");
+    private static final By DRP_FCCURRENCY = By.xpath("//div[normalize-space()='Currency']");
     private static final By TXT_FCREMARK = By.id("rtRemark");
 
     private static final By BTN_SEARCH_TRANSACTION = By.xpath("//button[normalize-space()='Search Transaction']");
@@ -54,7 +54,7 @@ public class SpecialRateRequestPage {
     private static final By BTN_SEARCH = By.xpath("//button[normalize-space()='Search']");
 
     private void naviateRemittanceRequestScreen(){click(BTN_REMITTANCE, CLICKABLE);}
-    private void naviateForexRequestScreen(){click(BTN_FOREX, CLICKABLE);}
+    private void navigateForexRequestScreen(){click(BTN_FOREX, CLICKABLE);}
     private void enterRemIdInSearchBox(String remId){sendKeys(TXT_SEARCHBOX, remId, CLICKABLE, "Rem Search");}
     private void clickOnSearchButton(){click(BTN_SEARCH_BUTTON, CLICKABLE);}
     private void enterValueDate(String date){enterDate(DATE_VALUE_DATE, date, CLICKABLE);}
@@ -84,7 +84,10 @@ public class SpecialRateRequestPage {
         waitForNgxSpinner();
     }
     public void clickOnClearButton(){click(BTN_CLEAR, CLICKABLE);}
-    public void clickOnApproveButton(){click(BTN_APPROVE, CLICKABLE);}
+    public void clickOnApproveButton(){
+        click(BTN_APPROVE, CLICKABLE);
+        waitForNgxSpinner();
+    }
     public void clickOnUpdateButton(){click(BTN_UPDATE, CLICKABLE);}
     public void clickOnDeleteButton(){click(BTN_DELETE, CLICKABLE);}
     public void clickOnDisapproveButton(){click(BTN_DISAPPROVE, CLICKABLE);}
@@ -142,7 +145,7 @@ public class SpecialRateRequestPage {
         }
     }
     public void initiateFCSpecialRateRequest(SpecialRateRequestData data) {
-        naviateForexRequestScreen();
+        navigateForexRequestScreen();
         waitForSleep(200);
         if(isDisplayed(BTN_CONFIRMATION_LEAVEPAGE)){
             clickConfirmationLeave();

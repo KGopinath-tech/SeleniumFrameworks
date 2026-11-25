@@ -12,7 +12,8 @@ import com.cinque.utils.DataProviderUtils;
 import com.cinque.utils.MessageUtils;
 import org.testng.annotations.Test;
 
-import static com.cinque.utils.SeleniumUtils.waitForSleep;
+import static com.cinque.utils.MessageUtils.*;
+import static com.cinque.utils.SeleniumUtils.*;
 
 public class SpecialRateRequestTest extends BaseTest{
 
@@ -29,8 +30,9 @@ public class SpecialRateRequestTest extends BaseTest{
 
         specialRateRequestPage.initiateRMSpecialRateRequest(RemittanceSpecialRateRequestMapper.map(testData));
         specialRateRequestPage.clickOnSaveButton();
-        MessageUtils.validateMessages(testData.getToastType(), testData.getExpectedMessage());
-        waitForSleep(1000);
+        specialRateRequestPage.clickOnApproveButton();
+        validateMessages(testData.getToastType(), testData.getExpectedMessage());
+        waitForSleep(2000);
     }
     @FrameworkAnnotation(category = {"Functional", "Regression"}, author = "Gopinath")
     @Test(dataProvider = "getSpecialRateData", dataProviderClass = DataProviderUtils.class)
@@ -46,7 +48,8 @@ public class SpecialRateRequestTest extends BaseTest{
         SpecialRateRequestData requestData = FCSpecialRateRequestMapper.map(testData);
         specialRateRequestPage.initiateFCSpecialRateRequest(requestData);
         specialRateRequestPage.clickOnSaveButton();
-        MessageUtils.validateMessages(testData.getToastType(), testData.getExpectedMessage());
-        waitForSleep(1000);
+        specialRateRequestPage.clickOnApproveButton();
+        validateMessages(testData.getToastType(), testData.getExpectedMessage());
+        waitForSleep(2000);
     }
 }

@@ -15,12 +15,12 @@ import static com.cinque.utils.SeleniumUtils.click;
 
 public class InwardRemittancePage {
 
-    private SidebarMenuComponent sidebarMenuComponent = new SidebarMenuComponent();
+    private final SidebarMenuComponent sidebarMenuComponent = new SidebarMenuComponent();
     public void getInwardRemittanceScreen(){sidebarMenuComponent.getInwardRemittanceMenu();}
 
-    private PaymentComponent  paymentComponent = new PaymentComponent();
-    private ReceiverComponent receiverComponent = new ReceiverComponent();
-    private SenderComponent senderComponent = new SenderComponent();
+    private final PaymentComponent  paymentComponent = new PaymentComponent();
+    private final ReceiverComponent receiverComponent = new ReceiverComponent();
+    private final SenderComponent senderComponent = new SenderComponent();
 
     public void fillPaymentDetails(PaymentDetailsData data){paymentComponent.fillPaymentDetails(data);}
     public void fillReceiverDetails(ReceiverDetailsData data){receiverComponent.fillReceiverDetails(data);}
@@ -46,6 +46,7 @@ public class InwardRemittancePage {
     }
     public void clickOnApprove (){
         click(BTN_APPROVE, CLICKABLE);
+        waitForNgxSpinner();
     }
     public void clickOnPrint (){
         click(BTN_PRINT, CLICKABLE);

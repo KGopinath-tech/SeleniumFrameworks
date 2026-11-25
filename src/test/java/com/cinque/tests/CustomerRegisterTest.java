@@ -14,7 +14,7 @@ import com.cinque.utils.MessageUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static com.cinque.utils.MessageUtils.waitForNgxSpinner;
+import static com.cinque.utils.MessageUtils.*;
 import static com.cinque.utils.SeleniumUtils.*;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class CustomerRegisterTest extends BaseTest{
         page.clickConfirmationSaveButton();
         page.clickApproveButton();
         page.clickConfirmationApproveButton();
-        MessageUtils.validateMessages(testdata.getToastType(), testdata.getExpectedMessage());
+        validateMessages(testdata.getToastType(), testdata.getExpectedMessage());
         waitForSleep(5000);
 
     }
@@ -81,7 +81,7 @@ public class CustomerRegisterTest extends BaseTest{
         page.clickConfirmationSaveButton();
         page.clickApproveButton();
         page.clickConfirmationApproveButton();
-        MessageUtils.validateMessages(testdata.getToastType(), testdata.getExpectedMessage());
+        validateMessages(testdata.getToastType(), testdata.getExpectedMessage());
         waitForSleep(5000);
 
     }

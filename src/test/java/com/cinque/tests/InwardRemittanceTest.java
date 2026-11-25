@@ -11,6 +11,7 @@ import com.cinque.testdata.mapper.inwardremittancemapper.SenderDetailsMapper;
 import com.cinque.utils.DataProviderUtils;
 import org.testng.annotations.Test;
 
+import static com.cinque.utils.MessageUtils.*;
 import static com.cinque.utils.SeleniumUtils.waitForSleep;
 
 public class InwardRemittanceTest extends BaseTest {
@@ -20,22 +21,18 @@ public class InwardRemittanceTest extends BaseTest {
     public void InitiateInwardRemittanceTest(InwardRemittanceTestData testData) {
         LoginPage login = new LoginPage();
         login.loginToSymexApplication(testData.getUsername(), testData.getPassword());
-        waitForSleep(2500);
         login.selectBranch(Configfactory.getConfig().entitySelection());
         login.clickContinue();
-        waitForSleep(2000);
 
         InwardRemittancePage inwardPage = new InwardRemittancePage();
         inwardPage.getInwardRemittanceScreen();
-        waitForSleep(2500);
 
         inwardPage.fillPaymentDetails(PaymentDetailsMapper.map(testData));
-        waitForSleep(2500);
         inwardPage.fillSenderDetails(SenderDetailsMapper.map(testData));
-        waitForSleep(2500);
         inwardPage.fillReceiverDetails(ReceiverDetailsMapper.map(testData));
-        waitForSleep(2500);
         inwardPage.clickOnSave();
+        inwardPage.clickOnApprove();
+        validateMessages(testData.getToastType(), testData.getExpectedMessage());
         waitForSleep(2500);
     }
 }
