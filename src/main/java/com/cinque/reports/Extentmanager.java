@@ -1,4 +1,4 @@
-package com.cinque.Reports;
+package com.cinque.reports;
 
 import com.aventstack.extentreports.ExtentTest;
 

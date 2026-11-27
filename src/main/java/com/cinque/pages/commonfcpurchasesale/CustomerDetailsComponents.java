@@ -1,5 +1,7 @@
 package com.cinque.pages.commonfcpurchasesale;
 
+import static com.cinque.utils.SeleniumUtils.*;
+import static com.cinque.enums.WaitType.*;
 import org.openqa.selenium.By;
 
 public class CustomerDetailsComponents {
@@ -39,4 +41,33 @@ public class CustomerDetailsComponents {
     private static final By BTN_POPUP_CLOSE = By.xpath("//button[contains(@class,'p-element p-ripple')]");
     private static final By BTN_ADVANCED_SEARCH = By.xpath("//button/*[contains(@class,'fa-solid fa-sliders slider-icon')]");
     private static final By BTN_REPRESENTATIVE = By.xpath("//div[normalize-space()='Select Representative']");
+
+    private void enterFirstName( String firstName) { sendKeys(TXT_FIRST_NAME, firstName, CLICKABLE, "Customer First Name" ); }
+    private void enterMiddleName( String middleName) { sendKeys(TXT_MIDDLE_NAME,  middleName, CLICKABLE, "Customer Middle Name" ); }
+    private void enterLastName(String lastName) { sendKeys(TXT_LAST_NAME, lastName, CLICKABLE, "Customer Last Name" ); }
+    private void selectRiskCategory(String category){ selectDropdownWithRetry(DRP_RISK_CATEGORY, category );}
+    private void selectGender(String gender){ selectDropdownWithRetry(DRP_GENDER, gender); }
+    private void selectResidentType(String residentType){ selectDropdownWithRetry(DRP_RESIDENT_TYPE, residentType);}
+    private void selectNationality(String nationality){ selectDropdownWithRetry(DRP_NATIONALITY, nationality); }
+    private void enterDOB(String dob){ sendKeys(CLD_DOB, dob, CLICKABLE, "Customer DOB" ); }
+    private void selectBirthCountry(String birthCountry){ selectDropdownWithRetry(DRP_COUNTRY_OF_BIRTH, birthCountry); }
+    private void enterMobileNo(String mobileNo){ sendKeys(TXT_MOBILE_NUMBER,  mobileNo, CLICKABLE, "Customer Mobile No" ); }
+    private void selectIdType(String idType){ selectDropdownWithRetry(DRP_ID_TYPE, idType); }
+    private void enterIdNumber(String idNumber){ sendKeys(TXT_ID_NUMBER, idNumber, CLICKABLE, "Customer ID Number" ); }
+    private void enterIdIssueDate(String date){ sendKeys(CLD_ID_ISSUE_DATE, date, CLICKABLE, "Customer ID Issued Date" ); }
+    private void enterIdExpireDate(String date){ sendKeys(CLD_ID_EXPIRY_DATE, date, CLICKABLE, "Customer ID Expiry Date" ); }
+    private void selectCountryOfIssue(String country){ selectDropdownWithRetry(DRP_COUNTRY_OF_ISSUE, country); }
+    private void expandCustomerSection(){ click(BTN_EXPAND , CLICKABLE); }
+    private void enterPlaceOfIssue(String place){ sendKeys(TXT_PLACE_OF_ISSUE,  place, CLICKABLE, "Customer Place Of Issue" ); }
+    private void enterAddress(String address){ sendKeys(TXT_ADDRESS, address, CLICKABLE, "Customer Address" ); }
+    private void enterMail(String email){ sendKeys(TXT_EMAIL, email, CLICKABLE, "Customer Mail" ); }
+    private void enterHomeAddress(String address){ sendKeys(TXT_HOME_COUNTRY_ADDRESS, address, CLICKABLE, "Customer Home Address" ); }
+    private void enterVisaNumber(String visaNo){ sendKeys(TXT_VISA_NUMBER, visaNo, CLICKABLE, "Customer Visa Number" ); }
+    private void enterVisaExpiryDate(String date){ sendKeys(CLD_VISA_EXPIRY_DATE, date, CLICKABLE, "Customer Visa Expiry Date" ); }
+    private void selectEconomicActivity(String economicActivity){ selectDropdownWithRetry(DRP_ECONOMIC_ACTIVITY, economicActivity); }
+    private void enterEmployerName(String employer){ sendKeys(TXT_EMPLOYER, employer, CLICKABLE, "Customer Employer Name" ); }
+    private void selectOccupation(String occupation){ selectDropdownWithRetry(DRP_OCCUPATION, occupation); }
+
+    private void registeredCustomerSwitch(){ click(BTN_REGISTERED_CUSTOMER_SWITCH, CLICKABLE); }
+    private void customerSwitchConfirmation(){click(BTN_SWITCH_CONFIRMATION_ACCEPT, CLICKABLE); }
 }

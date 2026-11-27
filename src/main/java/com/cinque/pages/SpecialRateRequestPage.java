@@ -1,7 +1,7 @@
 package com.cinque.pages;
 
 import com.cinque.pages.sideMenuComponent.SidebarMenuComponent;
-import com.cinque.testdata.DTO.specialraterequest.SpecialRateRequestData;
+import com.cinque.testdata.DTO.specialraterequestdata.SpecialRateRequestData;
 import org.openqa.selenium.By;
 
 import static com.cinque.enums.WaitType.*;

@@ -1,14 +1,12 @@
 package com.cinque.utils;
 
-import com.cinque.Reports.ExtentLogger;
+import com.cinque.reports.ExtentLogger;
 import com.cinque.config.Configfactory;
 import com.cinque.driver.DriverManager;
-import com.cinque.enums.SelectionType;
 import com.cinque.enums.WaitType;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;

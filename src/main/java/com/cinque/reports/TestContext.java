@@ -1,4 +1,4 @@
-package com.cinque.Reports;
+package com.cinque.reports;
 
 public class TestContext {
     private static final ThreadLocal<String> TEST_NAME = new ThreadLocal<>();

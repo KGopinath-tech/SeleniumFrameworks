@@ -1,9 +1,9 @@
 package com.cinque.listerns;
 
-import com.cinque.Reports.ExtentLogger;
-import com.cinque.Reports.ExtentReport;
-import com.cinque.Reports.Extentmanager;
-import com.cinque.Reports.TestContext;
+import com.cinque.reports.ExtentLogger;
+import com.cinque.reports.ExtentReport;
+import com.cinque.reports.Extentmanager;
+import com.cinque.reports.TestContext;
 import com.cinque.annotations.FrameworkAnnotation;
 import org.testng.ITestContext;
 import org.testng.ITestListener;

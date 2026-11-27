@@ -1,6 +1,6 @@
-package com.cinque.testdata.mapper.specialraterequest;
+package com.cinque.testdata.mapper.specialraterequestmapper;
 
-import com.cinque.testdata.DTO.specialraterequest.SpecialRateRequestData;
+import com.cinque.testdata.DTO.specialraterequestdata.SpecialRateRequestData;
 import com.cinque.testdata.SpecialRateRequestTestData;
 
 public class FCSpecialRateRequestMapper {

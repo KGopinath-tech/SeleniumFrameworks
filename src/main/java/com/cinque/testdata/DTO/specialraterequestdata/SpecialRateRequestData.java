@@ -1,4 +1,4 @@
-package com.cinque.testdata.DTO.specialraterequest;
+package com.cinque.testdata.DTO.specialraterequestdata;
 
 import lombok.Builder;
 import lombok.Getter;

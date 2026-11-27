@@ -4,12 +4,11 @@ import com.cinque.annotations.FrameworkAnnotation;
 import com.cinque.config.Configfactory;
 import com.cinque.pages.LoginPage;
 import com.cinque.pages.SpecialRateRequestPage;
-import com.cinque.testdata.DTO.specialraterequest.SpecialRateRequestData;
+import com.cinque.testdata.DTO.specialraterequestdata.SpecialRateRequestData;
 import com.cinque.testdata.SpecialRateRequestTestData;
-import com.cinque.testdata.mapper.specialraterequest.FCSpecialRateRequestMapper;
-import com.cinque.testdata.mapper.specialraterequest.RemittanceSpecialRateRequestMapper;
+import com.cinque.testdata.mapper.specialraterequestmapper.FCSpecialRateRequestMapper;
+import com.cinque.testdata.mapper.specialraterequestmapper.RemittanceSpecialRateRequestMapper;
 import com.cinque.utils.DataProviderUtils;
-import com.cinque.utils.MessageUtils;
 import org.testng.annotations.Test;
 
 import static com.cinque.utils.MessageUtils.*;

@@ -21,7 +21,7 @@ public class CustomerRegisterTestData {
     private String toastType;
     @Column(name ="expectedMessages")
     private String expectedMessage;
-    //    @Column(name="number", converter = IntegerConverter.class)   //if want to read intefer value then need to provide this line
+    //    @Column(name="number", converter = IntegerConverter.class)   //if want to read integer value then need to provide this line
 //    public int number;
 
     //Customer Registration - Personal Details
